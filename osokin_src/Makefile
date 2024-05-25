@@ -1,14 +1,22 @@
 NAME = minishell
-READLINE = readline-8.2/
+#READLINE = readline
 SRC = main.c
-OBF = $(SRC:.c=.o) 
+OBJ = $(SRC:.c=.o) 
 
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME) 
 
 $(NAME): $(OBJ)
-	ls $(READLINE) | grep '.o$$' | sed 's:^:$(READLINE):' | xargs cc $(OBJ) -o $(NAME)
+	cc -o $(NAME) $(OBJ) -lreadline
+	# cc -o $(NAME) $(OBJ) readline/libreadline.a readline/libhistory.a ncurses-6.5/lib/libncursesw.a #-lhistory 
 
 %.o: %.c
-	cc $(CFLAGS) -c $< -o $@
+	cc  $(CFLAGS) -c $< -o $@
+	#cc -I $(READLINE) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean 
+	rm -f $(NAME)
