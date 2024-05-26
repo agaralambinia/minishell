@@ -6,13 +6,12 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:25:28 by sosokin           #+#    #+#             */
-/*   Updated: 2024/05/25 21:22:40 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:56:02 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define READLINE_LIBRARY
 
 # include <stdio.h>
 # include <readline/readline.h>
