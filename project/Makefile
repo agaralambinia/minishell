@@ -1,23 +1,20 @@
 CC = cc
 
 SRC = 	srcs/main.c \
-		srcs/prompt.c \
-		srcs/envp.c \
-		srcs/error.c \
+		srcs/prompt/prompt_msg.c \
+		srcs/envp/envp_init.c \
+		srcs/envp/get_var_value.c \
+		srcs/error/ft_exit_error.c \
 		srcs/utils/ft_strbegins.c \
-		srcs/utils/ft_strdup.c \
-		srcs/utils/ft_strlen.c \
-		srcs/utils/ft_strchr.c \
-		srcs/utils/ft_strrchr.c \
-		srcs/utils/ft_bzero.c \
-		srcs/utils/ft_strncmp.c \
 		srcs/utils/ft_maxint.c \
-		srcs/utils/get_var_value.c \
 		srcs/utils/ft_straddchar.c \
 		srcs/wraps/safe_malloc.c
 
 NAME = minishell
 OBJ = ${SRC:.c=.o}
+
+LIBFT_PATH	= ./libs/libft
+LIBFT_NAME	= libft.a
 
 DEPS = incs/minishell.h
 
@@ -28,16 +25,21 @@ READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
 .c.o:
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-all: ${DEPS} ${NAME}
+all: ${LIBFT_PATH}/${LIBFT_NAME} ${DEPS} ${NAME}
 
-${NAME}: ${OBJ}
-	${CC} ${SRC} ${READLINE} -o $@
+${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} ${OBJ}
+	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
+
+${LIBFT_PATH}/${LIBFT_NAME}:
+	make -C ${LIBFT_PATH}
 
 clean :
 	rm -f ${OBJ}
+	cd $(LIBFT_PATH) && make clean
 
 fclean: clean
 	rm -f ${NAME}
+	cd $(LIBFT_PATH) && make fclean
 
 re: fclean all
 

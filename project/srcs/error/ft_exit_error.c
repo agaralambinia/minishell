@@ -1,4 +1,4 @@
-#include "../incs/minishell.h"
+#include "../../incs/minishell.h"
 
 void	ft_exit_error(char *error)
 {
