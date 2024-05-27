@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libs/libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -19,31 +20,20 @@ char	**g_envp;
 
 // prompt funcs
 void	prompt_msg(void);
-char	*parse_dir(char *dir);
 
 // error funcs
 void	ft_exit_error(char *error);
 
-// string funcs
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *src);
-bool	ft_strbegins(char *s1, char *s2);
-char	*ft_strchr(const char *s, int c);
-char	*ft_straddchar(char *str, char c);
-char	*ft_strrchr(const char *s, int c);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-
-// int funcs
-int		ft_maxint(int i1, int i2);
-
-// env funcs
+// envp funcs
 void	envp_init(char **envp);
 char	*get_var_value(char *var);
 
-// function wraps
-void	*safe_malloc(size_t str);
+// utils
+bool	ft_strbegins(char *s1, char *s2);
+char	*ft_straddchar(char *str, char c);
+int		ft_maxint(int i1, int i2);
 
-// memory funcs
-void	ft_bzero(void *s, size_t n);
+// wraps
+void	*safe_malloc(size_t str);
 
 #endif

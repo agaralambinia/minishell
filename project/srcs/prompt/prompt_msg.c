@@ -1,6 +1,6 @@
-#include "../incs/minishell.h"
+#include "../../incs/minishell.h"
 
-char	*parse_dir(char *dir)
+static char	*parse_dir(char *dir)
 {
 	char	*home;
 	if (!dir)
@@ -8,6 +8,8 @@ char	*parse_dir(char *dir)
 	home = get_var_value("HOME");
 	if (ft_strncmp(dir, home, ft_maxint(ft_strlen(dir), ft_strlen(home))) == 0)
 		return(ft_strdup("~"));
+	else if (ft_strncmp(dir, "/", ft_strlen(dir)) == 0)
+		return(ft_strdup("/"));
 	else 
 		return (ft_strdup(ft_strrchr(dir, '/') + 1));
 }
