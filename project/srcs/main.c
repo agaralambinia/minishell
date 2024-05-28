@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		add_history(line);
 		printf("You type %s, great...\n", line);
-		if (lexer(line)) //TODO
+		if (!lexer(line)) //TODO
 			ft_exit_error("Lexer error\n"); //TODO выход с зачисткой
 		line = readline(prompt_msg());
 	}

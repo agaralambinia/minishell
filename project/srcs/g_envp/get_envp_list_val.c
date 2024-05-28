@@ -1,6 +1,6 @@
 #include "../../incs/minishell.h"
 
-char	*get_var_value(char *var)
+char	*get_envp_list_val(char *var)
 {
 	t_list	*iter;
 	char	*temp;
