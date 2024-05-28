@@ -14,14 +14,17 @@ static char	*parse_dir(char *dir)
 		return (ft_strdup(ft_strrchr(dir, '/') + 1));
 }
 
-void	prompt_msg(void)
+char	*prompt_msg(void)
 {
 	char	*dir;
 	char	buf[4097];
 	char	*parsed_dir;
+	char	*result;
 
 	dir = getcwd(buf, 4096);
 	parsed_dir = parse_dir(dir);
-	printf(GREEN"minishell:%s minishell_user$\n"RESET, parsed_dir);
-	free(parsed_dir);
+	result = ft_strjoin("minishell:", parsed_dir);
+	parsed_dir = ft_strjoin(result, " minishell_user$");
+	free(result);
+	return (parsed_dir);
 }
