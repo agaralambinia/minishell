@@ -8,8 +8,19 @@
 #include <stdbool.h>
 #include <readline/readline.h>
 
-// глобальная переменная для хранения переменных окружения
-char	**g_envp;
+/*
+сруктура глобальной переменной	
+	envp_list: связанный список переменных окружения;
+	token_list: связанный список токенов последнего промпта;
+*/
+typedef struct s_envp
+{
+	t_list	*envp_list;
+	t_list	*token_list;
+}	t_envp;
+
+// глобальная переменная
+t_envp	*g_envp;
 
 // цвета для printf. Не забывай RESET
 # define RESET	"\033[0m"
@@ -26,8 +37,11 @@ char	*prompt_msg(void);
 void	ft_exit_error(char *error);
 
 // envp funcs
-void	envp_init(char **envp);
+void	g_envp_init(char **envp);
 char	*get_var_value(char *var);
+
+// parsing funcs
+int	lexer(char *line);
 
 // utils
 bool	ft_strbegins(char *s1, char *s2);
