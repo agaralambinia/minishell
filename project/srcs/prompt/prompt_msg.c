@@ -5,7 +5,7 @@ static char	*parse_dir(char *dir)
 	char	*home;
 	if (!dir)
 		return (NULL);
-	home = get_var_value("HOME");
+	home = get_envp_list_val("HOME");
 	if (ft_strncmp(dir, home, ft_maxint(ft_strlen(dir), ft_strlen(home))) == 0)
 		return(ft_strdup("~"));
 	else if (ft_strncmp(dir, "/", ft_strlen(dir)) == 0)

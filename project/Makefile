@@ -2,13 +2,15 @@ CC = cc
 
 SRC = 	srcs/main.c \
 		srcs/prompt/prompt_msg.c \
-		srcs/envp/envp_init.c \
-		srcs/envp/get_var_value.c \
+		srcs/g_envp/g_envp_init.c \
+		srcs/g_envp/get_envp_list_val.c \
 		srcs/error/ft_exit_error.c \
 		srcs/utils/ft_strbegins.c \
 		srcs/utils/ft_maxint.c \
 		srcs/utils/ft_straddchar.c \
-		srcs/wraps/safe_malloc.c
+		srcs/utils/ft_isspace.c
+		srcs/wraps/safe_malloc.c \
+		srcs/parsing/lexer.c \
 
 NAME = minishell
 OBJ = ${SRC:.c=.o}
