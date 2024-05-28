@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <readline/readline.h>
 
 // глобальная переменная для хранения переменных окружения
 char	**g_envp;
@@ -19,7 +20,7 @@ char	**g_envp;
 # define BLUE	"\033[1;34m"
 
 // prompt funcs
-void	prompt_msg(void);
+char	*prompt_msg(void);
 
 // error funcs
 void	ft_exit_error(char *error);
