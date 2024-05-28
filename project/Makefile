@@ -19,8 +19,8 @@ LIBFT_NAME	= libft.a
 DEPS = incs/minishell.h
 
 CFLAGS  	:= -Wall -Wextra -Werror
-CFLAGS		+= -I/opt/homebrew/opt/readlineinclude
 READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
+CFLAGS		+= -I/opt/homebrew/opt/readlineinclude
 
 .c.o:
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
