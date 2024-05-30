@@ -8,9 +8,10 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_strbegins.c \
 		srcs/utils/ft_maxint.c \
 		srcs/utils/ft_straddchar.c \
-		srcs/utils/ft_isspace.c
+		srcs/utils/ft_isspace.c \
+		srcs/utils/ft_isspecial.c \
 		srcs/wraps/safe_malloc.c \
-		srcs/parsing/lexer.c \
+		srcs/parsing/lexer.c
 
 NAME = minishell
 OBJ = ${SRC:.c=.o}

@@ -14,7 +14,7 @@ static void	envp_list_init(char **envp)
 	}
 }
 
-void	g_envp_init(char **envp) //TODO
+void	g_envp_init(char **envp)
 {
 	g_envp = (t_envp *)safe_malloc(sizeof(t_envp *));
 	envp_list_init(envp);
