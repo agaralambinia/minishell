@@ -42,7 +42,7 @@ typedef enum	s_token_type
 */
 typedef struct s_token
 {
-	char	*token_type;
+	int		token_type;
 	char	*token_content;
 }	t_token;
 
@@ -79,13 +79,14 @@ void	g_envp_init(char **envp);
 char	*get_envp_list_val(char *var);
 
 // parsing funcs
-bool	lexer(char *line);
+void	lexer(char *line);
 
 // utils
 bool	ft_strbegins(char *s1, char *s2);
 char	*ft_straddchar(char *str, char c);
 int		ft_maxint(int i1, int i2);
 bool	ft_isspace(const char a);
+bool	ft_isspecial(const char a);
 
 // wraps
 void	*safe_malloc(size_t str);
