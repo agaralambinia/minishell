@@ -5,7 +5,7 @@ static char	*parse_dir(char *dir)
 	char	*home;
 	if (!dir)
 		return (NULL);
-	home = get_var_value("HOME");
+	home = get_envp_list_val("HOME");
 	if (ft_strncmp(dir, home, ft_maxint(ft_strlen(dir), ft_strlen(home))) == 0)
 		return(ft_strdup("~"));
 	else if (ft_strncmp(dir, "/", ft_strlen(dir)) == 0)
@@ -14,14 +14,17 @@ static char	*parse_dir(char *dir)
 		return (ft_strdup(ft_strrchr(dir, '/') + 1));
 }
 
-void	prompt_msg(void)
+char	*prompt_msg(void)
 {
 	char	*dir;
 	char	buf[4097];
 	char	*parsed_dir;
+	char	*result;
 
 	dir = getcwd(buf, 4096);
 	parsed_dir = parse_dir(dir);
-	printf(GREEN"minishell:%s minishell_user$\n"RESET, parsed_dir);
-	free(parsed_dir);
+	result = ft_strjoin("minishell:", parsed_dir);
+	parsed_dir = ft_strjoin(result, " minishell_user$");
+	free(result);
+	return (parsed_dir);
 }
