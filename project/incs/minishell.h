@@ -91,4 +91,7 @@ bool	ft_isspecial(const char a);
 // wraps
 void	*safe_malloc(size_t str);
 
+// piping
+void	get_pipeline();
+
 #endif

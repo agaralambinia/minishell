@@ -11,7 +11,8 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_isspace.c \
 		srcs/utils/ft_isspecial.c \
 		srcs/wraps/safe_malloc.c \
-		srcs/parsing/lexer.c
+		srcs/parsing/lexer.c \
+		srcs/piping/piping.c
 
 NAME = minishell
 OBJ = ${SRC:.c=.o}
@@ -30,13 +31,15 @@ CFLAGS		+= -I libs/rl_lib/include/readline
 READLINE 	= -L libs/rl_lib/lib -lreadline
 
 .c.o:
-	bash libs/readline/rlbuild.sh
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all: ${LIBFT_PATH}/${LIBFT_NAME} ${DEPS} ${NAME}
 
-${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} ${OBJ}
+${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} $(READLINE) ${OBJ}
 	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
+
+$(READLINE):
+	bash libs/readline/rlbuild.sh
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}
