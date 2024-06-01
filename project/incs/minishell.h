@@ -12,9 +12,7 @@
 enum кодов наименования типа токена
 	- SPACE 		пробельные символы
 	- WORD 			любой набор символов без разделителя
-	- HARDWORD 		любой набор символов, заключенный в ''
-	- SOFTWORD 		любой набор символов, заключенный в ""
-	- SINGLE_RA 	>
+	- HARDWORD 		любой набор символов, заключенный в '' - SOFTWORD 		любой набор символов, заключенный в "" - SINGLE_RA 	>
 	- DOUBLE_RA 	>>
 	- SINGLE_LA 	<
 	- DOUBLE_LA 	<<
@@ -45,6 +43,23 @@ typedef struct s_token
 	int		token_type;
 	char	*token_content;
 }	t_token;
+
+//структура для хранения отдельной команды
+//	input: имя файла для перенаправления ввода
+//	command: имя команды
+//	args: аргументы команды
+//	output: имя файла для перенаправления вывода
+//	inmode: флаг для включения режима ввода через here_doc
+//	outmode: флаг для включения режима дописывания в файл
+typedef struct s_command
+{
+	char	*input;
+	char	*command;
+	t_list	*args;
+	char	*output;
+	int		inmode;
+	int		outmode;
+}			t_command; //TODO - поправить на t_cmd
 
 /*
 сруктура глобальной переменной	
@@ -87,11 +102,14 @@ char	*ft_straddchar(char *str, char c);
 int		ft_maxint(int i1, int i2);
 bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);
+char	*get_env_val(char *envvar)
 
 // wraps
 void	*safe_malloc(size_t str);
 
 // piping
-void	get_pipeline();
+t_list	*get_commands();
+t_command	*get_new_command(char *field);
+void	bind_field(t_command *com, char *word, char *field);
 
 #endif

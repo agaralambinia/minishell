@@ -10,6 +10,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_straddchar.c \
 		srcs/utils/ft_isspace.c \
 		srcs/utils/ft_isspecial.c \
+		srcs/utils/ft_get_env_val.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/piping/piping.c
@@ -20,6 +21,8 @@ OBJ = ${SRC:.c=.o}
 LIBFT_PATH	= ./libs/libft
 LIBFT_NAME	= libft.a
 
+RLDIR = libs/rl_lib
+
 DEPS = incs/minishell.h
 
 CFLAGS  	:= -Wall -Wextra -Werror
@@ -27,19 +30,17 @@ CFLAGS  	:= -Wall -Wextra -Werror
 #READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
 
 CFLAGS		+= -I incs
-CFLAGS		+= -I libs/rl_lib/include/readline
-READLINE 	= -L libs/rl_lib/lib -lreadline
+CFLAGS		+= -I $(RLDIR)/include/readline
+READLINE 	= -L $(RLDIR)/lib -lreadline
 
 .c.o:
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all: ${LIBFT_PATH}/${LIBFT_NAME} ${DEPS} ${NAME}
 
-${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} $(READLINE) ${OBJ}
-	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
-
-$(READLINE):
+${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} ${OBJ}
 	bash libs/readline/rlbuild.sh
+	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}
@@ -50,6 +51,7 @@ clean :
 
 fclean: clean
 	rm -f ${NAME}
+	rm -rf $(RLDIR)
 	cd $(LIBFT_PATH) && make fclean
 
 re: fclean all
