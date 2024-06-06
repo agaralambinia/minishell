@@ -1,5 +1,5 @@
 CC = cc
-
+READLINE = rl_lib
 SRC = 	srcs/main.c \
 		srcs/prompt/prompt_msg.c \
 		srcs/g_envp/g_envp_init.c \
@@ -25,18 +25,13 @@ CFLAGS  	:= -Wall -Wextra -Werror
 #CFLAGS		+= -I/opt/homebrew/opt/readlineinclude
 #READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
 
-CFLAGS		+= -I incs
-CFLAGS		+= -I libs/rl_lib/include/readline
-READLINE 	= -L libs/rl_lib/lib -lreadline
-
 .c.o:
-	bash libs/readline/rlbuild.sh
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all: ${LIBFT_PATH}/${LIBFT_NAME} ${DEPS} ${NAME}
 
 ${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} ${OBJ}
-	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
+	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} -o $@  -lreadline
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}
