@@ -11,9 +11,21 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_isspace.c \
 		srcs/utils/ft_isspecial.c \
 		srcs/utils/ft_get_env_val.c \
+		srcs/utils/ft_arrlen.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
-		srcs/piping/piping.c
+		srcs/cmd_builder/get_commands.c \
+		srcs/cmd_builder/bind_field.c \
+		srcs/cmd_builder/get_new_command.c \
+		srcs/execution/get_args.c \
+		srcs/execution/get_pipes.c \
+		srcs/execution/redir_in.c \
+		srcs/execution/redir_out.c \
+		srcs/execution/run.c \
+		srcs/execution/run_commands.c \
+		srcs/execution/setup_pipes_first.c \
+		srcs/execution/setup_pipes_last.c \
+		srcs/execution/setup_pipes_parent.c
 
 NAME = minishell
 OBJ = ${SRC:.c=.o}

@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_val.c                                   :+:      :+:    :+:   */
+/*   redir_out.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 20:35:16 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/07 16:32:34 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/05 10:14:45 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/07 19:34:49 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	*get_env_val(char *envvar)
+void	redir_out(t_cmd *cmd)
 {
-	t_list		*tmp;
-	char		*eqptr;
+	int	fd;
 
-	tmp = g_envp->envp_list;
-	while (tmp)
+	if (cmd->output)
 	{
-		if (ft_strbegins(tmp->content, envvar + 1))
+		if (cmd->outmode)
+			fd = open(cmd->output, O_CREAT | O_WRONLY | O_APPEND, 0666);
+		else
+			fd = open(cmd->output, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+		if (fd < 0)
 		{
-			eqptr = ft_strchr(tmp->content, '=');
-			return (eqptr + 1);
+			perror(cmd->command);
+			exit(1);
 		}
-		tmp = tmp->next;
+		dup2(fd, 1);
+		close(fd);
 	}
-	return (NULL);
 }

@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_val.c                                   :+:      :+:    :+:   */
+/*   setup_pipes_first.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 20:35:16 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/07 16:32:34 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/04 09:45:04 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/07 19:36:17 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	*get_env_val(char *envvar)
+void	setup_pipes_first(int **pp)
 {
-	t_list		*tmp;
-	char		*eqptr;
-
-	tmp = g_envp->envp_list;
-	while (tmp)
+	if (pp[0])
 	{
-		if (ft_strbegins(tmp->content, envvar + 1))
+		close(pp[0][0]);
+		dup2(pp[0][1], 1);
+		close(pp[0][1]);
+		pp++;
+		while (*pp)
 		{
-			eqptr = ft_strchr(tmp->content, '=');
-			return (eqptr + 1);
+			close((*pp)[0]);
+			close((*pp)[1]);
+			pp++;
 		}
-		tmp = tmp->next;
 	}
-	return (NULL);
 }

@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_val.c                                   :+:      :+:    :+:   */
+/*   get_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 20:35:16 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/07 16:32:34 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/04 09:35:03 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/05 11:32:20 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	*get_env_val(char *envvar)
+int	**get_pipes(int cmd_cnt)
 {
-	t_list		*tmp;
-	char		*eqptr;
+	int	**pp;
+	int	i;
 
-	tmp = g_envp->envp_list;
-	while (tmp)
+	pp = (int **)malloc(sizeof(int *) * (cmd_cnt));
+	if (!pp)
+		return (NULL);
+	i = 0;
+	pp[i] = NULL;
+	while (i < cmd_cnt - 1)
 	{
-		if (ft_strbegins(tmp->content, envvar + 1))
+		pp[i] = (int *)malloc(sizeof(int) * 2);
+		if (!(pp[i]))
 		{
-			eqptr = ft_strchr(tmp->content, '=');
-			return (eqptr + 1);
+//			free_arr((void **)pp);
+			return (NULL);
 		}
-		tmp = tmp->next;
+		pp[i + 1] = NULL;
+		pipe(pp[i]);
+		i++;
 	}
-	return (NULL);
+	return (pp);
 }

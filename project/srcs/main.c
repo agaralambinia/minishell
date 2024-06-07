@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/01 20:34:52 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:33:22 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		lexer(line);
 		printf("Lexer done\n");
+
 		commands = get_commands();
+		printf("Command parsing done\n");
+
+		run_command(commands);
 		while (commands)
 		{
-			t_command *com = (t_command *)(commands->content);
+			t_cmd *com = (t_cmd *)(commands->content);
 			printf("INPUT - %s\nCOMMAND - %s\nARGS - ", com->input, com->command);
 			args = com->args;
 			while (args)

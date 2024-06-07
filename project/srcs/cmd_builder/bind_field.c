@@ -6,13 +6,13 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:46:48 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/01 20:55:07 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/02 19:08:23 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static void	setinout(t_command *com, char *word, char *field)
+static void	setinout(t_cmd *com, char *word, char *field)
 {
 	if (field[1] == 'i')
 	{
@@ -30,7 +30,7 @@ static void	setinout(t_command *com, char *word, char *field)
 	field[2] = 0;
 }
 
-void	bind_field(t_command *com, char *word, char *field)
+void	bind_field(t_cmd *com, char *word, char *field)
 {
 	t_list	*arg;
 

@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_new_command.c                                  :+:      :+:    :+:   */
+/*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 20:50:47 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/01 20:55:09 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/05 09:44:28 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/05 11:28:07 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-t_command	*get_new_command(char *field)
+char	**get_args(t_cmd *cmd)
 {
-	t_command	*com;
+	t_list	*tmp;
+	int		len;
+	char	**args;
+	int		i;
 
-	field[0] = 'c';
-	field[1] = 0;
-	field[2] = 0;
-	com = (t_command *)safe_malloc(sizeof(t_command));
-	com->input = 0;
-	com->command = NULL;
-	com->args = NULL;
-	com->output = NULL;
-	com->inmode = 0;
-	com->outmode = 0;
-	return (com);
+	len = ft_lstsize(cmd->args);
+	len++;
+	args = (char **)malloc(sizeof(char *) * (len + 1));
+	args[0] = cmd->command;
+	tmp = cmd->args;
+	i = 1;
+	while (i < len)
+	{
+		args[i] = (char *)(tmp->content);
+		i++;
+		tmp = tmp->next;
+	}
+	args[i] = NULL;
+	return (args);
 }

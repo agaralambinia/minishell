@@ -3,6 +3,7 @@
 
 # include "../libs/libft/libft.h"
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
@@ -51,7 +52,7 @@ typedef struct s_token
 //	output: имя файла для перенаправления вывода
 //	inmode: флаг для включения режима ввода через here_doc
 //	outmode: флаг для включения режима дописывания в файл
-typedef struct s_command
+typedef struct s_cmd
 {
 	char	*input;
 	char	*command;
@@ -59,7 +60,7 @@ typedef struct s_command
 	char	*output;
 	int		inmode;
 	int		outmode;
-}			t_command; //TODO - поправить на t_cmd
+}			t_cmd; //TODO - поправить на t_cmd
 
 /*
 сруктура глобальной переменной	
@@ -102,14 +103,25 @@ char	*ft_straddchar(char *str, char c);
 int		ft_maxint(int i1, int i2);
 bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);
-char	*get_env_val(char *envvar)
+char	*get_env_val(char *envvar);
+int		ft_arrlen(void **arr);
 
 // wraps
 void	*safe_malloc(size_t str);
 
 // piping
 t_list	*get_commands();
-t_command	*get_new_command(char *field);
-void	bind_field(t_command *com, char *word, char *field);
+t_cmd	*get_new_command(char *field);
+void	bind_field(t_cmd *com, char *word, char *field);
 
+//execution
+char	**get_args(t_cmd *cmd);
+int		**get_pipes(int cmd_cnt);
+void	redir_in(t_cmd *cmd);
+void	redir_out(t_cmd *cmd);
+void	run(char **paths, char **args);
+int		run_command(t_list *cmd_lst);
+void	setup_pipes_first(int **pp);
+void	setup_pipes_last(int **pp, int count);
+void	setup_pipes_parent(int **pp);
 #endif

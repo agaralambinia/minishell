@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:48:46 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/01 20:52:17 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:31:38 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	set_field(char *field, char val, int setmode)
 		field[2] = 1;
 }
 
-static t_command	*add_command(t_command *com, t_list **com_lst, char *field)
+static t_cmd	*add_command(t_cmd *com, t_list **com_lst, char *field)
 {
 	t_list		*com_node;
 
@@ -29,26 +29,16 @@ static t_command	*add_command(t_command *com, t_list **com_lst, char *field)
 	return (com);
 }
 
-static void	handle_envp(char *envname, t_command *com, char *field)
+static void	handle_envp(char *envname, t_cmd *com, char *field)
 {
-	t_list		*tmp;
-	char		*env_val;
+	char	*env_val;
 
-	tmp = g_envp->envp_list;
-	while (tmp)
-	{
-		if (ft_strbegins(tmp->content, envname + 1))
-		{
-			env_val = get_env_val(envname);	
-			bind_field(com, env_val, field);
-			break;
-		}
-		tmp = tmp->next;
-	}
+	env_val = get_env_val(envname);	
+	bind_field(com, env_val, field);
 }
 
 static void	handle_token(
-		t_token *token, t_command **com, char *field, t_list **com_lst)
+		t_token *token, t_cmd **com, char *field, t_list **com_lst)
 {
 	int	type;
 
@@ -71,11 +61,11 @@ static void	handle_token(
 
 t_list	*get_commands()
 {
-	t_list		*token_lst;
-	t_token		*token;
-	char		field[3];
-	t_command	*com;
-	t_list		*com_lst;
+	t_list	*token_lst;
+	t_token	*token;
+	char	field[3];
+	t_cmd	*com;
+	t_list	*com_lst;
 
 	com_lst = NULL;
 	token_lst = g_envp->token_list;

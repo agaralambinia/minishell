@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_val.c                                   :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 20:35:16 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/07 16:32:34 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/04 10:48:20 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/05 11:31:19 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
-
-char	*get_env_val(char *envvar)
+int	ft_arrlen(void **arr)
 {
-	t_list		*tmp;
-	char		*eqptr;
+	int	len;
 
-	tmp = g_envp->envp_list;
-	while (tmp)
-	{
-		if (ft_strbegins(tmp->content, envvar + 1))
-		{
-			eqptr = ft_strchr(tmp->content, '=');
-			return (eqptr + 1);
-		}
-		tmp = tmp->next;
-	}
-	return (NULL);
+	len = 0;
+	while (arr[len])
+		len++;
+	return (len);
 }
