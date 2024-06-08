@@ -15,6 +15,7 @@
 
 # include "../libs/libft/libft.h"
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
@@ -24,9 +25,7 @@
 enum кодов наименования типа токена
 	- SPACE 		пробельные символы
 	- WORD 			любой набор символов без разделителя
-	- HARDWORD 		любой набор символов, заключенный в ''
-	- SOFTWORD 		любой набор символов, заключенный в ""
-	- SINGLE_RA 	>
+	- HARDWORD 		любой набор символов, заключенный в '' - SOFTWORD 		любой набор символов, заключенный в "" - SINGLE_RA 	>
 	- DOUBLE_RA 	>>
 	- SINGLE_LA 	<
 	- DOUBLE_LA 	<<
@@ -57,6 +56,23 @@ typedef struct s_token
 	int		token_type;
 	char	*token_content;
 }	t_token;
+
+//структура для хранения отдельной команды
+//	input: имя файла для перенаправления ввода
+//	command: имя команды
+//	args: аргументы команды
+//	output: имя файла для перенаправления вывода
+//	inmode: флаг для включения режима ввода через here_doc
+//	outmode: флаг для включения режима дописывания в файл
+typedef struct s_cmd
+{
+	char	*input;
+	char	*command;
+	t_list	*args;
+	char	*output;
+	int		inmode;
+	int		outmode;
+}			t_cmd; //TODO - поправить на t_cmd
 
 /*
 сруктура глобальной переменной	
@@ -99,8 +115,26 @@ char	*ft_straddchar(char *str, char c);
 int		ft_maxint(int i1, int i2);
 bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);
+char	*get_env_val(char *envvar);
+int		ft_arrlen(void **arr);
 
 // wraps
 void	*safe_malloc(size_t str);
 
+
+// piping
+t_list	*get_commands();
+t_cmd	*get_new_command(char *field);
+void	bind_field(t_cmd *com, char *word, char *field);
+
+//execution
+char	**get_args(t_cmd *cmd);
+int		**get_pipes(int cmd_cnt);
+void	redir_in(t_cmd *cmd);
+void	redir_out(t_cmd *cmd);
+void	run(char **paths, char **args);
+int		run_command(t_list *cmd_lst);
+void	setup_pipes_first(int **pp);
+void	setup_pipes_last(int **pp, int count);
+void	setup_pipes_parent(int **pp);
 #endif
