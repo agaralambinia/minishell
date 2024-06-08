@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
+/*   Updated: 2024/06/06 20:19:34 by defimova         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -108,6 +120,7 @@ int		ft_arrlen(void **arr);
 
 // wraps
 void	*safe_malloc(size_t str);
+
 
 // piping
 t_list	*get_commands();

@@ -1,5 +1,5 @@
 CC = cc
-
+READLINE = rl_lib
 SRC = 	srcs/main.c \
 		srcs/prompt/prompt_msg.c \
 		srcs/g_envp/g_envp_init.c \
@@ -41,7 +41,7 @@ CFLAGS  	:= -Wall -Wextra -Werror
 #CFLAGS		+= -I/opt/homebrew/opt/readlineinclude
 #READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
 
-CFLAGS		+= -I incs
+CFLAGS		+=-I incs
 CFLAGS		+= -I $(RLDIR)/include/readline
 READLINE 	= -L $(RLDIR)/lib -lreadline
 

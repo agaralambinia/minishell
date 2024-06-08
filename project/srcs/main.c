@@ -15,6 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
+  
 //	t_list	*iter; //TODO убрать - для дебага
 //	t_token *t; //TODO убрать - для дебага
 
@@ -51,7 +52,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		
 		//раскомментируй код ниже чтоб посмотреть на лексер
-/*		
+
+/*	
 		iter = (t_list *)safe_malloc(sizeof(t_list *));
 		iter = g_envp->token_list;
 		t = (t_token *)safe_malloc(sizeof(t_token *));
@@ -61,7 +63,6 @@ int	main(int argc, char **argv, char **envp)
 			printf(PINK"%i TYPE [%s]\n"RESET, t->token_type, t->token_content);
 			iter = iter -> next;
 		}
-		
 		*/
 		line = readline(prompt_msg());
 	}
