@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 19:02:15 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/08 16:51:12 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/11 10:24:32 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,6 @@ void	free_arr(void **arr)
 		arr++;
 	}
 	free(tmp);
-}
-
-static void	run_first(t_cmd *cmd, int **pp, char **paths)
-{
-	char	**args;
-
-	setup_pipes_first(pp);
-	
-	redir_in(cmd);
-	redir_out(cmd);
-	args = get_args(cmd);
-	run(paths, args);
 }
 
 static void	run_first(t_cmd *cmd, int **pp, char **paths)

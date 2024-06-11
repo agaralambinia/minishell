@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/08 16:32:51 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/11 11:25:50 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
+# include "../libs/get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -123,10 +124,10 @@ bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);
 char	*get_env_val(char *envvar);
 int		ft_arrlen(void **arr);
+void	check_for_exit(char *msg, int pred);
 
 // wraps
 void	*safe_malloc(size_t str);
-
 
 // piping
 t_list	*get_commands();

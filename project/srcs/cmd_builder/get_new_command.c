@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:50:47 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/02 19:10:09 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/09 17:03:57 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ t_cmd	*get_new_command(char *field)
 	field[1] = 0;
 	field[2] = 0;
 	com = (t_cmd *)safe_malloc(sizeof(t_cmd));
-	com->input = 0;
+	com->redir_in = NULL;
 	com->command = NULL;
 	com->args = NULL;
-	com->output = NULL;
-	com->inmode = 0;
-	com->outmode = 0;
+	com->redir_out = NULL;
 	return (com);
 }

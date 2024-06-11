@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_pipes_first.c                                :+:      :+:    :+:   */
+/*   check_for_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:45:04 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/11 09:27:55 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/09 17:39:51 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/09 17:43:29 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	setup_pipes_first(int **pp)
+void	check_for_exit(char *msg, int pred)
 {
-	if (pp[0])
+	if (pred)
 	{
-		close(pp[0][0]);
-		dup2(pp[0][1], 1);
-		close(pp[0][1]);
-		pp++;
-		while (*pp)
-		{
-			close((*pp)[0]);
-			close((*pp)[1]);
-			pp++;
-		}
+		perror(msg);
+		exit(1);
 	}
 }

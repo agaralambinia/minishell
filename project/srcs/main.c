@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/07 16:33:22 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/09 18:07:18 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	main(int argc, char **argv, char **envp)
 	
 	t_list	*commands;
 	t_list	*args;
+	t_list	*in_redir;
+	t_list	*out_redir;
+	t_redir *redir;
 
 	g_envp_init(envp);
 	line = readline(prompt_msg());
@@ -40,14 +43,29 @@ int	main(int argc, char **argv, char **envp)
 		while (commands)
 		{
 			t_cmd *com = (t_cmd *)(commands->content);
-			printf("INPUT - %s\nCOMMAND - %s\nARGS - ", com->input, com->command);
+			printf("COMMAND - %s\nARGS - ", com->command);
 			args = com->args;
 			while (args)
 			{
 				printf("%s ", args->content);
 				args = args->next;
 			}
-			printf("\nOUTPUT - %s\nINMODE - %d\nOUTMODE - %d\n", com->output, com->inmode, com->outmode);
+			printf("\nINPUT REDIRECTIONS:\n");
+			in_redir = com->redir_in;
+			while (in_redir)
+			{
+				redir = (t_redir  *)(in_redir->content);
+				printf("PATH OR END - %s, IS_HEREDOC - %d\n", redir->path, redir->mode);
+				in_redir = in_redir->next;
+			}
+			printf("OUTPUT REDIRECTIONS:\n");
+			out_redir = com->redir_out;
+			while (out_redir)
+			{
+				redir = (t_redir  *)(out_redir->content);
+				printf("PATH - %s, IS_ADD_MODE - %d\n", redir->path, redir->mode);
+				out_redir = out_redir->next;
+			}
 			commands = commands->next;
 		}
 		

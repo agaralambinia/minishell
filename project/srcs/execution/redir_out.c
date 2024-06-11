@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:14:45 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/07 19:34:49 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/09 18:20:20 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 void	redir_out(t_cmd *cmd)
 {
 	int	fd;
+	t_list	*tmp;
+	t_redir	*cur;
 
-	if (cmd->output)
+	tmp = cmd->redir_out;
+	while (tmp)
 	{
-		if (cmd->outmode)
-			fd = open(cmd->output, O_CREAT | O_WRONLY | O_APPEND, 0666);
+		cur = (t_redir *)(tmp->content);
+		if (cur->mode)
+			fd = open(cur->path, O_CREAT | O_WRONLY | O_APPEND, 0666);
 		else
-			fd = open(cmd->output, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-		if (fd < 0)
-		{
-			perror(cmd->command);
-			exit(1);
-		}
+			fd = open(cur->path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+		check_for_exit(cmd->command, fd < 0);
 		dup2(fd, 1);
 		close(fd);
+		tmp = tmp->next;
 	}
 }
