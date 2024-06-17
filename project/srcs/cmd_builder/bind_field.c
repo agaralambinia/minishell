@@ -6,47 +6,51 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:46:48 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/08 16:41:24 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/17 08:12:47 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static void	setinout(t_cmd *com, char *word, char *field)
+static void	setinout(t_cmd *com, t_wordhan *handler)
 {
 	t_list	*node;
 	t_redir	*redir;
 	
 	redir = (t_redir *)safe_malloc(sizeof(t_redir));
-	redir->path = word;
-	if (field[2])
+	redir->path = handler->word;
+	if (handler->is_redir_mode)
 		redir->mode = 1;
 	node = ft_lstnew(redir);
-	if (field[1] == 'i')
+	if (handler->redir == 'i')
 		ft_lstadd_back(&(com->redir_in), node);
-	else if (field[1] == 'o')
+	else if (handler->redir == 'o')
 		ft_lstadd_back(&(com->redir_out), node);
-	field[1] = 0;
-	field[2] = 0;
+	handler->redir = 0;
+	handler->is_redir_mode = 0;
 }
 
-void	bind_field(t_cmd *com, char *word, char *field)
+void	bind_field(t_cmd *com, t_wordhan *handler)
 {
 	t_list	*arg;
 
-	if (field[1])
-		setinout(com, word, field);
-	else
+	if (handler->word)
 	{
-		if (field[0] == 'c')
+		if (handler->redir)
+			setinout(com, handler);
+		else
 		{
-			com->command = word;
-			field[0] = 'a';
+			if (handler->field == 'c')
+			{
+				com->command = handler->word;
+				handler->field = 'a';
+			}
+			else if (handler->field == 'a')
+			{
+				arg = ft_lstnew(handler->word);
+				ft_lstadd_back(&(com->args), arg);
+			}
 		}
-		else if (field[0] == 'a')
-		{
-			arg = ft_lstnew(word);
-			ft_lstadd_back(&(com->args), arg);
-		}
+		handler->word = NULL;
 	}
 }

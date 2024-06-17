@@ -19,6 +19,8 @@ SRC = 	srcs/main.c \
 		srcs/cmd_builder/get_commands.c \
 		srcs/cmd_builder/bind_field.c \
 		srcs/cmd_builder/get_new_command.c \
+		srcs/cmd_builder/get_word_handler.c \
+		srcs/cmd_builder/add_to_word.c \
 		srcs/execution/get_args.c \
 		srcs/execution/get_pipes.c \
 		srcs/execution/redir_in.c \

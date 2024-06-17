@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_new_command.c                                  :+:      :+:    :+:   */
+/*   add_to_word.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 20:50:47 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/16 14:15:41 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/16 20:33:07 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/17 07:54:24 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-t_cmd	*get_new_command(void)
+void	add_to_word(char *word, t_wordhan *handler)
 {
-	t_cmd	*com;
+	char	*tmp;
+	int		is_freeable;
 
-	com = (t_cmd *)safe_malloc(sizeof(t_cmd));
-	com->redir_in = NULL;
-	com->command = NULL;
-	com->args = NULL;
-	com->redir_out = NULL;
-	return (com);
+	is_freeable = 1;
+	if (!(handler->word))
+	{
+		handler->word = "";
+		is_freeable = 0;
+	}
+	tmp = handler->word; 
+	handler->word = ft_strjoin(handler->word, word);
+	if (is_freeable)
+		free(tmp);
 }

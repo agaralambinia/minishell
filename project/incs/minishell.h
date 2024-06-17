@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/11 11:25:50 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/17 08:13:06 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 enum кодов наименования типа токена
 	- SPACE 		пробельные символы
 	- WORD 			любой набор символов без разделителя
-	- HARDWORD 		любой набор символов, заключенный в '' - SOFTWORD 		любой набор символов, заключенный в "" - SINGLE_RA 	>
+	- HARDWORD 		любой набор символов, заключенный в '' 
+	- SOFTWORD 		любой набор символов, заключенный в "" 
+	- SINGLE_RA 	>
 	- DOUBLE_RA 	>>
 	- SINGLE_LA 	<
 	- DOUBLE_LA 	<<
@@ -57,6 +59,20 @@ typedef struct s_token
 	int		token_type;
 	char	*token_content;
 }	t_token;
+
+//структура для обработки очередного токена типа WORD, SOFTWORD, HARDWORD
+//	word:		накопленное значение для записи в поле
+//	field:		обозначение поля для записи в структуру t_cmd (команда либо аргументы)
+//	redir:		обозначение поля для записи в структуру t_cmd (перенаправлениe ввода-вывода)
+//	redir_mode:	флаг обозначения специального режима перенаправления ввода-вывода
+//	concat:		обозначение поля в которое нужно дописать  текущее словo	
+typedef struct s_wordhan
+{
+	char	*word;
+	char	field;
+	char	redir;
+	int		is_redir_mode;
+}			t_wordhan;
 
 //структура для хранения данных о перенаправлении ввода-вывода
 //	path: путь до файла для перенаправления
@@ -129,10 +145,12 @@ void	check_for_exit(char *msg, int pred);
 // wraps
 void	*safe_malloc(size_t str);
 
-// piping
-t_list	*get_commands();
-t_cmd	*get_new_command(char *field);
-void	bind_field(t_cmd *com, char *word, char *field);
+// cmd_builder
+t_list		*get_commands();
+t_wordhan	*get_word_handler(void);
+t_cmd		*get_new_command(void);
+void		add_to_word(char *word, t_wordhan *handler);
+void		bind_field(t_cmd *com, t_wordhan *handler);
 
 //execution
 char	**get_args(t_cmd *cmd);
