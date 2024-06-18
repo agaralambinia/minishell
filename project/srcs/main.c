@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 			args = com->args;
 			while (args)
 			{
-				printf("%s ", args->content);
+				printf("%s ", args->content); //TODO сереж тут компилятор ругается
 				args = args->next;
 			}
 			printf("\nOUTPUT - %s\nINMODE - %d\nOUTMODE - %d\n", com->output, com->inmode, com->outmode);
