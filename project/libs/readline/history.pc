@@ -1,4 +1,4 @@
-prefix=/Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+prefix=/Users/agaralambinia/Documents/42/mini/project/libs/readline/../rl_lib
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
