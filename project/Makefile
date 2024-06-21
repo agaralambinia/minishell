@@ -14,6 +14,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_arrlen.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
+		srcs/signals/ft_signals.c \
 		srcs/cmd_builder/get_commands.c \
 		srcs/cmd_builder/bind_field.c \
 		srcs/cmd_builder/get_new_command.c \
