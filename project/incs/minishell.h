@@ -6,22 +6,25 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/21 20:23:30 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:03:33 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+# define READLINE_LIBRARY
 # include "../libs/libft/libft.h"
 # include "../libs/get_next_line/get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <readline/readline.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <signal.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include "../libs/rl_lib/include/readline/readline.h"
+# include "../libs/rl_lib/include/readline/history.h"
+//# include <readline/readline.h>
+//# include <readline/history.h>
 
 /*
 enum кодов наименования типа токена
@@ -38,7 +41,7 @@ enum кодов наименования типа токена
 */
 typedef enum	s_token_type
 {
-	SPACE,
+	SP,
 	WORD,
 	HARDWORD,
 	SOFTWORD,
@@ -146,6 +149,7 @@ bool	ft_isspecial(const char a);
 char	*get_env_val(char *envvar);
 int		ft_arrlen(void **arr);
 void	check_for_exit(char *msg, int pred);
+void	free_arr(void **arr);
 
 // wraps
 void	*safe_malloc(size_t str);

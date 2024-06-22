@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_out.c                                        :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 10:14:45 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/22 21:29:32 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/22 21:01:48 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/22 21:03:00 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	redir_out(t_cmd *cmd)
+void	free_arr(void **arr)
 {
-	int	fd;
-	t_list	*tmp;
-	t_redir	*cur;
+	void	**tmp;
 
-	tmp = cmd->redir_out;
-	while (tmp)
+	tmp = arr;
+	while (*arr)
 	{
-		cur = (t_redir *)(tmp->content);
-		if (cur->mode)
-			fd = open(cur->path, O_CREAT | O_WRONLY | O_APPEND, 0666);
-		else
-			fd = open(cur->path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-		check_for_exit(cmd->command, fd < 0);
-		dup2(fd, 1);
-		close(fd);
-		tmp = tmp->next;
+		free(*arr);
+		arr++;
 	}
+	free(tmp);
 }

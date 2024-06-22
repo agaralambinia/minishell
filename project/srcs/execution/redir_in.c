@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:43:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/11 11:29:10 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:29:35 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	run_heredoc(char *lim)
 	fd = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (fd < 0)
 		return (-1);
-	//line = readline("heredoc> ");
 	line = get_next_line(0);
 	while (line)
 	{
@@ -29,15 +28,11 @@ static int	run_heredoc(char *lim)
 			break ;
 		line[ft_strlen(line)] = '\n';
 		write(fd, line, ft_strlen(line));
-	//	line = readline("heredoc> ");
 		line = get_next_line(0);
 	}
 	close(fd);
 	return (1);
 }
-
-//TODO добавить в utils 
-//int (pred *)(void)
 
 void	redir_in(t_cmd *cmd)
 {
