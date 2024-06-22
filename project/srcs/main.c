@@ -16,8 +16,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
   
-//	t_list	*iter; //TODO убрать - для дебага
-//	t_token *t; //TODO убрать - для дебага
+	t_list	*iter; //TODO убрать - для дебага
+	t_token *t; //TODO убрать - для дебага
 
 	ft_singals();
 	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
@@ -72,17 +72,17 @@ int	main(int argc, char **argv, char **envp)
 		
 		//раскомментируй код ниже чтоб посмотреть на лексер
 
-/*	
+	
 		iter = (t_list *)safe_malloc(sizeof(t_list *));
 		iter = g_envp->token_list;
 		t = (t_token *)safe_malloc(sizeof(t_token *));
 		while (iter != NULL)
 		{
 			t = iter->content;
-			printf(PINK"%i TYPE [%s]\n"RESET, t->token_type, t->token_content);
+			printf(PINK"%d TYPE [%s]\n"RESET, t->token_type, t->token_content);
 			iter = iter -> next;
 		}
-		*/
+		
 		line = readline(prompt_msg());
 	}
 	return (0);

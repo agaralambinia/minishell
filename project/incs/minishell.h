@@ -53,6 +53,13 @@ typedef enum	s_token_type
 	ENVP,
 }	t_token_type;
 
+typedef enum	s_quote
+{
+	SINGLE,
+	DOUBLE,
+	NA,
+}	t_quote;
+
 /*
 сруктура для хранения токена	
 	token_type: тип токена - одно из значений t_token_type;
