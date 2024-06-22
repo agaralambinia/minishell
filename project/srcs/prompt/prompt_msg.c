@@ -37,7 +37,7 @@ char	*prompt_msg(void)
 	dir = getcwd(buf, 4096);
 	parsed_dir = parse_dir(dir);
 	result = ft_strjoin("minishell:", parsed_dir);
-	parsed_dir = ft_strjoin(result, " minishell_user$");
+	parsed_dir = ft_strjoin(result, " minishell_user$ ");
 	free(result);
 	return (parsed_dir);
 }
