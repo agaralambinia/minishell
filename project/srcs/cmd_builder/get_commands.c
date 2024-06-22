@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:48:46 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/17 08:12:27 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/21 21:15:00 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static t_cmd	*add_command(t_cmd *com, t_list **com_lst, t_wordhan *handler)
 	bind_field(com, handler);
 	com_node = ft_lstnew(com);
 	ft_lstadd_back(com_lst, com_node);
+	handler->word = NULL;
+	handler->field = 'c';
+	handler->redir = 0;
+	handler->is_redir_mode = 0;
 	com = get_new_command();
 	return (com);
 }
