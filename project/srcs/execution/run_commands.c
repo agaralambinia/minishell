@@ -6,24 +6,11 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 19:02:15 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/11 10:24:32 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/22 21:29:34 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-void	free_arr(void **arr)
-{
-	void	**tmp;
-
-	tmp = arr;
-	while (*arr)
-	{
-		free(*arr);
-		arr++;
-	}
-	free(tmp);
-}
 
 static void	run_first(t_cmd *cmd, int **pp, char **paths)
 {

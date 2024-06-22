@@ -5,7 +5,7 @@ static void	ft_controlc(int signal)
 	if (signal == SIGINT)
 	{
 		write(STDERR_FILENO, "\n", 1);
-		//rl_replace_line("", 0); //TODO не компилится
+		rl_replace_line("", 0); //TODO не компилится
 		rl_on_new_line();
 		rl_redisplay();
 	}

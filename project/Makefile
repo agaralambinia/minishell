@@ -14,6 +14,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_get_env_val.c \
 		srcs/utils/ft_arrlen.c \
 		srcs/utils/check_for_exit.c \
+		srcs/utils/free_arr.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/signals/ft_signals.c \
@@ -48,21 +49,25 @@ CFLAGS  	:= -Wall -Wextra -Werror
 #CFLAGS		+= -I/opt/homebrew/opt/readlineinclude
 #READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
 
+#CFLAGS		+= -I $(RLDIR)/include/readline
 CFLAGS		+=-I incs
-CFLAGS		+= -I $(RLDIR)/include/readline
 READLINE 	= -L $(RLDIR)/lib -lreadline
 
-.c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-all: ${LIBFT_PATH}/${LIBFT_NAME} ${DEPS} ${NAME}
+all:  ${DEPS} ${NAME}
+#${LIBFT_PATH}/${LIBFT_NAME}
 
-${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} ${OBJ}
-	bash libs/readline/rlbuild.sh
+${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} rlbuild ${OBJ}
 	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}
+
+rlbuild:
+	bash libs/readline/rlbuild.sh
+
+.c.o:
+	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 clean :
 	rm -f ${OBJ}
