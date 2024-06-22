@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/06 20:19:34 by defimova         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:23:30 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
+# include "../libs/get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -26,7 +27,9 @@
 enum кодов наименования типа токена
 	- SPACE 		пробельные символы
 	- WORD 			любой набор символов без разделителя
-	- HARDWORD 		любой набор символов, заключенный в '' - SOFTWORD 		любой набор символов, заключенный в "" - SINGLE_RA 	>
+	- HARDWORD 		любой набор символов, заключенный в '' 
+	- SOFTWORD 		любой набор символов, заключенный в "" 
+	- SINGLE_RA 	>
 	- DOUBLE_RA 	>>
 	- SINGLE_LA 	<
 	- DOUBLE_LA 	<<
@@ -58,21 +61,41 @@ typedef struct s_token
 	char	*token_content;
 }	t_token;
 
+//структура для обработки очередного токена типа WORD, SOFTWORD, HARDWORD
+//	word:		накопленное значение для записи в поле
+//	field:		обозначение поля для записи в структуру t_cmd (команда либо аргументы)
+//	redir:		обозначение поля для записи в структуру t_cmd (перенаправлениe ввода-вывода)
+//	redir_mode:	флаг обозначения специального режима перенаправления ввода-вывода
+//	concat:		обозначение поля в которое нужно дописать  текущее словo	
+typedef struct s_wordhan
+{
+	char	*word;
+	char	field;
+	char	redir;
+	int		is_redir_mode;
+}			t_wordhan;
+
+//структура для хранения данных о перенаправлении ввода-вывода
+//	path: путь до файла для перенаправления
+//	mode: режим перенаправления (получение данных из обычного
+//	файла или файла heredoc для in; перезапись файла или дозапись в файл для out)
+typedef struct s_redir
+{
+	char	*path;
+	int		mode;
+}			t_redir;
+
 //структура для хранения отдельной команды
-//	input: имя файла для перенаправления ввода
-//	command: имя команды
-//	args: аргументы команды
-//	output: имя файла для перенаправления вывода
-//	inmode: флаг для включения режима ввода через here_doc
-//	outmode: флаг для включения режима дописывания в файл
+//	command: 	имя команды
+//	args:		аргументы команды
+//	redirs_in:	список перенаправлений входа
+//	redirs_out:	список перенаправлений вывода
 typedef struct s_cmd
 {
-	char	*input;
 	char	*command;
 	t_list	*args;
-	char	*output;
-	int		inmode;
-	int		outmode;
+	t_list	*redir_in;
+	t_list	*redir_out;
 }			t_cmd; //TODO - поправить на t_cmd
 
 /*
@@ -122,15 +145,17 @@ bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);
 char	*get_env_val(char *envvar);
 int		ft_arrlen(void **arr);
+void	check_for_exit(char *msg, int pred);
 
 // wraps
 void	*safe_malloc(size_t str);
 
-
-// piping
-t_list	*get_commands();
-t_cmd	*get_new_command(char *field);
-void	bind_field(t_cmd *com, char *word, char *field);
+// cmd_builder
+t_list		*get_commands();
+t_wordhan	*get_word_handler(void);
+t_cmd		*get_new_command(void);
+void		add_to_word(char *word, t_wordhan *handler);
+void		bind_field(t_cmd *com, t_wordhan *handler);
 
 //execution
 char	**get_args(t_cmd *cmd);

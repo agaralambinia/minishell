@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_pipes_first.c                                :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:45:04 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/11 09:27:55 by sosokin          ###   ########.fr       */
+/*   Created: 2024/01/28 18:42:38 by sosokin           #+#    #+#             */
+/*   Updated: 2024/05/03 17:18:37 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	setup_pipes_first(int **pp)
-{
-	if (pp[0])
-	{
-		close(pp[0][0]);
-		dup2(pp[0][1], 1);
-		close(pp[0][1]);
-		pp++;
-		while (*pp)
-		{
-			close((*pp)[0]);
-			close((*pp)[1]);
-			pp++;
-		}
-	}
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# include <stdlib.h>
+# include <unistd.h>
+# include "../libft/libft.h"
+
+char	*ft_strchr(const char *s, int c);
+
+char	*ft_strjoin_f1(char *s1, char *s2);
+
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+char	*get_next_line(int fd);
+
+size_t	ft_strlen(const char *s);
+#endif

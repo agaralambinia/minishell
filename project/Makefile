@@ -1,5 +1,6 @@
 CC = cc
 READLINE = rl_lib
+GNL = libs/get_next_line/
 SRC = 	srcs/main.c \
 		srcs/prompt/prompt_msg.c \
 		srcs/g_envp/g_envp_init.c \
@@ -12,12 +13,15 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_isspecial.c \
 		srcs/utils/ft_get_env_val.c \
 		srcs/utils/ft_arrlen.c \
+		srcs/utils/check_for_exit.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/signals/ft_signals.c \
 		srcs/cmd_builder/get_commands.c \
 		srcs/cmd_builder/bind_field.c \
 		srcs/cmd_builder/get_new_command.c \
+		srcs/cmd_builder/get_word_handler.c \
+		srcs/cmd_builder/add_to_word.c \
 		srcs/execution/get_args.c \
 		srcs/execution/get_pipes.c \
 		srcs/execution/redir_in.c \
@@ -26,7 +30,9 @@ SRC = 	srcs/main.c \
 		srcs/execution/run_commands.c \
 		srcs/execution/setup_pipes_first.c \
 		srcs/execution/setup_pipes_last.c \
-		srcs/execution/setup_pipes_parent.c
+		srcs/execution/setup_pipes_parent.c \
+		$(GNL)get_next_line.c \
+	  	$(GNL)get_next_line_utils.c
 
 NAME = minishell
 OBJ = ${SRC:.c=.o}
@@ -65,7 +71,10 @@ clean :
 fclean: clean
 	rm -f ${NAME}
 	rm -rf $(RLDIR)
-	cd $(LIBFT_PATH) && make fclean
+	make fclean -C $(LIBFT_PATH)
+	make clean -C libs/readline
+#	cd $(LIBFT_PATH) && make fclean
+
 
 re: fclean all
 

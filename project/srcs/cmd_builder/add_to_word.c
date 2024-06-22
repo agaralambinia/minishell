@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_pipes_first.c                                :+:      :+:    :+:   */
+/*   add_to_word.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:45:04 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/11 09:27:55 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/16 20:33:07 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/17 07:54:24 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	setup_pipes_first(int **pp)
+void	add_to_word(char *word, t_wordhan *handler)
 {
-	if (pp[0])
+	char	*tmp;
+	int		is_freeable;
+
+	is_freeable = 1;
+	if (!(handler->word))
 	{
-		close(pp[0][0]);
-		dup2(pp[0][1], 1);
-		close(pp[0][1]);
-		pp++;
-		while (*pp)
-		{
-			close((*pp)[0]);
-			close((*pp)[1]);
-			pp++;
-		}
+		handler->word = "";
+		is_freeable = 0;
 	}
+	tmp = handler->word; 
+	handler->word = ft_strjoin(handler->word, word);
+	if (is_freeable)
+		free(tmp);
 }

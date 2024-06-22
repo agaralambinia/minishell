@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:20:17 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/06 20:20:19 by defimova         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:55:24 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	space_lex(char *line, int *i)
 {
 	t_token	*temp;
 
-	temp = (t_token *)safe_malloc(sizeof(t_token *));
+	temp = (t_token *)safe_malloc(sizeof(t_token));
 	while (ft_isspace(line[*i]))
 	{
 		temp->token_content = ft_straddchar(temp->token_content, line[*i]);
@@ -31,7 +31,7 @@ static void	quote_lex(char *line, int *i)
 	char	quote;
 	t_token	*temp;
 
-	temp = (t_token *)safe_malloc(sizeof(t_token *));
+	temp = (t_token *)safe_malloc(sizeof(t_token));
 	quote = line[*i];
 	(*i)++;
 	while ((!(line[*i] == quote) || line[*i] == '\0'))
@@ -49,7 +49,7 @@ static void	redirpipe_lex(char *line, int *i)
 {
 	t_token	*t;
 
-	t = (t_token *)safe_malloc(sizeof(t_token *));
+	t = (t_token *)safe_malloc(sizeof(t_token));
 	t->token_content = ft_straddchar(t->token_content, line[(*i)++]);
 	if ((line[*i - 1] == '<' || line[*i - 1] == '>'))
 	{
@@ -75,7 +75,7 @@ static void	word_lex(char *line, int *i)
 {
 	t_token	*temp;
 
-	temp = (t_token *)safe_malloc(sizeof(t_token *));
+	temp = (t_token *)safe_malloc(sizeof(t_token));
 	if (line[*i] == '$')
 	{
 		temp->token_type = ENVP;

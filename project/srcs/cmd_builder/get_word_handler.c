@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_pipes_first.c                                :+:      :+:    :+:   */
+/*   get_word_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 09:45:04 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/11 09:27:55 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/16 14:09:14 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/21 21:15:02 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	setup_pipes_first(int **pp)
+t_wordhan	*get_word_handler(void)
 {
-	if (pp[0])
-	{
-		close(pp[0][0]);
-		dup2(pp[0][1], 1);
-		close(pp[0][1]);
-		pp++;
-		while (*pp)
-		{
-			close((*pp)[0]);
-			close((*pp)[1]);
-			pp++;
-		}
-	}
+	t_wordhan	*handler;
+
+	handler = (t_wordhan *)safe_malloc(sizeof(t_wordhan));
+	handler->word = NULL;
+	handler->field = 'c';
+	handler->redir = 0;
+	handler->is_redir_mode = 0;
+	return (handler);
 }
