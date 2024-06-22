@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 //	t_list	*iter; //TODO убрать - для дебага
 //	t_token *t; //TODO убрать - для дебага
 
+	ft_singals();
 	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
 	(void)argv; //TODO - чтобы компилилось с флагами, убрать позже
 	
@@ -47,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 			args = com->args;
 			while (args)
 			{
-				printf("%s ", args->content);
+				//printf("%s ", args->content); //TODO сереж тут компилятор ругается
 				args = args->next;
 			}
 			printf("\nINPUT REDIRECTIONS:\n");

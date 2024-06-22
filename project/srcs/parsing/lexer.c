@@ -33,11 +33,11 @@ static void	quote_lex(char *line, int *i)
 
 	temp = (t_token *)safe_malloc(sizeof(t_token));
 	quote = line[*i];
-	temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
+	(*i)++;
 	while ((!(line[*i] == quote) || line[*i] == '\0'))
 		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
 	if (line[*i] == quote)
-		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
+		(*i)++;
 	if (quote == '\'')
 		temp->token_type = HARDWORD;
 	else if (quote == '\"')

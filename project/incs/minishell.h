@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <signal.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <readline/readline.h>
@@ -109,6 +110,7 @@ typedef struct s_envp
 }	t_envp;
 
 // глобальная переменная
+//TODO разобрать, глобальную переменную можно использовать только для сигнала!!!
 t_envp	*g_envp;
 
 // цвета для printf. Не забывай RESET
@@ -131,6 +133,9 @@ char	*get_envp_list_val(char *var);
 
 // parsing funcs
 void	lexer(char *line);
+
+// signal funcs
+void	ft_singals(void);
 
 // utils
 bool	ft_strbegins(char *s1, char *s2);
