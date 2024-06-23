@@ -60,14 +60,14 @@ all:  ${DEPS} ${NAME}
 #${LIBFT_PATH}/${LIBFT_NAME}
 
 #rlbuild 
-${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} ${OBJ}
-	bash libs/readline/rlbuild.sh
+${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} $(RLDIR) ${OBJ}
 	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}
 
-#rlbuild:
+$(RLDIR):
+	bash libs/readline/rlbuild.sh
 
 .c.o:
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
