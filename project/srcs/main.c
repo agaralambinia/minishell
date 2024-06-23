@@ -87,6 +87,7 @@ int	main(int argc, char **argv, char **envp)
 
 		run_command(commands);
 		
+
 		line = readline(prompt_msg());
 	}
 	ft_lstclear(&commands, &free_cmd);

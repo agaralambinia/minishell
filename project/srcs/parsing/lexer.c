@@ -26,23 +26,47 @@ static void	space_lex(char *line, int *i)
 	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(temp));
 }
 
-static void	quote_lex(char *line, int *i)
+static void	word_lex(char *line, int *i)
 {
-	char	quote;
 	t_token	*temp;
 
 	temp = (t_token *)safe_malloc(sizeof(t_token));
-	quote = line[*i];
-	(*i)++;
-	while ((!(line[*i] == quote) || line[*i] == '\0'))
+	if (line[*i] == '$')
+	{
+		temp->token_type = ENVP;
 		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
-	if (line[*i] == quote)
+	}
+	else
+		temp->token_type = WORD;
+	while (line[*i] != '\0' && !ft_isspace(line[*i]) && !ft_isspecial(line[*i]))
+		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
+	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(temp));
+}
+
+static void	quote_lex(char *l, int *i, t_quote qtype)
+{
+	char	q;
+	t_token	*temp;
+
+	temp = (t_token *)safe_malloc(sizeof(t_token));
+	if (qtype == NA)
+		q = l[(*i)++];
+	else
+		q = '\"';
+	while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
+		temp->token_content = ft_straddchar(temp->token_content, l[(*i)++]);
+	if (l[*i] == q)
 		(*i)++;
-	if (quote == '\'')
+	if (q == '\'')
 		temp->token_type = HARDWORD;
-	else if (quote == '\"')
+	else if (q == '\"')
 		temp->token_type = SOFTWORD;
 	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(temp));
+	if (l[*i] == '$' && temp->token_type == SOFTWORD)
+	{
+		word_lex(l, i);
+		quote_lex(l, i, DOUBLE);
+	}
 }
 
 static void	redirpipe_lex(char *line, int *i)
@@ -71,23 +95,6 @@ static void	redirpipe_lex(char *line, int *i)
 	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(t));
 }
 
-static void	word_lex(char *line, int *i)
-{
-	t_token	*temp;
-
-	temp = (t_token *)safe_malloc(sizeof(t_token));
-	if (line[*i] == '$')
-	{
-		temp->token_type = ENVP;
-		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
-	}
-	else
-		temp->token_type = WORD;
-	while (line[*i] != '\0' && !ft_isspace(line[*i]) && !ft_isspecial(line[*i]))
-		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
-	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(temp));
-}
-
 void	lexer(char *line)
 {
 	int	i;
@@ -99,7 +106,7 @@ void	lexer(char *line)
 		if (ft_isspace(line[i]))
 			space_lex(line, &i);
 		else if (line[i] == '\'' || line[i] == '\"')
-			quote_lex(line, &i);
+			quote_lex(line, &i, NA);
 		else if (line[i] == '>' || line[i] == '<' || line[i] == '|')
 			redirpipe_lex(line, &i);
 		else
