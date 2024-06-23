@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_new_command.c                                  :+:      :+:    :+:   */
+/*   free_res.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 20:50:47 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/23 15:47:03 by sosokin          ###   ########.fr       */
+/*   Created: 2024/06/23 16:44:34 by sosokin           #+#    #+#             */
+/*   Updated: 2024/06/23 16:49:47 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-t_cmd	*get_new_command(void)
+void	free_res(t_list **com_lst, t_cmd **com)
 {
-	t_cmd	*com;
-
-	com = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!com)
-		return (NULL);
-	com->redir_in = NULL;
-	com->command = NULL;
-	com->args = NULL;
-	com->redir_out = NULL;
-	return (com);
+	if (com_lst)
+		ft_lstclear(com_lst, &free);
+	if (*com)
+		free(*com);
 }

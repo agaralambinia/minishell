@@ -15,6 +15,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_arrlen.c \
 		srcs/utils/check_for_exit.c \
 		srcs/utils/free_arr.c \
+		srcs/utils/free_cmd.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/signals/ft_signals.c \
@@ -23,6 +24,7 @@ SRC = 	srcs/main.c \
 		srcs/cmd_builder/get_new_command.c \
 		srcs/cmd_builder/get_word_handler.c \
 		srcs/cmd_builder/add_to_word.c \
+		srcs/cmd_builder/free_res.c \
 		srcs/execution/get_args.c \
 		srcs/execution/get_pipes.c \
 		srcs/execution/redir_in.c \
@@ -57,13 +59,14 @@ READLINE 	= -L $(RLDIR)/lib -lreadline
 all:  ${DEPS} ${NAME}
 #${LIBFT_PATH}/${LIBFT_NAME}
 
-${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} rlbuild ${OBJ}
+#rlbuild 
+${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} $(RLDIR) ${OBJ}
 	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}
 
-rlbuild:
+$(RLDIR):
 	bash libs/readline/rlbuild.sh
 
 .c.o:
