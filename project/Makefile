@@ -80,7 +80,7 @@ fclean: clean
 	rm -f ${NAME}
 	rm -rf $(RLDIR)
 	make fclean -C $(LIBFT_PATH)
-	make distclean -C libs/readline
+	make clean -C libs/readline
 #	cd $(LIBFT_PATH) && make fclean
 
 
