@@ -6,13 +6,13 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:33:07 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/17 07:54:24 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/23 16:25:49 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	add_to_word(char *word, t_wordhan *handler)
+int	add_to_word(char *word, t_wordhan *handler)
 {
 	char	*tmp;
 	int		is_freeable;
@@ -27,4 +27,7 @@ void	add_to_word(char *word, t_wordhan *handler)
 	handler->word = ft_strjoin(handler->word, word);
 	if (is_freeable)
 		free(tmp);
+	if (!(handler->word))
+		return (0);
+	return (1);
 }

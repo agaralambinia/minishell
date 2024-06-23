@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/22 21:03:33 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/06/23 17:30:18 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ char	*get_env_val(char *envvar);
 int		ft_arrlen(void **arr);
 void	check_for_exit(char *msg, int pred);
 void	free_arr(void **arr);
+void	free_cmd(void *data);
 
 // wraps
 void	*safe_malloc(size_t str);
@@ -158,8 +159,9 @@ void	*safe_malloc(size_t str);
 t_list		*get_commands();
 t_wordhan	*get_word_handler(void);
 t_cmd		*get_new_command(void);
-void		add_to_word(char *word, t_wordhan *handler);
-void		bind_field(t_cmd *com, t_wordhan *handler);
+int		add_to_word(char *word, t_wordhan *handler);
+int		bind_field(t_cmd *com, t_wordhan *handler);
+void	free_res(t_list **com_lst, t_cmd **com);
 
 //execution
 char	**get_args(t_cmd *cmd);
