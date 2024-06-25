@@ -11,6 +11,12 @@
 # define ERROR		-1
 # define SHELL_NAME	"minishell"
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct s_envp
 {
     t_list *envp_list;

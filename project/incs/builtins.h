@@ -20,5 +20,9 @@ int builtin_exit(int argc, char **argv, bool subshell, t_list *l_free);
 int builtin_export(int argc, char **argv);
 int builtin_pwd(int argc, char **argv);
 int builtin_unset(int argc, char **argv);
+void print_error(const char *shell, const char *cmd, const char *arg, const char *msg);
+void print_error_errno(const char *shell, const char *cmd, const char *arg);
+int split_count(char **split);
+void split_sort(char **split);
 
 #endif
