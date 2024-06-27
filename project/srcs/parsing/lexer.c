@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-static void	space_lex(char *line, int *i)
+static void	space_lex(char *line, int *i, t_envp *envp_var)
 {
 	t_token	*temp;
 
@@ -23,10 +23,10 @@ static void	space_lex(char *line, int *i)
 		(*i)++;
 	}
 	temp->token_type = SPACE;
-	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(temp));
+	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 
-static void	word_lex(char *line, int *i)
+static void	word_lex(char *line, int *i, t_envp *envp_var)
 {
 	t_token	*temp;
 
@@ -40,10 +40,10 @@ static void	word_lex(char *line, int *i)
 		temp->token_type = WORD;
 	while (line[*i] != '\0' && !ft_isspace(line[*i]) && !ft_isspecial(line[*i]))
 		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
-	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(temp));
+	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 
-static void	quote_lex(char *l, int *i, t_quote qtype)
+static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 {
 	char	q;
 	t_token	*temp;
@@ -61,15 +61,15 @@ static void	quote_lex(char *l, int *i, t_quote qtype)
 		temp->token_type = HARDWORD;
 	else if (q == '\"')
 		temp->token_type = SOFTWORD;
-	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(temp));
+	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 	if (l[*i] == '$' && temp->token_type == SOFTWORD)
 	{
-		word_lex(l, i);
-		quote_lex(l, i, DOUBLE);
+		word_lex(l, i, envp_var);
+		quote_lex(l, i, DOUBLE, envp_var);
 	}
 }
 
-static void	redirpipe_lex(char *line, int *i)
+static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 {
 	t_token	*t;
 
@@ -92,24 +92,24 @@ static void	redirpipe_lex(char *line, int *i)
 	}
 	else if (line[*i - 1] == '|')
 		t->token_type = PIPE;
-	ft_lstadd_back(&(g_envp->token_list), ft_lstnew(t));
+	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(t));
 }
 
-void	lexer(char *line)
+void	lexer(char *line, t_envp *envp_var)
 {
 	int	i;
 
 	i = 0;
-	ft_lstclear(&g_envp->token_list, free);
+	ft_lstclear(&envp_var->token_list, free);
 	while (line[i] != '\0')
 	{
 		if (ft_isspace(line[i]))
-			space_lex(line, &i);
+			space_lex(line, &i, envp_var);
 		else if (line[i] == '\'' || line[i] == '\"')
-			quote_lex(line, &i, NA);
+			quote_lex(line, &i, NA, envp_var);
 		else if (line[i] == '>' || line[i] == '<' || line[i] == '|')
-			redirpipe_lex(line, &i);
+			redirpipe_lex(line, &i, envp_var);
 		else
-			word_lex(line, &i);
+			word_lex(line, &i, envp_var);
 	}
 }

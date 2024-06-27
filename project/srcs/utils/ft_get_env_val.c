@@ -12,12 +12,12 @@
 
 #include "../../incs/minishell.h"
 
-char	*get_env_val(char *envvar)
+char	*get_env_val(char *envvar, t_envp *envp_var)
 {
 	t_list		*tmp;
 	char		*eqptr;
 
-	tmp = g_envp->envp_list;
+	tmp = envp_var->envp_list;
 	while (tmp)
 	{
 		if (ft_strbegins(tmp->content, envvar + 1))

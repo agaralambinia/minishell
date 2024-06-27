@@ -38,18 +38,18 @@ static t_cmd	*add_command(t_cmd *com, t_list **com_lst, t_wordhan *handler)
 	return (com);
 }
 
-static int	handle_envp(char *envname, t_wordhan *handler)
+static int	handle_envp(char *envname, t_wordhan *handler, t_envp *envp_var)
 {
 	char	*env_val;
 	int		res;
 
-	env_val = get_env_val(envname);	
+	env_val = get_env_val(envname, envp_var);	
 	res = add_to_word(env_val, handler);
 	return (res);
 }
 
 static int	handle_token(
-		t_token *token, t_cmd **com, t_wordhan *handler, t_list **com_lst)
+		t_token *token, t_cmd **com, t_wordhan *handler, t_list **com_lst,  t_envp *envp_var)
 {
 	int	type;
 	int	res;
@@ -72,13 +72,13 @@ static int	handle_token(
 		res = *com != NULL;
 	}
 	else if (type == ENVP)
-		res = handle_envp(token->token_content, handler);
+		res = handle_envp(token->token_content, handler, envp_var);
 	else if (type == SPACE)
 		res = bind_field(*com, handler);
 	return res;
 }
 
-t_list	*get_commands()
+t_list	*get_commands(t_envp *envp_var)
 {
 	t_list		*token_lst;
 	t_token		*token;
@@ -87,7 +87,7 @@ t_list	*get_commands()
 	t_list		*com_lst;
 
 	com_lst = NULL;
-	token_lst = g_envp->token_list;
+	token_lst = envp_var->token_list;
 	handler = get_word_handler();
 	com = get_new_command();
 	if (!handler || !com)
@@ -95,7 +95,7 @@ t_list	*get_commands()
 	while (token_lst)
 	{
 		token = (t_token *)(token_lst->content);
-		if (!handle_token(token, &com, handler, &com_lst))
+		if (!handle_token(token, &com, handler, &com_lst, envp_var))
 		{
 			free_res(&com_lst, &com);
 			return (NULL);	

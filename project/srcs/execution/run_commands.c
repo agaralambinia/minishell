@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-static void	run_first(t_cmd *cmd, int **pp, char **paths)
+static void	run_first(t_cmd *cmd, int **pp, char **paths, t_envp *envp_var)
 {
 	char	**args;
 
@@ -20,10 +20,10 @@ static void	run_first(t_cmd *cmd, int **pp, char **paths)
 	redir_in(cmd);
 	redir_out(cmd);
 	args = get_args(cmd);
-	run(paths, args);
+	run(paths, args, envp_var);
 }
 
-static void	run_mid(t_cmd *cmd, int **pp, int ind, char **paths)
+static void	run_mid(t_cmd *cmd, int **pp, int ind, char **paths, t_envp *envp_var)
 {
 	char	**args;
 	int		i;
@@ -49,10 +49,10 @@ static void	run_mid(t_cmd *cmd, int **pp, int ind, char **paths)
 	redir_in(cmd);
 	redir_out(cmd);
 	args = get_args(cmd);
-	run(paths, args);
+	run(paths, args, envp_var);
 }
 
-static void	run_last(t_cmd *cmd, int cmd_cnt, int **pp, char **paths)
+static void	run_last(t_cmd *cmd, int cmd_cnt, int **pp, char **paths, t_envp *envp_var)
 {
 	char	**args;
 
@@ -60,10 +60,10 @@ static void	run_last(t_cmd *cmd, int cmd_cnt, int **pp, char **paths)
 	redir_in(cmd);
 	redir_out(cmd);
 	args = get_args(cmd);
-	run(paths, args);
+	run(paths, args, envp_var);
 }
 
-static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths)
+static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths, t_envp *envp_var)
 {
 	int		i;
 	t_cmd	*cmd;
@@ -77,17 +77,17 @@ static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths)
 		if (i == 0)
 		{
 			if (fork() == 0)
-				run_first(cmd, pp, paths);
+				run_first(cmd, pp, paths, envp_var);
 		}
 		else if (i == cmd_cnt - 1)
 		{
 			if (fork() == 0)
-				run_last(cmd, cmd_cnt, pp, paths);
+				run_last(cmd, cmd_cnt, pp, paths, envp_var);
 		}
 		else
 		{
 			if (fork() == 0)
-				run_mid(cmd, pp, i, paths);
+				run_mid(cmd, pp, i, paths, envp_var);
 		}
 		i++;
 		tmp = tmp->next;
@@ -95,20 +95,20 @@ static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths)
 	return (i);
 }
 
-int	run_command(t_list *cmd_lst)
+int	run_command(t_list *cmd_lst, t_envp *envp_var)
 {
 	char	**paths;
 	int		**pp;
 	int		cmd_cnt;
 	int		i;
 
-	paths = ft_split(get_env_val("$PATH"), ':');
+	paths = ft_split(get_env_val("$PATH", envp_var), ':');
 	cmd_cnt = ft_lstsize(cmd_lst);
 	pp = get_pipes(cmd_cnt);
 
 	if (!pp)
 		return (1);
-	i = run_pipeline(cmd_cnt, cmd_lst, pp, paths);
+	i = run_pipeline(cmd_cnt, cmd_lst, pp, paths, envp_var);
 	setup_pipes_parent(pp);
 	while (i >= 0)
 	{

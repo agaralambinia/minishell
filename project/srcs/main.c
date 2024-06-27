@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-void	print_lexer_debug()
+
+void	print_lexer_debug(t_envp *envp_var)
 {
 	t_list	*iter; //TODO убрать - для дебага
 	t_token *t; //TODO убрать - для дебага
 
-	iter = (t_list *)safe_malloc(sizeof(t_list *));
-	iter = g_envp->token_list;
-	t = (t_token *)safe_malloc(sizeof(t_token *));
+	iter = (t_list *)safe_malloc(sizeof(t_list));
+	iter = envp_var->token_list;
+	t = (t_token *)safe_malloc(sizeof(t_token));
 	while (iter != NULL)
 	{
 		t = iter->content;
@@ -67,30 +68,28 @@ void	print_cmd_debug(t_list	*commands)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
-  
+	t_envp	*envp_var;
+
+	envp_var = NULL;
 	ft_singals();
 	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
 	(void)argv; //TODO - чтобы компилилось с флагами, убрать позже
 	
 	t_list	*commands;
 
-	g_envp_init(envp);
-	line = readline(prompt_msg());
+	envp_init(envp, envp_var);
+	line = readline(prompt_msg(envp_var));
 	while (line)
 	{
 		add_history(line);
-		lexer(line);
-		printf("Lexer done\n");
-
-		commands = get_commands();
-		printf("Command parsing done\n");
-
-		run_command(commands);
-		
-
-		line = readline(prompt_msg());
+		lexer(line, envp_var);
+		//printf("Lexer done\n");
+		commands = get_commands(envp_var);
+		//printf("Command parsing done\n");
+		run_command(commands, envp_var);
+		line = readline(prompt_msg(envp_var));
 	}
 	ft_lstclear(&commands, &free_cmd);
-	system("leaks minishell");
+	//system("leaks minishell");
 	return (0);
 }

@@ -119,10 +119,6 @@ typedef struct s_envp
 	t_list	*token_list;
 }	t_envp;
 
-// глобальная переменная
-//TODO разобрать, глобальную переменную можно использовать только для сигнала!!!
-t_envp	*g_envp;
-
 // цвета для printf. Не забывай RESET
 # define RESET	"\033[0m"
 # define RED	"\033[1;31m"
@@ -132,17 +128,17 @@ t_envp	*g_envp;
 # define BLUE	"\033[1;34m"
 
 // prompt funcs
-char	*prompt_msg(void);
+char	*prompt_msg(t_envp *envp_var);
 
 // error funcs
 void	ft_exit_error(char *error);
 
 // envp funcs
-void	g_envp_init(char **envp);
-char	*get_envp_list_val(char *var);
+void	envp_init(char **envp, t_envp *envp_var);
+char	*get_envp_list_val(char *var, t_envp *envp_var);
 
 // parsing funcs
-void	lexer(char *line);
+void	lexer(char *line, t_envp *envp_var);
 
 // signal funcs
 void	ft_singals(void);
@@ -153,7 +149,7 @@ char	*ft_straddchar(char *str, char c);
 int		ft_maxint(int i1, int i2);
 bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);
-char	*get_env_val(char *envvar);
+char	*get_env_val(char *envvar, t_envp *envp_var);
 int		ft_arrlen(void **arr);
 void	check_for_exit(char *msg, int pred);
 void	free_arr(void **arr);
@@ -163,20 +159,20 @@ void	free_cmd(void *data);
 void	*safe_malloc(size_t str);
 
 // cmd_builder
-t_list		*get_commands();
+t_list		*get_commands(t_envp *envp_var);
 t_wordhan	*get_word_handler(void);
 t_cmd		*get_new_command(void);
-int		add_to_word(char *word, t_wordhan *handler);
-int		bind_field(t_cmd *com, t_wordhan *handler);
-void	free_res(t_list **com_lst, t_cmd **com);
+int			add_to_word(char *word, t_wordhan *handler);
+int			bind_field(t_cmd *com, t_wordhan *handler);
+void		free_res(t_list **com_lst, t_cmd **com);
 
 //execution
 char	**get_args(t_cmd *cmd);
 int		**get_pipes(int cmd_cnt);
 void	redir_in(t_cmd *cmd);
 void	redir_out(t_cmd *cmd);
-void	run(char **paths, char **args);
-int		run_command(t_list *cmd_lst);
+void	run(char **paths, char **args, t_envp *envp_var);
+int		run_command(t_list *cmd_lst, t_envp *envp_var);
 void	setup_pipes_first(int **pp);
 void	setup_pipes_last(int **pp, int count);
 void	setup_pipes_parent(int **pp);

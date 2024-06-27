@@ -3,8 +3,8 @@ READLINE = rl_lib
 GNL = libs/get_next_line/
 SRC = 	srcs/main.c \
 		srcs/prompt/prompt_msg.c \
-		srcs/g_envp/g_envp_init.c \
-		srcs/g_envp/get_envp_list_val.c \
+		srcs/envp/envp_init.c \
+		srcs/envp/get_envp_list_val.c \
 		srcs/error/ft_exit_error.c \
 		srcs/utils/ft_strbegins.c \
 		srcs/utils/ft_maxint.c \

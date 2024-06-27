@@ -12,14 +12,14 @@
 
 #include "../../incs/minishell.h"
 
-char	*get_envp_list_val(char *var)
+char	*get_envp_list_val(char *var, t_envp *envp_var)
 {
 	t_list	*iter;
 	char	*temp;
 
 	temp = ft_straddchar(var, '=');
-	iter = g_envp->envp_list;
-	if (g_envp->envp_list)
+	iter = envp_var->envp_list;
+	if (envp_var->envp_list)
 	{
 		while (iter != NULL)
 		{
