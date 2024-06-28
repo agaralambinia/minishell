@@ -18,28 +18,19 @@ char	*ft_straddchar(char *str, char c)
 	size_t	strlen;
 	char	*result;
 
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	if (!c)
 		return (NULL);
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	if (!str)
 	{
-		printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 		result = (char *)safe_malloc(2 * sizeof(char));
 		result[0] = c;
 		return (result);
 	}
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	strlen = ft_strlen(str);
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	result = (char *)safe_malloc((strlen + 2) * sizeof(char));
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	i = -1;
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	while (++i < strlen)
 		*(result + i) = *(str + i);
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	*(result + i) = c;
-	printf(RED"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	return (result);
 }
