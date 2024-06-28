@@ -67,29 +67,40 @@ void	print_cmd_debug(t_list	*commands)
 
 int	main(int argc, char **argv, char **envp)
 {
+	printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	char	*line;
 	t_envp	*envp_var;
-
-	envp_var = NULL;
-	ft_singals();
-	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
-	(void)argv; //TODO - чтобы компилилось с флагами, убрать позже
-	
 	t_list	*commands;
 
-	envp_init(envp, envp_var);
+	printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
+	envp_var = NULL;
+	printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
+	ft_singals();
+	printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
+	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
+	(void)argv; //TODO - чтобы компилилось с флагами, убрать позже
+	envp_init(envp, &envp_var);
+	printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	line = readline(prompt_msg(envp_var));
+	printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	while (line)
 	{
+		printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 		add_history(line);
+		printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 		lexer(line, envp_var);
-		//printf("Lexer done\n");
+		printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
+		printf("Lexer done\n");
 		commands = get_commands(envp_var);
-		//printf("Command parsing done\n");
+		printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
+		printf("Command parsing done\n");
 		run_command(commands, envp_var);
+		printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 		line = readline(prompt_msg(envp_var));
+		printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	}
+	printf(GREEN"DEBUG %s %d\n"RESET, __FILE__, __LINE__);
 	ft_lstclear(&commands, &free_cmd);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (0);
 }
