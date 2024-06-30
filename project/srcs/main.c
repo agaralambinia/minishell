@@ -69,27 +69,25 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_envp	*envp_var;
+	t_list	*commands;
 
 	envp_var = NULL;
 	ft_singals();
 	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
 	(void)argv; //TODO - чтобы компилилось с флагами, убрать позже
-	
-	t_list	*commands;
-
-	envp_init(envp, envp_var);
+	envp_init(envp, &envp_var);
 	line = readline(prompt_msg(envp_var));
 	while (line)
 	{
 		add_history(line);
 		lexer(line, envp_var);
-		//printf("Lexer done\n");
+		printf("Lexer done\n");
 		commands = get_commands(envp_var);
-		//printf("Command parsing done\n");
+		printf("Command parsing done\n");
 		run_command(commands, envp_var);
 		line = readline(prompt_msg(envp_var));
 	}
 	ft_lstclear(&commands, &free_cmd);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (0);
 }

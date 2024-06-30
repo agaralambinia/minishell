@@ -134,8 +134,8 @@ char	*prompt_msg(t_envp *envp_var);
 void	ft_exit_error(char *error);
 
 // envp funcs
-void	envp_init(char **envp, t_envp *envp_var);
-char	*get_envp_list_val(char *var, t_envp *envp_var);
+void	envp_init(char **envp, t_envp **envp_var);
+char	*get_envp_list_val(char *var, t_list **envp_list);
 
 // parsing funcs
 void	lexer(char *line, t_envp *envp_var);
