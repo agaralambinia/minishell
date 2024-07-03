@@ -1,4 +1,4 @@
-#include "builtin.h"
+#include "../../incs/minishell.h"
 
 int	builtin_echo(int argc __attribute((unused)), char **argv)
 {

@@ -1,4 +1,4 @@
-#include "builtin.h"
+#include "../../incs/minishell.h"
 
 int	builtin_env(int argc __attribute((unused)),
 	char **argv __attribute((unused)))

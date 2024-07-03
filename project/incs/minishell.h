@@ -60,6 +60,12 @@ typedef enum	s_quote
 	NA,
 }	t_quote;
 
+typedef enum	s_exec_status
+{
+	SUCCESS,
+	ERROR,
+}	t_exec_status;
+
 /*
 сруктура для хранения токена	
 	token_type: тип токена - одно из значений t_token_type;
@@ -119,6 +125,13 @@ typedef struct s_envp
 	t_list	*token_list;
 }	t_envp;
 
+typedef struct s_builtins
+{
+    const char  *name;
+    int         (*func)(int argc, char **argv);
+}	t_builtins;
+
+
 // цвета для printf. Не забывай RESET
 # define RESET	"\033[0m"
 # define RED	"\033[1;31m"
@@ -136,6 +149,14 @@ void	ft_exit_error(char *error);
 // envp funcs
 void	envp_init(char **envp, t_envp **envp_var);
 char	*get_envp_list_val(char *var, t_list **envp_list);
+int     env_init(void);
+char    *env_get_value(char *name);
+char    *env_find_var(char *name);
+bool    env_var_is_value(char *var_name, char *value);
+bool    env_is_var_char(char c);
+int     env_unset_var(char *name);
+int     env_put_var(char *str);
+int     env_set_env(char *name, char *value);
 
 // parsing funcs
 void	lexer(char *line, t_envp *envp_var);
@@ -176,4 +197,19 @@ int		run_command(t_list *cmd_lst, t_envp *envp_var);
 void	setup_pipes_first(int **pp);
 void	setup_pipes_last(int **pp, int count);
 void	setup_pipes_parent(int **pp);
+
+// buildins
+int builtin_exec(char **argv, bool subshell, t_list *l_free);
+int builtin_cd(int argc, char **argv);
+int builtin_echo(int argc, char **argv);
+int builtin_env(int argc, char **argv);
+int builtin_exit(int argc, char **argv, bool subshell, t_list *l_free);
+int builtin_export(int argc, char **argv);
+int builtin_pwd(int argc, char **argv);
+int builtin_unset(int argc, char **argv);
+void print_error(const char *shell, const char *cmd, const char *arg, const char *msg);
+void print_error_errno(const char *shell, const char *cmd, const char *arg);
+int split_count(char **split);
+void split_sort(char **split);
+
 #endif

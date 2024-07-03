@@ -1,5 +1,4 @@
-#include "builtin.h"
-#include "env.h"
+#include "../../incs/minishell.h"
 
 static int	update_working_directory(void);
 
