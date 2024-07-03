@@ -1,5 +1,4 @@
-#include "builtin.h"
-#include "env.h"
+#include "../../incs/minishell.h"
 
 static void	print_environment_vars(void);
 static bool	is_valid_arg(char *arg);

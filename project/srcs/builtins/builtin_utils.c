@@ -1,4 +1,4 @@
-#include "../../incs/builtins.h"
+#include "../../incs/minishell.h"
 
 void print_error(const char *shell, const char *cmd, const char *arg, const char *msg)
 {

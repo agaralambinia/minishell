@@ -1,4 +1,4 @@
-#include "builtin.h"
+#include "../../incs/minishell.h"
 
 static const struct	s_builtins g_builtins[] = {
 	{"cd", builtin_cd},
@@ -10,7 +10,7 @@ static const struct	s_builtins g_builtins[] = {
 	{NULL, NULL},
 };
 
-int	builtin_check(char **argv)
+static int	builtin_check(char **argv)
 {
 	int	name_length;
 	int	index;

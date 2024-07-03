@@ -1,5 +1,4 @@
-#include "builtin.h"
-#include "exec.h"
+#include "../../incs/minishell.h"
 
 static bool	is_numeric(char *str);
 
