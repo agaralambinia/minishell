@@ -1,6 +1,7 @@
 #include "../../incs/minishell.h"
 
-int	builtin_echo(int argc __attribute((unused)), char **argv)
+int	builtin_echo(int argc __attribute((unused)), char **argv,
+	t_envp *envp_var __attribute((unused)))
 {
 	int		index;
 	bool	include_newline;
@@ -20,5 +21,5 @@ int	builtin_echo(int argc __attribute((unused)), char **argv)
 	}
 	if (include_newline)
 		ft_putchar_fd('\n', 1);
-	return (0);
+	return (SUCCESS);
 }

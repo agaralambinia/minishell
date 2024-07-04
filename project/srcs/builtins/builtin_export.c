@@ -1,57 +1,27 @@
 #include "../../incs/minishell.h"
 
-static void	print_environment_vars(void);
-static bool	is_valid_arg(char *arg);
-
-int	builtin_export(int argc, char **argv)
+static void	print_environment_vars(t_envp *envp_var)
 {
-	int	exit_status;
-	int	index;
-
-	exit_status = EXIT_SUCCESS;
-	if (argc == 1)
-		print_environment_vars();
-	index = 1;
-	while (argc > 1 && argv[index])
-	{
-		if (is_valid_arg(argv[index]) == false)
-		{
-			print_error(SHELL_NAME, argv[index], NULL, "not a valid identifier");
-			exit_status = EXIT_FAILURE;
-		}
-		else if (ft_strchr(argv[index], '='))
-			env_put_var(argv[index]);
-		index++;
-	}
-	return (exit_status);
-}
-
-static void	print_environment_vars(void)
-{
-	char	**env_copy;
+	t_list	*env_copy;
 	int		var_name_len;
-	int		index;
 
-	if (g_env == NULL || *g_env == NULL)
+	if (envp_var == NULL)
 		return ;
-	env_copy = malloc((split_count(g_env) + 1) * sizeof(char *));
+	env_copy = (t_list *)malloc(sizeof(t_list));
 	if (env_copy == NULL)
 	{
 		print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
 		return ;
 	}
-	env_copy = ft_memcpy(env_copy, g_env,
-			(split_count(g_env) + 1) * sizeof(char *));
-	split_sort(env_copy);
-	index = 0;
-	while (env_copy[index])
+	env_copy = envp_var->envp_list;
+	ft_list_insert_sort(env_copy);
+	while (env_copy != NULL)
 	{
-		var_name_len = ft_strchr(env_copy[index], '=') - env_copy[index];
-		printf("%.*s", var_name_len + 1, env_copy[index]);
-		printf("\"%s\"\n", env_get_value(env_copy[index]));
-		index++;
+		var_name_len = ft_strlen(ft_strchr(env_copy->content, '='));
+		printf("%.*s", var_name_len + 1, (char *)env_copy->content);
+		printf("\"%s\"\n", env_get_value(env_copy->content));
+		env_copy = env_copy -> next;
 	}
-	free(env_copy);
 }
 
 static bool	is_valid_arg(char *arg)
@@ -67,4 +37,27 @@ static bool	is_valid_arg(char *arg)
 		return (true);
 	else
 		return (false);
+}
+
+int	builtin_export(int argc, char **argv, t_envp *envp_var)
+{
+	int	exit_status;
+	int	index;
+
+	exit_status = SUCCESS;
+	if (argc == 1)
+		print_environment_vars(envp_var);
+	index = 1;
+	while (argc > 1 && argv[index])
+	{
+		if (is_valid_arg(argv[index]) == false)
+		{
+			print_error(SHELL_NAME, argv[index], NULL, "not a valid identifier");
+			exit_status = ERROR;
+		}
+		else if (ft_strchr(argv[index], '='))
+			env_put_var(argv[index], envp_var);
+		index++;
+	}
+	return (exit_status);
 }

@@ -5,6 +5,18 @@ SRC = 	srcs/main.c \
 		srcs/prompt/prompt_msg.c \
 		srcs/envp/envp_init.c \
 		srcs/envp/get_envp_list_val.c \
+		srcs/envp/env_set_env.c \
+		srcs/envp/env_put_var.c \
+		srcs/envp/env_unset_var.c \
+		srcs/envp/env_is_var_char.c \
+		srcs/envp/env_get_value.c \
+		srcs/builtins/builtin_cd.c \
+		srcs/builtins/builtin_echo.c \
+		srcs/builtins/builtin_env.c \
+		srcs/builtins/builtin_export.c \
+		srcs/builtins/builtin_pwd.c \
+		srcs/builtins/builtin_unset.c \
+		srcs/builtins/builtin.c \
 		srcs/error/ft_exit_error.c \
 		srcs/utils/ft_strbegins.c \
 		srcs/utils/ft_maxint.c \
@@ -13,9 +25,14 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_isspecial.c \
 		srcs/utils/ft_get_env_val.c \
 		srcs/utils/ft_arrlen.c \
+		srcs/utils/ft_split_count.c \
 		srcs/utils/check_for_exit.c \
 		srcs/utils/free_arr.c \
 		srcs/utils/free_cmd.c \
+		srcs/utils/ft_is_numeric.c \
+		srcs/utils/ft_list_insert_sort.c \
+		srcs/utils/ft_list_replace.c \
+		srcs/utils/ft_list_remove.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/signals/ft_signals.c \
