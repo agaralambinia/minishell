@@ -13,7 +13,7 @@ int	builtin_pwd(int argc __attribute((unused)),
 	}
 	else
 	{
-		print_error_errno(SHELL_NAME, "pwd", NULL);
+		ft_print_error_errno(SHELL_NAME, "pwd", NULL);
 		return (ERROR);
 	}
 }

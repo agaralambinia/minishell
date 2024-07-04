@@ -1,21 +1,21 @@
 #include "../../incs/minishell.h"
 
-static char	*determine_directory(int argc, char **argv)
+static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
 {
 	char	*directory;
 
 	directory = NULL;
 	if (argc == 1)
 	{
-		directory = env_get_value("HOME");
+		directory = get_envp_list_val("HOME", &envp_var->envp_list);
 		if (directory == NULL)
-			print_error(SHELL_NAME, "cd", NULL, "HOME not set");
+			ft_print_error(SHELL_NAME, "cd", NULL, "HOME not set");
 	}
 	else if (argv[1] && ft_strncmp(argv[1], "-", 2) == 0)
 	{
-		directory = env_get_value("OLDPWD");
+		directory = get_envp_list_val("OLDPWD", &(envp_var->envp_list));
 		if (directory == NULL)
-			print_error(SHELL_NAME, "cd", NULL, "OLDPWD not set");
+			ft_print_error(SHELL_NAME, "cd", NULL, "OLDPWD not set");
 	}
 	else
 		directory = argv[1];
@@ -26,16 +26,16 @@ static int	update_working_directory(t_envp *envp_var)
 {
 	char	buffer[PATH_MAX];
 
-	if (env_get_value("PWD"))
+	if (get_envp_list_val("PWD", &envp_var->envp_list))
 	{
-		if (env_set_env("OLDPWD", env_get_value("PWD"), envp_var) == ERROR)
+		if (env_set_env("OLDPWD", get_envp_list_val("PWD", &(envp_var->envp_list)), envp_var) == ERROR)
 			return (ERROR);
 	}
 	else
 		env_unset_var("OLDPWD", envp_var);
 	if (getcwd(buffer, sizeof(buffer)) == NULL)
 	{
-		print_error_errno(SHELL_NAME, "cd", NULL);
+		ft_print_error_errno(SHELL_NAME, "cd", NULL);
 		return (ERROR);
 	}
 	if (env_set_env("PWD", buffer, envp_var) == ERROR)
@@ -47,12 +47,12 @@ int	builtin_cd(int argc, char **argv, t_envp *envp_var)
 {
 	char	*directory;
 
-	directory = determine_directory(argc, argv);
+	directory = determine_directory(argc, argv, envp_var);
 	if (directory == NULL)
 		return (EXIT_FAILURE);
 	if (chdir(directory) == -1)
 	{
-		print_error_errno(SHELL_NAME, "cd", directory);
+		ft_print_error_errno(SHELL_NAME, "cd", directory);
 		return (EXIT_FAILURE);
 	}
 	if (argv[1] && ft_strncmp(argv[1], "-", 2) == 0)

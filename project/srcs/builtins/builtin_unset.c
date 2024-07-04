@@ -16,7 +16,7 @@ int	builtin_unset(int argc __attribute((unused)), char **argv,
 			char_index++;
 		if (argv[arg_index][char_index] != '\0' || argv[arg_index][0] == '\0')
 		{
-			print_error(SHELL_NAME, "unset", argv[arg_index], "not a valid identifier");
+			ft_print_error(SHELL_NAME, "unset", argv[arg_index], "not a valid identifier");
 			exit_status = ERROR;
 		}
 		else

@@ -12,15 +12,14 @@ int env_set_env(char *name, char *value, t_envp *envp_var)
     tmp = ft_strjoin(name, "=");
     if (tmp == NULL)
     {
-        print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
+        ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
         return (ERROR);
     }
-
     var_str = ft_strjoin(tmp, value);
     free(tmp);
     if (var_str == NULL)
     {
-        print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
+        ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
         return (ERROR);
     }
     status = env_put_var(var_str, envp_var);

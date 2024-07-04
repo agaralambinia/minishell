@@ -10,7 +10,7 @@ static void	print_environment_vars(t_envp *envp_var)
 	env_copy = (t_list *)malloc(sizeof(t_list));
 	if (env_copy == NULL)
 	{
-		print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
+		ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
 		return ;
 	}
 	env_copy = envp_var->envp_list;
@@ -19,7 +19,7 @@ static void	print_environment_vars(t_envp *envp_var)
 	{
 		var_name_len = ft_strlen(ft_strchr(env_copy->content, '='));
 		printf("%.*s", var_name_len + 1, (char *)env_copy->content);
-		printf("\"%s\"\n", env_get_value(env_copy->content));
+		printf("\"%s\"\n", get_envp_list_val(env_copy->content, &(envp_var->envp_list)));
 		env_copy = env_copy -> next;
 	}
 }
@@ -52,7 +52,7 @@ int	builtin_export(int argc, char **argv, t_envp *envp_var)
 	{
 		if (is_valid_arg(argv[index]) == false)
 		{
-			print_error(SHELL_NAME, argv[index], NULL, "not a valid identifier");
+			ft_print_error(SHELL_NAME, argv[index], NULL, "not a valid identifier");
 			exit_status = ERROR;
 		}
 		else if (ft_strchr(argv[index], '='))
