@@ -21,6 +21,8 @@
 # include <signal.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <errno.h>
+#include <limits.h>
 # include "../libs/rl_lib/include/readline/readline.h"
 # include "../libs/rl_lib/include/readline/history.h"
 //# include <readline/readline.h>
@@ -131,6 +133,11 @@ typedef struct s_builtins
     int         (*func)(int argc, char **argv);
 }	t_builtins;
 
+# define SHELL_NAME	"minishell"
+
+#ifndef PATH_MAX
+#	define PATH_MAX	1024
+#endif
 
 // цвета для printf. Не забывай RESET
 # define RESET	"\033[0m"
@@ -145,6 +152,8 @@ char	*prompt_msg(t_envp *envp_var);
 
 // error funcs
 void	ft_exit_error(char *error);
+void	print_error(const char *shell, const char *cmd, const char *arg, const char *msg);
+void	print_error_errno(const char *shell, const char *cmd, const char *arg);
 
 // envp funcs
 void	envp_init(char **envp, t_envp **envp_var);
@@ -154,9 +163,9 @@ char    *env_get_value(char *name);
 char    *env_find_var(char *name);
 bool    env_var_is_value(char *var_name, char *value);
 bool    env_is_var_char(char c);
-int     env_unset_var(char *name);
-int     env_put_var(char *str);
-int     env_set_env(char *name, char *value);
+int     env_unset_var(char *name, t_envp *envp_var);
+int		env_put_var(char *str, t_envp *envp_var);
+int		env_set_env(char *name, char *value, t_envp *envp_var);
 
 // parsing funcs
 void	lexer(char *line, t_envp *envp_var);
@@ -175,6 +184,11 @@ int		ft_arrlen(void **arr);
 void	check_for_exit(char *msg, int pred);
 void	free_arr(void **arr);
 void	free_cmd(void *data);
+bool	ft_is_numeric(char *str);
+void	ft_list_insert_sort(t_list *lst);
+int		ft_list_replace(t_envp *envp_var, char *old_var, char *new_var);
+int		ft_list_remove(char *env_var, t_list *envp_list);
+int		ft_split_count(char **split);
 
 // wraps
 void	*safe_malloc(size_t str);
@@ -199,17 +213,12 @@ void	setup_pipes_last(int **pp, int count);
 void	setup_pipes_parent(int **pp);
 
 // buildins
-int builtin_exec(char **argv, bool subshell, t_list *l_free);
-int builtin_cd(int argc, char **argv);
-int builtin_echo(int argc, char **argv);
-int builtin_env(int argc, char **argv);
-int builtin_exit(int argc, char **argv, bool subshell, t_list *l_free);
-int builtin_export(int argc, char **argv);
-int builtin_pwd(int argc, char **argv);
-int builtin_unset(int argc, char **argv);
-void print_error(const char *shell, const char *cmd, const char *arg, const char *msg);
-void print_error_errno(const char *shell, const char *cmd, const char *arg);
-int split_count(char **split);
-void split_sort(char **split);
+int		builtin_exec(char **argv, bool subshell, t_envp *envp_var);
+int		builtin_cd(int argc, char **argv, t_envp *envp_var);
+int		builtin_echo(int argc, char **argv, t_envp *envp_var);
+int		builtin_env(int argc, char **argv, t_envp *envp_var);
+int		builtin_export(int argc, char **argv, t_envp *envp_var);
+int		builtin_pwd(int argc, char **argv, t_envp *envp_var);
+int		builtin_unset(int argc, char **argv, t_envp *envp_vars);
 
 #endif
