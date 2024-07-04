@@ -11,7 +11,6 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_isspace.c \
 		srcs/utils/ft_isspecial.c \
 		srcs/utils/ft_get_env_val.c \
-		srcs/utils/ft_arrlen.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/cmd_builder/get_commands.c \

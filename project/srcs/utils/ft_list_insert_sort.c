@@ -1,6 +1,6 @@
 #include "../../incs/minishell.h"
 
-static void ft_sort(t_list *newnode, t_list *sorted, t_list *newnode)
+static void ft_sort(t_list *newnode, t_list *sorted)
 {
     t_list  *current;
 

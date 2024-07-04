@@ -152,15 +152,13 @@ char	*prompt_msg(t_envp *envp_var);
 
 // error funcs
 void	ft_exit_error(char *error);
-void	print_error(const char *shell, const char *cmd, const char *arg, const char *msg);
-void	print_error_errno(const char *shell, const char *cmd, const char *arg);
+void	ft_print_error(const char *shell, const char *cmd, const char *arg, const char *msg);
+void	ft_print_error_errno(const char *shell, const char *cmd, const char *arg);
 
 // envp funcs
 void	envp_init(char **envp, t_envp **envp_var);
 char	*get_envp_list_val(char *var, t_list **envp_list);
 int     env_init(void);
-char    *env_get_value(char *name);
-char    *env_find_var(char *name);
 bool    env_var_is_value(char *var_name, char *value);
 bool    env_is_var_char(char c);
 int     env_unset_var(char *name, t_envp *envp_var);
@@ -189,6 +187,7 @@ void	ft_list_insert_sort(t_list *lst);
 int		ft_list_replace(t_envp *envp_var, char *old_var, char *new_var);
 int		ft_list_remove(char *env_var, t_list *envp_list);
 int		ft_split_count(char **split);
+int		ft_strcmp(char *s1, char *s2);
 
 // wraps
 void	*safe_malloc(size_t str);
