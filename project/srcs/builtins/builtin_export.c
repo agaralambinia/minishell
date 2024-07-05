@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 20:55:44 by defimova          #+#    #+#             */
+/*   Updated: 2024/07/05 20:55:45 by defimova         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incs/minishell.h"
 
 static void	print_environment_vars(t_envp *envp_var)
@@ -19,7 +31,8 @@ static void	print_environment_vars(t_envp *envp_var)
 	{
 		var_name_len = ft_strlen(ft_strchr(env_copy->content, '='));
 		printf("%.*s", var_name_len + 1, (char *)env_copy->content);
-		printf("\"%s\"\n", get_envp_list_val(env_copy->content, &(envp_var->envp_list)));
+		printf("\"%s\"\n", get_envp_list_val(
+				env_copy->content, &(envp_var->envp_list)));
 		env_copy = env_copy -> next;
 	}
 }
@@ -31,7 +44,8 @@ static bool	is_valid_arg(char *arg)
 	if (arg[0] == '\0' || arg[0] == '=')
 		return (false);
 	index = 0;
-	while (arg[index] != '\0' && arg[index] != '=' && env_is_var_char(arg[index]))
+	while (arg[index] != '\0' && arg[index] != '='
+		&& env_is_var_char(arg[index]))
 		index++;
 	if (arg[index] == '\0' || arg[index] == '=')
 		return (true);
@@ -52,7 +66,8 @@ int	builtin_export(int argc, char **argv, t_envp *envp_var)
 	{
 		if (is_valid_arg(argv[index]) == false)
 		{
-			ft_print_error(SHELL_NAME, argv[index], NULL, "not a valid identifier");
+			ft_print_error(SHELL_NAME,
+				argv[index], NULL, "not a valid identifier");
 			exit_status = ERROR;
 		}
 		else if (ft_strchr(argv[index], '='))
