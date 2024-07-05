@@ -38,7 +38,7 @@ void	print_cmd_debug(t_list	*commands)
 	while (commands)
 	{
 		t_cmd *com = (t_cmd *)(commands->content);
-		printf("COMMAND - %s\nARGS - ", com->command);
+		//printf("COMMAND - %s\nARGS - ", com->command);
 		args = com->args;
 		while (args)
 		{
@@ -53,7 +53,7 @@ void	print_cmd_debug(t_list	*commands)
 			printf("PATH OR END - %s, IS_HEREDOC - %d\n", redir->path, redir->mode);
 			in_redir = in_redir->next;
 		}
-		printf("OUTPUT REDIRECTIONS:\n");
+		//printf("OUTPUT REDIRECTIONS:\n");
 		out_redir = com->redir_out;
 		while (out_redir)
 		{
@@ -81,9 +81,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		add_history(line);
 		lexer(line, envp_var);
-		printf("Lexer done\n");
+		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
-		printf("Command parsing done\n");
+		//printf("Command parsing done\n");
 		run_command(commands, envp_var);
 		line = readline(prompt_msg(envp_var));
 	}
