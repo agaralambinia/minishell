@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
+/*   Updated: 2024/07/05 20:54:50 by defimova         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incs/minishell.h"
 
 static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
@@ -28,7 +40,8 @@ static int	update_working_directory(t_envp *envp_var)
 
 	if (get_envp_list_val("PWD", &envp_var->envp_list))
 	{
-		if (env_set_env("OLDPWD", get_envp_list_val("PWD", &(envp_var->envp_list)), envp_var) == ERROR)
+		if (env_set_env("OLDPWD", get_envp_list_val(
+			"PWD", &(envp_var->envp_list)), envp_var) == ERROR)
 			return (ERROR);
 	}
 	else
