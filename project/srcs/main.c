@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/23 17:35:59 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/05 21:48:20 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_envp	*envp_var;
 	t_list	*commands;
+	int		exit_code;
 
 	envp_var = NULL;
 	ft_singals();
@@ -81,13 +82,13 @@ int	main(int argc, char **argv, char **envp)
 	{
 		add_history(line);
 		lexer(line, envp_var);
-		printf("Lexer done\n");
+		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
-		printf("Command parsing done\n");
-		run_command(commands, envp_var);
+		//printf("Command parsing done\n");
+		exit_code = run_command(commands, envp_var);
 		line = readline(prompt_msg(envp_var));
 	}
 	ft_lstclear(&commands, &free_cmd);
 	system("leaks minishell");
-	return (0);
+	return (exit_code);
 }

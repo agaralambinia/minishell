@@ -8,11 +8,16 @@ static int	builtin_check(char **argv)
 	index = 0;
 	if (argv[0] && !ft_strncmp(argv[0], "exit", 5))
 		return (INT_MAX);
-	while (builtins[index] && argv)
+	while (builtins[index])
 	{
 		name_length = ft_strlen(builtins[index]);
+		printf("Get len\n");
 		if (argv[0] && !ft_strncmp(argv[0], builtins[index], name_length + 1))
+		{
+			printf("Find command\n");
 			return (index + 1);
+		}
+		printf("Not find command\n");
 		index++;
 	}
 	return (0);
@@ -24,8 +29,11 @@ int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
 
 	(void)subshell;
 	builtin_index = builtin_check(argv);
+	printf("index is %d\n", builtin_index);
 	if ((builtin_index == 0) || (builtin_index == INT_MAX))
+	{
 		return (ERROR);
+	}
 	//errno = 0; TODO подозреваю это exit code
 	if (!(ft_strncmp(argv[0], "cd", 2)))
 		return (builtin_cd(ft_split_count(argv), argv, envp_var));
