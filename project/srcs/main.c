@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/06 16:03:43 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:38:56 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ int	main(int argc, char **argv, char **envp)
 	t_envp	*envp_var;
 	t_list	*commands;
 	int		exit_code;
+	int		last_code;
 
+	last_code = 0;
 	envp_var = NULL;
 	ft_singals();
 	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
@@ -84,16 +86,21 @@ int	main(int argc, char **argv, char **envp)
 	{
 		add_history(line);
 		lexer(line, envp_var);
-		print_lexer_debug(envp_var);
+	//	print_lexer_debug(envp_var);
 		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
 		//printf("Command parsing done\n");
-		print_cmd_debug(commands);
+	//	print_cmd_debug(commands);
 		exit_code = run_command(commands, envp_var);
-
+	//	printf("exit code is %d\n", exit_code);
+		if (exit_code == 255)
+			break;
+		last_code = exit_code;
 		line = readline(prompt_msg(envp_var));
 	}
 	ft_lstclear(&commands, &free_cmd);
-	system("leaks minishell");
-	return (exit_code);
+	//TODO почистить лики от лексера:w
+//	system("leaks minishell");
+	printf("exit\n");
+	return (last_code);
 }

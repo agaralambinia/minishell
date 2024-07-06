@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 19:02:15 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/06 15:58:12 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:17:40 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	run_first(t_cmd *cmd, int **pp, char **paths, t_envp *envp_var)
 {
 	char	**args;
 
-	printf("%s %d\n", __FILE__, __LINE__);
 	setup_pipes_first(pp);
 	redir_in(cmd);
 	redir_out(cmd);
@@ -104,7 +103,6 @@ int	run_command(t_list *cmd_lst, t_envp *envp_var)
 	int		i;
 	int		exit_info;
 
-	printf("%s %d\n", __FILE__, __LINE__);
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
 	cmd_cnt = ft_lstsize(cmd_lst);
 	pp = get_pipes(cmd_cnt);
