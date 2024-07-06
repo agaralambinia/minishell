@@ -57,7 +57,7 @@ static int	handle_token(
 	res = 1;
 	type = token->token_type;
 	if (type == WORD || type == HARDWORD || type == SOFTWORD)
-		res = add_to_word(token->token_content, handler);
+		res = add_to_word(token->t_data, handler);
 	else if (type == SINGLE_RA)
 		set_field(handler, 'o', 0);
 	else if (type == DOUBLE_RA)
@@ -72,7 +72,7 @@ static int	handle_token(
 		res = *com != NULL;
 	}
 	else if (type == ENVP)
-		res = handle_envp(token->token_content, handler, envp_var);
+		res = handle_envp(token->t_data, handler, envp_var);
 	else if (type == SPACE)
 		res = bind_field(*com, handler);
 	return res;

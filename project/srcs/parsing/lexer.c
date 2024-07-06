@@ -19,7 +19,7 @@ static void	space_lex(char *line, int *i, t_envp *envp_var)
 	temp = (t_token *)safe_malloc(sizeof(t_token));
 	while (ft_isspace(line[*i]))
 	{
-		temp->token_content = ft_straddchar(temp->token_content, line[*i]);
+		temp->t_data = ft_straddchar(temp->t_data, line[*i]);
 		(*i)++;
 	}
 	temp->token_type = SPACE;
@@ -34,12 +34,12 @@ static void	word_lex(char *line, int *i, t_envp *envp_var)
 	if (line[*i] == '$')
 	{
 		temp->token_type = ENVP;
-		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
+		temp->t_data = ft_straddchar(temp->t_data, line[(*i)++]);
 	}
 	else
 		temp->token_type = WORD;
 	while (line[*i] != '\0' && !ft_isspace(line[*i]) && !ft_isspecial(line[*i]))
-		temp->token_content = ft_straddchar(temp->token_content, line[(*i)++]);
+		temp->t_data = ft_straddchar(temp->t_data, line[(*i)++]);
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 
@@ -48,33 +48,32 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 	char	q;
 	t_token	*temp;
 
+	q = '\"';
 	if (qtype == NA)
 		q = l[(*i)++];
-	else
-		q = '\"';
-	if (l[(*i)] != q)
+	if (l[(*i)] == q)
 	{
-		if (l[(*i)] != '$')
-		{
-			temp = (t_token *)safe_malloc(sizeof(t_token));
-			while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
-				temp->token_content = ft_straddchar(temp->token_content, l[(*i)++]);
-			if (l[*i] == q)
-				(*i)++;
-			if (q == '\'')
-				temp->token_type = HARDWORD;
-			else if (q == '\"')
-				temp->token_type = SOFTWORD;
-			ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));			
-		}
-		if (l[*i] == '$' && (q == '\"'))
-		{
-			word_lex(l, i, envp_var);
-			quote_lex(l, i, DOUBLE, envp_var);
-		}
-	}
-	else
 		(*i)++;
+		return ;
+	}
+	if (l[(*i)] != '$')
+	{
+		temp = (t_token *)safe_malloc(sizeof(t_token));
+		while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
+			temp->t_data = ft_straddchar(temp->t_data, l[(*i)++]);
+		if (l[*i] == q)
+			(*i)++;
+		if (q == '\'')
+			temp->token_type = HARDWORD;
+		else if (q == '\"')
+			temp->token_type = SOFTWORD;
+		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+	}
+	if (l[*i] == '$' && (q == '\"'))
+	{
+		word_lex(l, i, envp_var);
+		quote_lex(l, i, DOUBLE, envp_var);
+	}
 }
 
 static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
@@ -82,7 +81,7 @@ static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 	t_token	*t;
 
 	t = (t_token *)safe_malloc(sizeof(t_token));
-	t->token_content = ft_straddchar(t->token_content, line[(*i)++]);
+	t->t_data = ft_straddchar(t->t_data, line[(*i)++]);
 	if ((line[*i - 1] == '<' || line[*i - 1] == '>'))
 	{
 		if (line[*i - 1] == line[*i])
@@ -91,7 +90,7 @@ static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 				t->token_type = DOUBLE_LA;
 			else if (line[*i] == '>')
 				t->token_type = DOUBLE_RA;
-			t->token_content = ft_straddchar(t->token_content, line[(*i)++]);
+			t->t_data = ft_straddchar(t->t_data, line[(*i)++]);
 		}
 		else if (line[*i - 1] == '<')
 			t->token_type = SINGLE_LA;

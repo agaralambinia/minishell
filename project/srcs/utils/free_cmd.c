@@ -15,7 +15,7 @@
 void	free_cmd(void *data)
 {
 	t_cmd	*com;	
-	
+
 	com = (t_cmd *)data;
 	if (com)
 	{
@@ -23,5 +23,5 @@ void	free_cmd(void *data)
 		ft_lstclear(&(com->redir_in), &free);
 		ft_lstclear(&(com->redir_out), &free);
 		free(com);
-	}	
+	}
 }
