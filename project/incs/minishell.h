@@ -214,10 +214,10 @@ void	setup_pipes_parent(int **pp);
 // buildins
 int		builtin_exec(char **argv, bool subshell, t_envp *envp_var);
 int		builtin_cd(int argc, char **argv, t_envp *envp_var);
-int		builtin_echo(int argc, char **argv, t_envp *envp_var);
-int		builtin_env(int argc, char **argv, t_envp *envp_var);
+int		builtin_echo(char **argv);
+int		builtin_env(t_envp *envp_var);
 int		builtin_export(int argc, char **argv, t_envp *envp_var);
-int		builtin_pwd(int argc, char **argv, t_envp *envp_var);
-int		builtin_unset(int argc, char **argv, t_envp *envp_vars);
+int		builtin_pwd(void);
+int		builtin_unset(char **argv, t_envp *envp_var);
 
 #endif
