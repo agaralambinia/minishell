@@ -23,7 +23,7 @@ void	print_lexer_debug(t_envp *envp_var)
 	while (iter != NULL)
 	{
 		t = iter->content;
-		printf(PINK"%i TYPE [%s]\n"RESET, t->token_type, t->token_content);
+		printf(PINK"%i TYPE [%s]\n"RESET, t->token_type, t->t_data);
 		iter = iter -> next;
 	}
 }

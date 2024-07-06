@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_is_numeric.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/06 18:17:40 by defimova          #+#    #+#             */
+/*   Updated: 2024/07/06 18:17:42 by defimova         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incs/minishell.h"
 
 bool	ft_is_numeric(char *str)
@@ -16,7 +28,8 @@ bool	ft_is_numeric(char *str)
 	{
 		if (!ft_isdigit(str[index]))
 		{
-			ft_print_error(SHELL_NAME, "exit", str, "numeric argument required");
+			ft_print_error(SHELL_NAME, "exit",
+				str, "numeric argument required");
 			return (false);
 		}
 		index++;

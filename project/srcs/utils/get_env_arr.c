@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-char	**get_env_arr()
+char	**get_env_arr(void)
 {
 	char	**arr;
 	int		len;

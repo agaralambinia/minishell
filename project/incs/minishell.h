@@ -71,12 +71,12 @@ typedef enum	s_exec_status
 /*
 сруктура для хранения токена	
 	token_type: тип токена - одно из значений t_token_type;
-	token_content: строка-значение токена;
+	t_data: строка-значение токена;
 */
 typedef struct s_token
 {
 	int		token_type;
-	char	*token_content;
+	char	*t_data;
 }	t_token;
 
 //структура для обработки очередного токена типа WORD, SOFTWORD, HARDWORD
