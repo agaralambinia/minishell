@@ -6,32 +6,38 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:38 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/05 20:54:40 by defimova         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:50:43 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
+static void builtins_init(char *builtins[])
+{
+	builtins[0] = "cd";
+	builtins[1] = "echo";
+	builtins[2] = "env";
+	builtins[3] = "export";
+	builtins[4] = "pwd";
+	builtins[5] = "unset";
+	builtins[6] = NULL;
+}
+
 static int	builtin_check(char **argv)
 {
-	int			name_length;
-	int			index;
-	const char	builtins[6][20] = {
-		"cd", "echo", "env", "export", "pwd", "unset"};
+	int		name_length;
+	int		index;
+	char	*builtins[7];
 
+	builtins_init(builtins);
 	index = 0;
 	if (argv[0] && !ft_strncmp(argv[0], "exit", 5))
 		return (INT_MAX);
 	while (builtins[index])
 	{
 		name_length = ft_strlen(builtins[index]);
-		printf("Get len\n");
 		if (argv[0] && !ft_strncmp(argv[0], builtins[index], name_length + 1))
-		{
-			printf("Find command\n");
 			return (index + 1);
-		}
-		printf("Not find command\n");
 		index++;
 	}
 	return (0);
