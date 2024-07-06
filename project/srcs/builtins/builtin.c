@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:38 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/06 15:55:15 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:23:28 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
 	int	builtin_index;
 
 	(void)subshell;
-	printf("%s %d\n", __FILE__, __LINE__);
 	builtin_index = builtin_check(argv);
-	if ((builtin_index == 0) || (builtin_index == INT_MAX))
+	if (builtin_index == 0)
 		return (ERROR);
-	printf("%s %d\n", __FILE__, __LINE__);
+	else if (builtin_index == INT_MAX)
+		return (INT_MAX);
 	//errno = 0; TODO подозреваю это exit code
 	if (!(ft_strncmp(argv[0], "cd", 2)))
 		return (builtin_cd(ft_split_count(argv), argv, envp_var));
