@@ -23,7 +23,6 @@ uname -v = Darwin Kernel Version 18.7.0: Mon Aug 31 20:53:32 PDT 2020; root:xnu-
 /usr/bin/arch -k       = unknown
 /usr/convex/getsysinfo = unknown
 /usr/bin/hostinfo      = Mach kernel version:
-
 	 Darwin Kernel Version 18.7.0: Mon Aug 31 20:53:32 PDT 2020; root:xnu-4903.278.44~1/RELEASE_X86_64
 Kernel configured for up to 6 processors.
 6 processors are physically available.
@@ -31,9 +30,8 @@ Kernel configured for up to 6 processors.
 Processor type: x86_64h (Intel x86-64h Haswell)
 Processors active: 0 1 2 3 4 5
 Primary memory available: 8.00 gigabytes
-Default processor set: 322 tasks, 1175 threads, 6 processors
-Load average: 2.05, Mach factor: 3.94
-
+Default processor set: 333 tasks, 1706 threads, 6 processors
+Load average: 2.31, Mach factor: 3.68
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
@@ -1940,12 +1938,10 @@ configure: failed program was:
 configure:7048: result: no
 configure:7074: checking for tgetent
 configure:7074: gcc -o conftest -g -O2   conftest.c  >&5
-
 Undefined symbols for architecture x86_64:
   "_tgetent", referenced from:
-      _main in conftest-c53362.o
+      _main in conftest-f54fea.o
 ld: symbol(s) not found for architecture x86_64
-
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7074: $? = 1
 configure: failed program was:
@@ -2237,12 +2233,10 @@ configure:7414: $? = 0
 configure:7414: result: yes
 configure:7421: checking for mbscasecmp
 configure:7421: gcc -o conftest -g -O2   conftest.c  >&5
-
 Undefined symbols for architecture x86_64:
   "_mbscasecmp", referenced from:
-      _main in conftest-a833ea.o
+      _main in conftest-f9f218.o
 ld: symbol(s) not found for architecture x86_64
-
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7421: $? = 1
 configure: failed program was:
@@ -2379,12 +2373,10 @@ configure: failed program was:
 configure:7421: result: no
 configure:7428: checking for mbscmp
 configure:7428: gcc -o conftest -g -O2   conftest.c  >&5
-
 Undefined symbols for architecture x86_64:
   "_mbscmp", referenced from:
-      _main in conftest-b53dbb.o
+      _main in conftest-d1f6b5.o
 ld: symbol(s) not found for architecture x86_64
-
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7428: $? = 1
 configure: failed program was:
@@ -2529,12 +2521,10 @@ configure:7442: $? = 0
 configure:7442: result: yes
 configure:7450: checking for mbschr
 configure:7450: gcc -o conftest -g -O2   conftest.c  >&5
-
 Undefined symbols for architecture x86_64:
   "_mbschr", referenced from:
-      _main in conftest-b6e673.o
+      _main in conftest-302019.o
 ld: symbol(s) not found for architecture x86_64
-
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7450: $? = 1
 configure: failed program was:
