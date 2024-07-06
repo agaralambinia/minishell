@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 19:02:15 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/22 21:29:34 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/05 22:32:44 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,24 +101,27 @@ int	run_command(t_list *cmd_lst, t_envp *envp_var)
 	int		**pp;
 	int		cmd_cnt;
 	int		i;
+	int		exit_info;
 
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
 	cmd_cnt = ft_lstsize(cmd_lst);
 	pp = get_pipes(cmd_cnt);
-
 	if (!pp)
 		return (1);
 	i = run_pipeline(cmd_cnt, cmd_lst, pp, paths, envp_var);
 	setup_pipes_parent(pp);
 	while (i >= 0)
 	{
-		wait(NULL);
+		wait(&exit_info);
 		i--;
 	}
 	if (paths)
 		free_arr((void **)paths);
 	free_arr((void **)pp);
-//	if (ft_strncmp("here_doc", argv[1], 9) == 0)
-		unlink("here_doc");
+	unlink("here_doc");
+	if (WIFEXITED(exit_info))
+		return (WEXITSTATUS(exit_info));
+	else if (WTERMSIG(exit_info) == 2)
+		return (130);
 	return (0);
 }
