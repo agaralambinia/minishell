@@ -12,8 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-int	builtin_unset(int argc __attribute((unused)), char **argv,
-	t_envp *envp_var __attribute((unused)))
+int	builtin_unset(char **argv, t_envp *envp_var)
 {
 	int	exit_status;
 	int	arg_index;

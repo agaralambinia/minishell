@@ -12,9 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-int	builtin_pwd(int argc __attribute((unused)),
-	char **argv __attribute((unused)),
-	t_envp *envp_var __attribute((unused)))
+int	builtin_pwd(void)
 {
 	char	path_buffer[PATH_MAX];
 

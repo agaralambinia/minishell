@@ -12,8 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-int	builtin_env(int argc __attribute((unused)),
-	char **argv __attribute((unused)), t_envp *envp_var)
+int	builtin_env(t_envp *envp_var)
 {
 	t_list	*iter;
 
