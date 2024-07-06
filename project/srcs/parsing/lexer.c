@@ -48,12 +48,10 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 	char	q;
 	t_token	*temp;
 
-	printf("DEBUG %d %s\n", __LINE__, __FILE__);
 	if (qtype == NA)
 		q = l[(*i)++];
 	else
 		q = '\"';
-	printf("DEBUG %d %s\n", __LINE__, __FILE__);
 	if (l[(*i)] != q)
 	{
 		if (l[(*i)] != '$')
@@ -72,7 +70,6 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 		if (l[*i] == '$' && (q == '\"'))
 		{
 			word_lex(l, i, envp_var);
-			printf("DEBUG %d %s\n", __LINE__, __FILE__);
 			quote_lex(l, i, DOUBLE, envp_var);
 		}
 	}
