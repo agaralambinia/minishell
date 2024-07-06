@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/05 21:48:20 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/06 16:03:43 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	print_cmd_debug(t_list	*commands)
 	t_list	*out_redir;
 	t_redir *redir;
 
+	printf("%s %d\n", __FILE__, __LINE__);
 	while (commands)
 	{
 		t_cmd *com = (t_cmd *)(commands->content);
@@ -63,6 +64,7 @@ void	print_cmd_debug(t_list	*commands)
 		}
 		commands = commands->next;
 	}
+	printf("%s %d\n", __FILE__, __LINE__);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -82,10 +84,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		add_history(line);
 		lexer(line, envp_var);
+		print_lexer_debug(envp_var);
 		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
 		//printf("Command parsing done\n");
-
+		print_cmd_debug(commands);
 		exit_code = run_command(commands, envp_var);
 
 		line = readline(prompt_msg(envp_var));
