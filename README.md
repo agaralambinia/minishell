@@ -93,3 +93,7 @@
 - Договорились, чо в субботу встретимся ориентироваочно в 12 поботать очно
   - К этому времени ребята доделают свои куски и найдут тесты
   - Даша напишет сигналы
+
+-----------------------------------------------------------------
+ **LOG 06.07.2024**
+ - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
