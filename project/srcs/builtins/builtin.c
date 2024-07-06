@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 20:54:38 by defimova          #+#    #+#             */
+/*   Updated: 2024/07/05 20:54:40 by defimova         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incs/minishell.h"
 
 static int	builtin_check(char **argv)
 {
-	int	name_length;
-	int	index;
-	const char	builtins[6][20] = {"cd", "echo", "env", "export", "pwd", "unset"};
+	int			name_length;
+	int			index;
+	const char	builtins[6][20] = {
+		"cd", "echo", "env", "export", "pwd", "unset"};
+
 	index = 0;
 	if (argv[0] && !ft_strncmp(argv[0], "exit", 5))
 		return (INT_MAX);
