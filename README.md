@@ -99,6 +99,7 @@
 Сергей - блок cd:
 
 echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n - правильно
+echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n - неправильно, исправляю
 
 -----------------------------------------------------------------
  **LOG 06.07.2024**
