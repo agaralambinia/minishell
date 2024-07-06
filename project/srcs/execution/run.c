@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:38:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/06 14:50:42 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/06 15:56:20 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	run(char **paths, char **args, t_envp *envp_var)
 	char	*prog_path;
 	char	**env_arr;
 
+	printf("%s %d\n", __FILE__, __LINE__);
 	if (builtin_exec(args, 0, envp_var) == ERROR)
 	{
 		prog_path = get_prog_path(paths, args[0]);
@@ -66,4 +67,6 @@ void	run(char **paths, char **args, t_envp *envp_var)
 		perror(args[0]);
 		exit(127);
 	}
+	else
+		exit(0);
 }
