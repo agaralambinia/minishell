@@ -16,13 +16,13 @@ int env_set_env(char *name, char *value, t_envp *envp_var)
         return (ERROR);
     }
     var_str = ft_strjoin(tmp, value);
-    free(tmp);
+//    free(tmp);
     if (var_str == NULL)
     {
         ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
         return (ERROR);
     }
-    status = env_put_var(var_str, envp_var);
+    status = env_put_var(tmp, var_str, envp_var);
     free(var_str);
     return (status);
 }

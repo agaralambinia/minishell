@@ -32,7 +32,9 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
-BUILD_DIR = /Users/defimova/Desktop/mini/project/libs/readline
+
+BUILD_DIR = /Users/sosokin/repos/minishell_shared/project/libs/readline
+
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -52,7 +54,9 @@ SHELL = /bin/sh
 host_os = darwin18.7.0
 host_vendor = apple
 
-prefix = /Users/defimova/Desktop/mini/project/libs/readline/../rl_lib
+
+prefix = /Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+
 exec_prefix = ${prefix}
 includedir = ${prefix}/include
 bindir = ${exec_prefix}/bin

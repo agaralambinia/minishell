@@ -31,7 +31,9 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/defimova/Desktop/mini/project/libs/readline
+
+BUILD_DIR = /Users/sosokin/repos/minishell_shared/project/libs/readline
+
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +50,9 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/defimova/Desktop/mini/project/libs/readline/../rl_lib
+
+prefix = /Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:55:44 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/05 20:55:45 by defimova         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:11:54 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	builtin_export(int argc, char **argv, t_envp *envp_var)
 			exit_status = ERROR;
 		}
 		else if (ft_strchr(argv[index], '='))
-			env_put_var(argv[index], envp_var);
+			env_put_var("name", argv[index], envp_var);
 		index++;
 	}
 	return (exit_status);

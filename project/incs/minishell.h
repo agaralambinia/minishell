@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/06 16:31:24 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:25:34 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int     env_init(void);
 bool    env_var_is_value(char *var_name, char *value);
 bool    env_is_var_char(char c);
 int     env_unset_var(char *name, t_envp *envp_var);
-int		env_put_var(char *str, t_envp *envp_var);
+int		env_put_var(char *name, char *str, t_envp *envp_var);
 int		env_set_env(char *name, char *value, t_envp *envp_var);
 
 // parsing funcs

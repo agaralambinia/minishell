@@ -22,7 +22,8 @@ topdir = ..
 srcdir = .
 
 
-prefix = /Users/defimova/Desktop/mini/project/libs/readline/../rl_lib
+prefix = /Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+
 
 datarootdir = ${prefix}/share
 
@@ -49,7 +50,8 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /Users/defimova/Desktop/mini/project/libs/readline
+BUILD_DIR = /Users/sosokin/repos/minishell_shared/project/libs/readline
+
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

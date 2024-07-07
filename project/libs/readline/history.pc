@@ -1,4 +1,6 @@
-prefix=/Users/defimova/Desktop/mini/project/libs/readline/../rl_lib
+
+prefix=/Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
