@@ -173,7 +173,7 @@ void	ft_singals(void);
 
 // utils
 bool	ft_strbegins(char *s1, char *s2);
-char	*ft_straddchar(char *str, char c);
+void	ft_straddchar(char **str, char c);
 int		ft_maxint(int i1, int i2);
 bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);

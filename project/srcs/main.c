@@ -86,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		add_history(line);
 		lexer(line, envp_var);
+		free (line);
 	//	print_lexer_debug(envp_var);
 		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
@@ -100,7 +101,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
-//	system("leaks minishell");
+	system("leaks minishell");
 	printf("exit\n");
 	return (last_code);
 }
