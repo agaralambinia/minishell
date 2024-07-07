@@ -98,9 +98,15 @@
 РУЧНОЕ ТЕСТИРОВАНИЕ ТЕСТ-КЕЙСОВ
 Сергей - блок cd:
 
-echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n - правильно
-
-echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n - неправильно, исправляю
+cho $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                           ok
+echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                         ok
+echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n                                      ok
+echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD\n                                   ok
+echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD\n                                ok
+echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD\n                             ok
+echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD\n                          ok
+echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n                                          ok
+echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD\n                                          [FAIL]
 
 -----------------------------------------------------------------
  **LOG 06.07.2024**
