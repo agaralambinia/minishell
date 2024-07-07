@@ -93,3 +93,15 @@
 - Договорились, чо в субботу встретимся ориентироваочно в 12 поботать очно
   - К этому времени ребята доделают свои куски и найдут тесты
   - Даша напишет сигналы
+ 
+-----------------------------------------------------------------
+РУЧНОЕ ТЕСТИРОВАНИЕ ТЕСТ-КЕЙСОВ
+Сергей - блок cd:
+
+echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n - правильно
+
+echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n - неправильно, исправляю
+
+-----------------------------------------------------------------
+ **LOG 06.07.2024**
+ - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md

@@ -80,7 +80,7 @@ all:  ${DEPS} ${NAME}
 
 #rlbuild 
 ${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} $(RLDIR) ${OBJ}
-	${CC} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
+	${CC} ${CFLAGS} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
 
 ${LIBFT_PATH}/${LIBFT_NAME}:
 	make -C ${LIBFT_PATH}
@@ -89,7 +89,7 @@ $(RLDIR):
 	bash libs/readline/rlbuild.sh
 
 .c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -fsanitize=address -c $< -o ${<:.c=.o}
 
 clean :
 	rm -f ${OBJ}

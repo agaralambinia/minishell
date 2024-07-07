@@ -23,7 +23,7 @@ void	print_lexer_debug(t_envp *envp_var)
 	while (iter != NULL)
 	{
 		t = iter->content;
-		printf(PINK"%i TYPE [%s]\n"RESET, t->token_type, t->token_content);
+		printf(PINK"%i TYPE [%s]\n"RESET, t->token_type, t->t_data);
 		iter = iter -> next;
 	}
 }
@@ -83,7 +83,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = argv[2];
 		lexer(line, envp_var);
-		//	print_lexer_debug(envp_var);
+
+		free (line);
+	//	print_lexer_debug(envp_var);
+
 		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
 		//printf("Command parsing done\n");
@@ -114,5 +117,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
 	system("leaks minishell");
+
 	return (last_code);
 }

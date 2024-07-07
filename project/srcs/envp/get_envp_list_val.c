@@ -16,9 +16,11 @@ char	*get_envp_list_val(char *var, t_list **envp_list)
 {
 	t_list	*iter;
 	char	*temp;
+	char	eq[2];
 
+	eq[0] = '=';
 	iter = (t_list *)safe_malloc(sizeof(t_list));
-	temp = ft_straddchar(var, '=');
+	temp = ft_strjoin(var, "=");
 	iter = *envp_list;
 	if (envp_list)
 	{
