@@ -99,13 +99,21 @@
 Сергей - блок cd:
 
 cho $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                           ok
+
 echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                         ok
+
 echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n                                      ok
+
 echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD\n                                   ok
+
 echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD\n                                ok
+
 echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD\n                             ok
+
 echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD\n                          ok
+
 echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n                                          ok
+
 echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD\n                                          [FAIL]
 
 -----------------------------------------------------------------
