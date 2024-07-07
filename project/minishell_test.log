@@ -950,14 +950,14 @@ a  b  c  d
 ================================================================================
 
 |> WITH echo -n a "" b "" c "" d\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+a  b  c  d
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo '' '' ''\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-  $
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH Echo bonjour\n
@@ -1609,7 +1609,11 @@ minishell: exit: 99999999999999999999999999999999999999999999999999999: numeric 
 ================================================================================
 
 |> WITH Exit; echo a\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: Exit: command not found$
+a$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH exiT; echo a\n
@@ -1641,23 +1645,58 @@ TIMEOUT
 ================================================================================
 
 |> WITH [EXPORTS A='$'] export\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="\$"$
+declare -x PATH="/Users/defimova/.cache/minishell_test/bin"$
+declare -x PWD="/Users/defimova/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='\t'] export\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="	"$
+declare -x PATH="/Users/defimova/.cache/minishell_test/bin"$
+declare -x PWD="/Users/defimova/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='''] export\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="'"$
+declare -x PATH="/Users/defimova/.cache/minishell_test/bin"$
+declare -x PWD="/Users/defimova/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='a'] export\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="a"$
+declare -x PATH="/Users/defimova/.cache/minishell_test/bin"$
+declare -x PWD="/Users/defimova/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH export A=a; echo $A\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+a$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH export A=a B=b C=c; echo $A$B$C\n
@@ -2343,10 +2382,7 @@ minishell: unset: `AH'=nop': not a valid identifier$
 ================================================================================
 
 |> WITH unset 'AH"'=nop\n
-|  STATUS: expected 1 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: unset: `AH"=nop': not a valid identifier$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH unset 'AH$'=nop\n
@@ -2366,35 +2402,59 @@ TIMEOUT
 ================================================================================
 
 |> WITH unset 'AH&'=nop\n
-TIMEOUT
+|  STATUS: expected 1 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unset: `AH&=nop': not a valid identifier$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH unset 'AH\'=nop\n
-TIMEOUT
+|  STATUS: expected 1 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unset: `AH\=nop': not a valid identifier$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH Unset TERM\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: Unset: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH unseT TERM\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unseT: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS PATH='/bin:/usr/bin'] Unset TERM\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: Unset: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS PATH='/bin:/usr/bin'] unseT TERM\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unseT: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH notfound\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: notfound: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH notfound a b c\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: notfound: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo "\"" >>a"b""c"  \n
@@ -2484,9 +2544,9 @@ c$
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-r--r--  1 defimova  2023_yerevan  0 Jul  6 18:07 a$
--rw-r--r--  1 defimova  2023_yerevan  0 Jul  6 18:07 b$
--rw-r--r--  1 defimova  2023_yerevan  0 Jul  6 18:07 c$
+-rw-r--r--  1 defimova  2023_yerevan  0 Jul  7 13:53 a$
+-rw-r--r--  1 defimova  2023_yerevan  0 Jul  7 13:53 b$
+-rw-r--r--  1 defimova  2023_yerevan  0 Jul  7 13:53 c$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
@@ -2504,10 +2564,10 @@ c$
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 total 80$
--rw-r--r--  1 defimova  2023_yerevan      0 Jul  6 18:07 a$
--rw-r--r--  1 defimova  2023_yerevan      0 Jul  6 18:07 b$
--rwxr-xr-x  1 defimova  2023_yerevan  38704 Jul  6 18:07 bonjour$
--rw-r--r--  1 defimova  2023_yerevan      0 Jul  6 18:07 c$
+-rw-r--r--  1 defimova  2023_yerevan      0 Jul  7 13:53 a$
+-rw-r--r--  1 defimova  2023_yerevan      0 Jul  7 13:53 b$
+-rwxr-xr-x  1 defimova  2023_yerevan  38704 Jul  7 13:53 bonjour$
+-rw-r--r--  1 defimova  2023_yerevan      0 Jul  7 13:53 c$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
@@ -2515,10 +2575,10 @@ total 80$
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-r--r--  1 defimova  2023_yerevan    0 Jul  6 18:07 a$
--rw-r--r--  1 defimova  2023_yerevan    0 Jul  6 18:07 b$
--rw-r--r--  1 defimova  2023_yerevan    0 Jul  6 18:07 c$
-drwxr-xr-x  5 defimova  2023_yerevan  170 Jul  6 18:07 somedir$
+-rw-r--r--  1 defimova  2023_yerevan    0 Jul  7 13:53 a$
+-rw-r--r--  1 defimova  2023_yerevan    0 Jul  7 13:53 b$
+-rw-r--r--  1 defimova  2023_yerevan    0 Jul  7 13:53 c$
+drwxr-xr-x  5 defimova  2023_yerevan  170 Jul  7 13:53 somedir$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
@@ -3045,17 +3105,11 @@ minishell: ./somedir: is a directory$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 2777 somedir] ./somedir\n
-|  STATUS: expected 126 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: ./somedir: is a directory$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [SETUP mkdir -m 3777 somedir] ./somedir\n
-|  STATUS: expected 126 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: ./somedir: is a directory$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [SETUP mkdir -m 4777 somedir] ./somedir\n
@@ -3066,47 +3120,92 @@ minishell: ./somedir: is a directory$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 5777 somedir] ./somedir\n
-TIMEOUT
+|  STATUS: expected 126 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: ./somedir: is a directory$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP mkdir -m 6777 somedir] ./somedir\n
-TIMEOUT
+|  STATUS: expected 126 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: ./somedir: is a directory$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP mkdir -m 0000 somedir] ./somedir\n
-TIMEOUT
+|  STATUS: expected 126 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: ./somedir: is a directory$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo > somefile && chmod 000 somefile] ./Somefile\n
-TIMEOUT
+|  STATUS: expected 126 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: ./Somefile: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo > somefile && chmod 000 somefile] ./someFILE\n
-TIMEOUT
+|  STATUS: expected 126 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: ./someFILE: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo bonjour > test\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE test
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH echo > test bonjour\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE test
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH > test echo bonjour\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE test
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH echo bonjour >> test\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE test
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH echo >> test bonjour\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE test
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH >> test echo bonjour\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE test
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH [SETUP echo bonjour > test] cat < test\n
@@ -3955,24 +4054,15 @@ minishell: syntax error near unexpected token `;'$
 ================================================================================
 
 |> WITH ;;;;;\n
-|  STATUS: expected 2 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: syntax error near unexpected token `;'$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo a ;; echo b\n
-|  STATUS: expected 2 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: syntax error near unexpected token `;'$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo a ;;;;; echo b\n
-|  STATUS: expected 2 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: syntax error near unexpected token `;'$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [SETUP touch a b c] ls  ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls\n
@@ -4105,55 +4195,691 @@ c$
 ================================================================================
 
 |> WITH [SETUP touch a b c] ls  ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP touch a b c] ls  ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls;\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP touch a b c] ls  ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls;\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH cat /etc/shells | head -c 10\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+# List of 
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH cat -e /etc/shells | head -c 10\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+# List of 
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH cat -e /etc/shells | cat -e | head -c 10\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+# List of 
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH cat -e /etc/shells | cat -e | cat -e | head -c 10\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+# List of 
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH cat -e /dev/random | head -c 10\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
 ================================================================================
 
 |> WITH cat -e /dev/random | cat -e | head -c 10\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
 ================================================================================
 
 |> WITH cat -e /dev/random | cat -e | cat -e | head -c 10\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
 ================================================================================
 
 |> WITH echo bonjour | cat\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo bonjour | cat -e\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour$$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo bonjour | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour$$$$$$$$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP touch a b c d; mkdir m1 m2 m3] ls | cat -e\n
@@ -4173,13 +4899,13 @@ m3$$
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 total 0$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 a$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 b$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 c$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 d$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m1$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m2$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m3$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 a$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 b$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 c$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 d$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m1$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m2$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m3$$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
@@ -4187,13 +4913,13 @@ drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m3$$
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 total 0$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 a$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 b$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 c$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 d$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m1$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m2$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m3$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 a$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 b$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 c$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 d$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m1$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m2$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m3$$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
@@ -4201,13 +4927,13 @@ drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m3$$
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 total 0$$$$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 a$$$$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 b$$$$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 c$$$$$
--rw-r--r--  1 defimova  2023_yerevan   0 Jul  6 18:07 d$$$$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m1$$$$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m2$$$$$
-drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  6 18:07 m3$$$$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 a$$$$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 b$$$$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 c$$$$$
+-rw-r--r--  1 defimova  2023_yerevan   0 Jul  7 13:54 d$$$$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m1$$$$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m2$$$$$
+drwxr-xr-x  2 defimova  2023_yerevan  68 Jul  7 13:54 m3$$$$$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
@@ -4817,25 +5543,15 @@ minishell: warning: shell level (2000001) too high, resetting to 1$
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' -3147483649'] echo $SHLVL\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: warning: shell level (1147483648) too high, resetting to 1$
-1$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' 4294967295'] echo $SHLVL\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-0$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' 4294967296'] echo $SHLVL\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-1$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' -9223372036854775808'] echo $SHLVL\n
@@ -4874,55 +5590,95 @@ minishell: warning: shell level (1147483648) too high, resetting to 1$
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' 18446744073709551616'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +1'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+2$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +2'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+3$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +3'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+4$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +0'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +255'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+256$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +256'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+257$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +2000000'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: warning: shell level (2000001) too high, resetting to 1$
+1$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' +2147483647'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+0$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' ++1'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' ++2'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' ++3'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' ++0'] echo $SHLVL\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS SHLVL=' ++255'] echo $SHLVL\n
@@ -5508,17 +6264,11 @@ $
 ================================================================================
 
 |> WITH [EXPORTS PATH='/usr/asdf:/usr/lib/asdfasdf'] echo $PATH\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-/usr/asdf:/usr/lib/asdfasdf$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [EXPORTS PATH='doesnotexits'] whoami\n
-|  STATUS: expected 127 actual -11
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH [EXPORTS PATH='doesnotexits:asdfasdfas'] whoami\n
@@ -5599,47 +6349,80 @@ minishell: whoami: No such file or directory$
 ================================================================================
 
 |> WITH [EXPORTS PATH=':'] whoami\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS PATH=':::::::::::::::::::'] whoami\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS PATH='/asdfasdf'] whoami\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS PATH='/usr/asdf:/usr/lib/asdfasdf'] whoami\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP unset PATH] whoami\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=''] somecmd\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':'] somecmd\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='::::::::'] somecmd\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/asdfasdf'] somecmd\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: somecmd: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/usr/asdf:/usr/lib/asdfasdf'] somecmd\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: somecmd: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd; unset PATH] somecmd\n
-TIMEOUT
+|  STATUS: expected 127 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: somecmd: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/bin:'] somecmd\n
@@ -6203,24 +6986,15 @@ foo  bar  baz A bar baz $
 ================================================================================
 
 |> WITH [EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A'$B'$C'A'$B'$C'\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-foo $Bbaz A bar $C$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo $A\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo $A$B\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo $A$B$C\n
@@ -6322,51 +7096,87 @@ $
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour je suis'] echo \ \ \ \ \ \ \ $A\ \ \ \ \ \ \n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+       bonjour je suis      $
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='  bonjour je suis  '] echo \ \ \ \ \ \ \ $A\ \ \ \ \ \ \n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+        bonjour je suis       $
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour je suis splited'] echo $A\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour     je     suis    splited'] echo $A\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo $A\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour je suis splited'] echo [$A]\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+[bonjour je suis splited]$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour     je     suis    splited'] echo [$A]\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+[bonjour je suis splited]$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo [$A]\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+[ bonjour je suis splited ]$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour je suis splited'] echo "[$A]"\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+[bonjour je suis splited]$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour     je     suis    splited'] echo "[$A]"\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+[bonjour     je     suis    splited]$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo "[$A]"\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+[   bonjour     je     suis    splited   ]$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour je suis splited'] echo \ $A\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+ bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS A='bonjour     je     suis    splited'] echo \ $A\n
@@ -6450,9 +7260,9 @@ bonjour$
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-r--r--  1 defimova  2023_yerevan  0 Jul  6 18:08 a$
--rw-r--r--  1 defimova  2023_yerevan  0 Jul  6 18:08 b$
--rw-r--r--  1 defimova  2023_yerevan  0 Jul  6 18:08 c$
+-rw-r--r--  1 defimova  2023_yerevan  0 Jul  7 13:54 a$
+-rw-r--r--  1 defimova  2023_yerevan  0 Jul  7 13:54 b$
+-rw-r--r--  1 defimova  2023_yerevan  0 Jul  7 13:54 c$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
@@ -6899,38 +7709,23 @@ bonjour$
 ================================================================================
 
 |> WITH echo'' bonjour\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo"" bonjour\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo'''''''''''''''''''''''''''''''''''''''''''''''''''''''''' bonjour\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH echo"""""""""""""""""""""""""""""""""""""""""""""""""""""""""" bonjour\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH ec''ho bonjour\n
-|  STATUS: expected 0 actual -11
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
+TIMEOUT
 ================================================================================
 
 |> WITH ec""ho bonjour\n
@@ -7025,51 +7820,91 @@ minishell: unexpected EOF while looking for matching `"'$
 ================================================================================
 
 |> WITH echo '''''''''''''''''''''''''''''''''''''''''''\n
-TIMEOUT
+|  STATUS: expected 2 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `''$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo """""""""""""""""""""""""""""""""""""""""""\n
-TIMEOUT
+|  STATUS: expected 2 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `"'$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo 'AH\'\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+AH\$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo "AH\"\n
-TIMEOUT
+|  STATUS: expected 2 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `"'$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo "AH\""\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+AH"$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo '\''\n
-TIMEOUT
+|  STATUS: expected 2 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `''$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo "\""\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+"$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo "\\""\n
-TIMEOUT
+|  STATUS: expected 2 actual -11
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `"'$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo bonjour > "fi le"\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE fi le
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH echo bonjour > 'fi le'\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|# FILE fi le
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
 ================================================================================
 
 |> WITH echo foo\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+foo$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH echo                    foo\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+foo$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH              echo foo\n
