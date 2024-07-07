@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/07 18:11:09 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:19:25 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
 		if (directory == NULL)
 			ft_print_error(SHELL_NAME, "cd", NULL, "HOME not set");
 	}
-	else if (argv[1] && (!ft_strncmp(argv[1], "-", 2) || 
-				!ft_strncmp(argv[1], "..", 2)))
+	else if (argv[1] && !ft_strncmp(argv[1], "-", 2))
 	{
 		directory = get_envp_list_val("OLDPWD", &(envp_var->envp_list));
 		if (directory == NULL)
