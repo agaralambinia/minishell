@@ -22,6 +22,7 @@ SHELL = /bin/sh
 RM = rm -f
 
 prefix = /Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -32,7 +33,9 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
+
 BUILD_DIR = /Users/sosokin/repos/minishell_shared/project/libs/readline
+
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

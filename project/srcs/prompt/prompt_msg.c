@@ -39,5 +39,6 @@ char	*prompt_msg(t_envp *envp_var)
 	result = ft_strjoin("minishell:", parsed_dir);
 	parsed_dir = ft_strjoin(result, " minishell_user$ ");
 	free(result);
+	//free(dir);
 	return (parsed_dir);
 }

@@ -104,10 +104,11 @@ static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 
 void	lexer(char *line, t_envp *envp_var)
 {
-	int	i;
+	int	i;	
 
 	i = 0;
-	ft_lstclear(&envp_var->token_list, free);
+	if (&(envp_var->token_list) && envp_var->token_list)
+		ft_lstclear(&envp_var->token_list, &free);
 	while (line[i] != '\0')
 	{
 		if (ft_isspace(line[i]))
