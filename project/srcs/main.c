@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/06 20:35:17 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/07 16:15:19 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
-	system("leaks minishell");
+//	system("leaks minishell");
 	return (last_code);
 }

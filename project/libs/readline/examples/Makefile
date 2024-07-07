@@ -21,7 +21,7 @@ RL_LIBRARY_VERSION = 8.2
 SHELL = /bin/sh
 RM = rm -f
 
-prefix = /Users/defimova/Desktop/mini/project/libs/readline/../rl_lib
+prefix = /Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /Users/defimova/Desktop/mini/project/libs/readline
+BUILD_DIR = /Users/sosokin/repos/minishell_shared/project/libs/readline
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

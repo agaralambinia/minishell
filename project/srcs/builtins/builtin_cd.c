@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/06 20:29:34 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/07 16:16:53 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,17 @@ static int	update_working_directory(t_envp *envp_var)
 		if (env_set_env("OLDPWD", 
 					get_env_val("$PWD", envp_var), 
 					envp_var) == ERROR)
+		{
+			printf("%s %d\n", __FILE__, __LINE__);
 			return (ERROR);
+		}
 	}
 	else
-		env_unset_var("OLDPWD", envp_var);
+	{
 		printf("%s %d\n", __FILE__, __LINE__);
+		env_unset_var("OLDPWD", envp_var);
+	}
+	printf("%s %d\n", __FILE__, __LINE__);
 	if (getcwd(buffer, sizeof(buffer)) == NULL)
 	{
 		ft_print_error_errno(SHELL_NAME, "cd", NULL);
