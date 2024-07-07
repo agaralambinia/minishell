@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/07 18:25:33 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/07 19:55:17 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,25 @@ void	print_cmd_debug(t_list	*commands)
 	printf("%s %d\n", __FILE__, __LINE__);
 }
 
+int	execute(char *line, t_envp *envp_var)
+{
+	t_list	*commands;
+	char	**args;
+	int		exit_code;
+
+	lexer(line, envp_var);
+	commands = get_commands(envp_var);
+	if (ft_lstsize(commands) == 1)
+	{
+		args = get_args((t_cmd *)(commands->content));
+		exit_code = builtin_exec(args, 0, envp_var);
+		if (exit_code != ERROR)
+			return (exit_code);
+	}
+	exit_code = run_command(commands, envp_var);
+	return (exit_code);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -80,30 +99,14 @@ int	main(int argc, char **argv, char **envp)
 	ft_singals();
 	envp_init(envp, &envp_var);
 	if (argc > 1 && !ft_strcmp(argv[1], "-c"))
-	{
-		line = argv[2];
-		lexer(line, envp_var);
-		//	print_lexer_debug(envp_var);
-		//printf("Lexer done\n");
-		commands = get_commands(envp_var);
-		//printf("Command parsing done\n");
-		//	print_cmd_debug(commands);
-		last_code = run_command(commands, envp_var);
-	}
+		last_code = execute(argv[2], envp_var);
 	else
 	{
 		line = readline(prompt_msg(envp_var));
 		while (line)
 		{
 			add_history(line);
-			lexer(line, envp_var);
-			//	print_lexer_debug(envp_var);
-			//printf("Lexer done\n");
-			commands = get_commands(envp_var);
-			//printf("Command parsing done\n");
-			//	print_cmd_debug(commands);
-			exit_code = run_command(commands, envp_var);
-			//	printf("exit code is %d\n", exit_code);
+			exit_code = execute(line, envp_var);
 			if (exit_code == 255)
 				break;
 			last_code = exit_code;
