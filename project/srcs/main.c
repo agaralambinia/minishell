@@ -114,6 +114,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		printf("exit\n");
 	}
+	// if(envp_var->envp_list && &(envp_var->envp_list))
+	// 	ft_lstclear(&(envp_var->envp_list), &free);
+	if(envp_var->token_list && &(envp_var->token_list))
+	 	ft_lstclear(&envp_var->token_list, &free);
+	if (envp_var && &(envp_var))
+		free(envp_var);
 	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
 	system("leaks minishell");
