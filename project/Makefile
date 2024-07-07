@@ -99,7 +99,7 @@ fclean: clean
 	rm -f ${NAME}
 	rm -rf $(RLDIR)
 	make fclean -C $(LIBFT_PATH)
-	make clean -C libs/readline
+	make distclean -C libs/readline
 #	cd $(LIBFT_PATH) && make fclean
 
 
