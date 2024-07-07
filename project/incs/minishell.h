@@ -71,12 +71,12 @@ typedef enum	s_exec_status
 /*
 сруктура для хранения токена	
 	token_type: тип токена - одно из значений t_token_type;
-	token_content: строка-значение токена;
+	t_data: строка-значение токена;
 */
 typedef struct s_token
 {
 	int		token_type;
-	char	*token_content;
+	char	*t_data;
 }	t_token;
 
 //структура для обработки очередного токена типа WORD, SOFTWORD, HARDWORD
@@ -173,7 +173,7 @@ void	ft_singals(void);
 
 // utils
 bool	ft_strbegins(char *s1, char *s2);
-char	*ft_straddchar(char *str, char c);
+void	ft_straddchar(char **str, char c);
 int		ft_maxint(int i1, int i2);
 bool	ft_isspace(const char a);
 bool	ft_isspecial(const char a);
@@ -214,10 +214,10 @@ void	setup_pipes_parent(int **pp);
 // buildins
 int		builtin_exec(char **argv, bool subshell, t_envp *envp_var);
 int		builtin_cd(int argc, char **argv, t_envp *envp_var);
-int		builtin_echo(int argc, char **argv, t_envp *envp_var);
-int		builtin_env(int argc, char **argv, t_envp *envp_var);
+int		builtin_echo(char **argv);
+int		builtin_env(t_envp *envp_var);
 int		builtin_export(int argc, char **argv, t_envp *envp_var);
-int		builtin_pwd(int argc, char **argv, t_envp *envp_var);
-int		builtin_unset(int argc, char **argv, t_envp *envp_vars);
+int		builtin_pwd(void);
+int		builtin_unset(char **argv, t_envp *envp_var);
 
 #endif

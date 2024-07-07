@@ -57,15 +57,15 @@ int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
 	if (!(ft_strncmp(argv[0], "cd", 2)))
 		return (builtin_cd(ft_split_count(argv), argv, envp_var));
 	else if (!(ft_strncmp(argv[0], "echo", 4)))
-		return (builtin_echo(ft_split_count(argv), argv, envp_var));
+		return (builtin_echo(argv));
 	else if (!(ft_strncmp(argv[0], "env", 3)))
-		return (builtin_env(ft_split_count(argv), argv, envp_var));
+		return (builtin_env(envp_var));
 	else if (!(ft_strncmp(argv[0], "export", 6)))
 		return (builtin_export(ft_split_count(argv), argv, envp_var));
 	else if (!(ft_strncmp(argv[0], "pwd", 3)))
-		return (builtin_pwd(ft_split_count(argv), argv, envp_var));
+		return (builtin_pwd());
 	else if (!(ft_strncmp(argv[0], "unset", 5)))
-		return (builtin_unset(ft_split_count(argv), argv, envp_var));
+		return (builtin_unset(argv, envp_var));
 	else
 		return (ERROR);
 }

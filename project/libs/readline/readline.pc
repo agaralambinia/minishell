@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 prefix=/Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+=======
+prefix=/Users/agaralambinia/Documents/42/mini/project/libs/readline/../rl_lib
+>>>>>>> d7ef5a7f8e8bcd5be515ff8530816496e34046aa
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

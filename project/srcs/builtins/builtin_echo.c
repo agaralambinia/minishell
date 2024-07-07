@@ -12,8 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-int	builtin_echo(int argc __attribute((unused)), char **argv,
-	t_envp *envp_var __attribute((unused)))
+int	builtin_echo(char **argv)
 {
 	int		index;
 	bool	include_newline;

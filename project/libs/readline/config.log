@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This file contains any messages produced by compilers while
 running configure, to aid debugging if configure makes a mistake.
 
@@ -3287,3 +3288,5 @@ target_alias=''
 #define SIZEOF_WCHAR_T 4
 
 configure: exit 0
+=======
+>>>>>>> d7ef5a7f8e8bcd5be515ff8530816496e34046aa

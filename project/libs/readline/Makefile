@@ -31,7 +31,11 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
+<<<<<<< HEAD
 BUILD_DIR = /Users/sosokin/repos/minishell_shared/project/libs/readline
+=======
+BUILD_DIR = /Users/agaralambinia/Documents/42/mini/project/libs/readline
+>>>>>>> d7ef5a7f8e8bcd5be515ff8530816496e34046aa
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +52,11 @@ MV = mv
 
 SHELL = /bin/sh
 
+<<<<<<< HEAD
 prefix = /Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
+=======
+prefix = /Users/agaralambinia/Documents/42/mini/project/libs/readline/../rl_lib
+>>>>>>> d7ef5a7f8e8bcd5be515ff8530816496e34046aa
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
