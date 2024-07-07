@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/05 20:54:50 by defimova         ###   ########.fr       */
+/*   Updated: 2024/07/06 20:29:34 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
 		if (directory == NULL)
 			ft_print_error(SHELL_NAME, "cd", NULL, "HOME not set");
 	}
-	else if (argv[1] && ft_strncmp(argv[1], "-", 2) == 0)
+	else if (argv[1] && (!ft_strncmp(argv[1], "-", 2) || 
+				!ft_strncmp(argv[1], "..", 2)))
 	{
+		printf("%s %d\n", __FILE__, __LINE__);
 		directory = get_envp_list_val("OLDPWD", &(envp_var->envp_list));
 		if (directory == NULL)
 			ft_print_error(SHELL_NAME, "cd", NULL, "OLDPWD not set");
 	}
 	else
 		directory = argv[1];
+	printf("%s\n", directory);
 	return (directory);
 }
 
@@ -38,14 +41,18 @@ static int	update_working_directory(t_envp *envp_var)
 {
 	char	buffer[PATH_MAX];
 
-	if (get_envp_list_val("PWD", &envp_var->envp_list))
+	if (get_env_val("$PWD", envp_var))
+	//if (get_envp_list_val("PWD", &envp_var->envp_list))
 	{
-		if (env_set_env("OLDPWD", get_envp_list_val(
-			"PWD", &(envp_var->envp_list)), envp_var) == ERROR)
+		printf("%s %d\n", __FILE__, __LINE__);
+		if (env_set_env("OLDPWD", 
+					get_env_val("$PWD", envp_var), 
+					envp_var) == ERROR)
 			return (ERROR);
 	}
 	else
 		env_unset_var("OLDPWD", envp_var);
+		printf("%s %d\n", __FILE__, __LINE__);
 	if (getcwd(buffer, sizeof(buffer)) == NULL)
 	{
 		ft_print_error_errno(SHELL_NAME, "cd", NULL);
@@ -72,5 +79,6 @@ int	builtin_cd(int argc, char **argv, t_envp *envp_var)
 		ft_putendl_fd(directory, STDOUT_FILENO);
 	if (update_working_directory(envp_var) == ERROR)
 		return (EXIT_FAILURE);
+		printf("%s %d\n", __FILE__, __LINE__);
 	return (0);
 }

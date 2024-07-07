@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/06 17:38:56 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/06 20:35:17 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,41 @@ int	main(int argc, char **argv, char **envp)
 	last_code = 0;
 	envp_var = NULL;
 	ft_singals();
-	(void)argc; //TODO - чтобы компилилось с флагами, убрать позже
-	(void)argv; //TODO - чтобы компилилось с флагами, убрать позже
 	envp_init(envp, &envp_var);
-	line = readline(prompt_msg(envp_var));
-	while (line)
+	if (argc > 1 && !ft_strcmp(argv[1], "-c"))
 	{
-		add_history(line);
+		line = argv[2];
 		lexer(line, envp_var);
+
 		free (line);
 	//	print_lexer_debug(envp_var);
+
 		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
 		//printf("Command parsing done\n");
-	//	print_cmd_debug(commands);
-		exit_code = run_command(commands, envp_var);
-	//	printf("exit code is %d\n", exit_code);
-		if (exit_code == 255)
-			break;
-		last_code = exit_code;
+		//	print_cmd_debug(commands);
+		last_code = run_command(commands, envp_var);
+	}
+	else
+	{
 		line = readline(prompt_msg(envp_var));
+		while (line)
+		{
+			add_history(line);
+			lexer(line, envp_var);
+			//	print_lexer_debug(envp_var);
+			//printf("Lexer done\n");
+			commands = get_commands(envp_var);
+			//printf("Command parsing done\n");
+			//	print_cmd_debug(commands);
+			exit_code = run_command(commands, envp_var);
+			//	printf("exit code is %d\n", exit_code);
+			if (exit_code == 255)
+				break;
+			last_code = exit_code;
+			line = readline(prompt_msg(envp_var));
+		}
+		printf("exit\n");
 	}
 	// if(envp_var->envp_list && &(envp_var->envp_list))
 	// 	ft_lstclear(&(envp_var->envp_list), &free);
@@ -108,6 +123,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
 	system("leaks minishell");
-	printf("exit\n");
+
 	return (last_code);
 }
