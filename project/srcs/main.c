@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/07 19:55:17 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:43:53 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,24 @@ int	execute(char *line, t_envp *envp_var)
 	return (exit_code);
 }
 
+int run_from_args(char *arg, t_envp *envp_var)
+{
+	char	**args;
+	int		exit_code;
+	int		last_code;
+
+	args = ft_split(arg, ';');
+	while (*args)
+	{
+		exit_code = execute(*args, envp_var);
+		if (exit_code == 255)
+			break;
+		last_code = exit_code;
+		args++;
+	}
+	return (last_code);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -99,7 +117,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_singals();
 	envp_init(envp, &envp_var);
 	if (argc > 1 && !ft_strcmp(argv[1], "-c"))
-		last_code = execute(argv[2], envp_var);
+		last_code = run_from_args(argv[2], envp_var);
 	else
 	{
 		line = readline(prompt_msg(envp_var));
