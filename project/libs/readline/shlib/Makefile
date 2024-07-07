@@ -32,11 +32,7 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
-<<<<<<< HEAD
 BUILD_DIR = /Users/sosokin/repos/minishell_shared/project/libs/readline
-=======
-BUILD_DIR = /Users/agaralambinia/Documents/42/mini/project/libs/readline
->>>>>>> d7ef5a7f8e8bcd5be515ff8530816496e34046aa
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -53,14 +49,10 @@ LN = ln
 
 SHELL = /bin/sh
 
-host_os = darwin22.6.0
+host_os = darwin18.7.0
 host_vendor = apple
 
-<<<<<<< HEAD
 prefix = /Users/sosokin/repos/minishell_shared/project/libs/readline/../rl_lib
-=======
-prefix = /Users/agaralambinia/Documents/42/mini/project/libs/readline/../rl_lib
->>>>>>> d7ef5a7f8e8bcd5be515ff8530816496e34046aa
 exec_prefix = ${prefix}
 includedir = ${prefix}/include
 bindir = ${exec_prefix}/bin

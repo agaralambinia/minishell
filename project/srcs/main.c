@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/07 16:15:19 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:25:33 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = argv[2];
 		lexer(line, envp_var);
-
-		free (line);
-	//	print_lexer_debug(envp_var);
-
+		//	print_lexer_debug(envp_var);
 		//printf("Lexer done\n");
 		commands = get_commands(envp_var);
 		//printf("Command parsing done\n");
@@ -116,11 +113,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
-<<<<<<< HEAD
 //	system("leaks minishell");
-=======
-	system("leaks minishell");
-
->>>>>>> d7ef5a7f8e8bcd5be515ff8530816496e34046aa
 	return (last_code);
 }
