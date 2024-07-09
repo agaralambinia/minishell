@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/07 18:25:34 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/09 20:23:49 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef enum	s_exec_status
 {
 	SUCCESS,
 	ERROR,
+	NOTFOUND
 }	t_exec_status;
 
 /*
@@ -182,6 +183,8 @@ int		ft_arrlen(void **arr);
 void	check_for_exit(char *msg, int pred);
 void	free_arr(void **arr);
 void	free_cmd(void *data);
+void	free_token(void *data);
+void	free_mock(void *data);
 bool	ft_is_numeric(char *str);
 void	ft_list_insert_sort(t_list *lst);
 int		ft_list_replace(t_envp *envp_var, char *old_var, char *new_var);

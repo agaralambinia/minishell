@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:38:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/07 19:51:39 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/09 19:41:21 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	run(char **paths, char **args, t_envp *envp_var)
 	int		builtin_res;
 
 	builtin_res = builtin_exec(args, 0, envp_var);
-	if (builtin_res == ERROR)
+	if (builtin_res == NOTFOUND)
 	{
 		prog_path = get_prog_path(paths, args[0]);
 		env_arr = get_env_arr(envp_var);

@@ -30,6 +30,8 @@ SRC = 	srcs/main.c \
 		srcs/utils/check_for_exit.c \
 		srcs/utils/free_arr.c \
 		srcs/utils/free_cmd.c \
+		srcs/utils/free_token.c \
+		srcs/utils/free_mock.c \
 		srcs/utils/ft_is_numeric.c \
 		srcs/utils/ft_list_insert_sort.c \
 		srcs/utils/ft_list_replace.c \
