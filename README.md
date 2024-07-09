@@ -97,17 +97,37 @@
 -----------------------------------------------------------------
 РУЧНОЕ ТЕСТИРОВАНИЕ ТЕСТ-КЕЙСОВ
 Сергей - блок cd:
-* echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                           ok
-* echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                         ok
-* echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n                                      ok
-* echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD\n                                   ok
-* echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD\n                                ok
-* echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD\n                             ok
-* echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD\n                          ok
-* echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n                                          ok
-* echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD\n                                          [FAIL]
-
-Даша - блок echo:
+* echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                               ok
+* echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                              ok
+* echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n                                           ok
+* echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD\n                                        ok
+* echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD\n                                     ok
+* echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD\n                                  ok
+* echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD\n                               ok
+* echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n                                               ok
+* echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD\n                                              ok
+* echo $PWD; echo $OLDPWD; cd '' ''; pwd; echo $PWD; echo $OLDPWD                                             ok
+* echo $PWD; echo $OLDPWD; cd '' '' ''; pwd; echo $PWD; echo $OLDPWD                                          ok
+* echo $PWD; echo $OLDPWD; cd ' '; pwd; echo $PWD; echo $OLDPWD                                               ok
+* echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD                                                 ok
+* echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD                                                ok
+* echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD                                               ok
+* echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD                                         ok
+* echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD
+    * !ERROR! должны провалиться в //, проваливаемся в /
+* echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD                                               ok
+* echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD
+* echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD          ok
+* echo $PWD; echo $OLDPWD; cd; echo $OLDPWD                                                                   ok
+* echo $PWD; echo $OLDPWD; cd ' /'; pwd; echo $PWD; echo $OLDPWD                                              ok
+* echo $PWD; echo $OLDPWD; cd ' / '; pwd; echo $PWD; echo $OLDPWD                                             ok
+* echo $PWD; echo $OLDPWD; cd '                  /'; pwd; echo $PWD; echo $OLDPWD                             ok
+* echo $PWD; echo $OLDPWD; cd '                  /              '; pwd; echo $PWD; echo $OLDPWD               ok
+* echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD                                            ok
+* echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD
+    * !ERROR! pwd после команды должен выдавать //home а выдает /System/Volumes/Data/home
+* echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD                                         ok
+* echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD                                 ok
 
 -----------------------------------------------------------------
  **LOG 06.07.2024**

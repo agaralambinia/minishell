@@ -43,7 +43,7 @@ void	print_cmd_debug(t_list	*commands)
 		args = com->args;
 		while (args)
 		{
-			printf("%s ", args->content); //TODO сереж тут компилятор ругается
+			//printf("%s ", args->content); //TODO сереж тут компилятор ругается
 			args = args->next;
 		}
 		printf("\nINPUT REDIRECTIONS:\n");
