@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/07 20:43:53 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/09 20:25:09 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	print_cmd_debug(t_list	*commands)
 	while (commands)
 	{
 		t_cmd *com = (t_cmd *)(commands->content);
-		//printf("COMMAND - %s\nARGS - ", com->command);
+		printf("COMMAND - %s\nARGS - ", com->command);
 		args = com->args;
 		while (args)
 		{
-			//printf("%s ", args->content); //TODO сереж тут компилятор ругается
+			printf("%s ", args->content); //TODO сереж тут компилятор ругается
 			args = args->next;
 		}
 		printf("\nINPUT REDIRECTIONS:\n");
@@ -54,7 +54,7 @@ void	print_cmd_debug(t_list	*commands)
 			printf("PATH OR END - %s, IS_HEREDOC - %d\n", redir->path, redir->mode);
 			in_redir = in_redir->next;
 		}
-		//printf("OUTPUT REDIRECTIONS:\n");
+		printf("OUTPUT REDIRECTIONS:\n");
 		out_redir = com->redir_out;
 		while (out_redir)
 		{
@@ -64,7 +64,6 @@ void	print_cmd_debug(t_list	*commands)
 		}
 		commands = commands->next;
 	}
-	printf("%s %d\n", __FILE__, __LINE__);
 }
 
 int	execute(char *line, t_envp *envp_var)
@@ -75,11 +74,12 @@ int	execute(char *line, t_envp *envp_var)
 
 	lexer(line, envp_var);
 	commands = get_commands(envp_var);
+	//print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
 	{
 		args = get_args((t_cmd *)(commands->content));
 		exit_code = builtin_exec(args, 0, envp_var);
-		if (exit_code != ERROR)
+		if (exit_code != NOTFOUND)
 			return (exit_code);
 	}
 	exit_code = run_command(commands, envp_var);
@@ -132,14 +132,14 @@ int	main(int argc, char **argv, char **envp)
 		}
 		printf("exit\n");
 	}
-	// if(envp_var->envp_list && &(envp_var->envp_list))
-	// 	ft_lstclear(&(envp_var->envp_list), &free);
+	 if(envp_var->envp_list && &(envp_var->envp_list))
+	 	ft_lstclear(&(envp_var->envp_list), &free_mock);
 	if(envp_var->token_list && &(envp_var->token_list))
-	 	ft_lstclear(&envp_var->token_list, &free);
+	 	ft_lstclear(&envp_var->token_list, &free_token);
 	if (envp_var && &(envp_var))
 		free(envp_var);
 	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
-//	system("leaks minishell");
+	system("leaks minishell");
 	return (last_code);
 }

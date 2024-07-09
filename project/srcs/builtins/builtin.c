@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:38 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/06 17:23:28 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/09 19:38:37 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
 	(void)subshell;
 	builtin_index = builtin_check(argv);
 	if (builtin_index == 0)
-		return (ERROR);
+		return (NOTFOUND);
 	else if (builtin_index == INT_MAX)
 		return (INT_MAX);
 	//errno = 0; TODO подозреваю это exit code

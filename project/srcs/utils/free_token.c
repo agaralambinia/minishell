@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd.c                                         :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/23 17:14:06 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/09 20:05:25 by sosokin          ###   ########.fr       */
+/*   Created: 2024/07/09 20:05:45 by sosokin           #+#    #+#             */
+/*   Updated: 2024/07/09 20:11:21 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	free_cmd(void *data)
+void	free_token(void *data)
 {
-	t_cmd	*com;	
+	t_token	*token;	
 
-	com = (t_cmd *)data;
-	if (com)
+	token = (t_token *)data;
+	if (token)
 	{
-		ft_lstclear(&(com->args), &free);
-		ft_lstclear(&(com->redir_in), &free);
-		ft_lstclear(&(com->redir_out), &free);
-		free(com);
+		free(token->t_data);
+		free(token);
 	}
 }
