@@ -132,6 +132,129 @@
 * cd $OLDPWD/something ; pwd                  ok
 
 блок ECHO:
+* echo                                        ok
+* echo echo                                   ok
+* eCho                                        ok
+* eChO                                        ok
+* eCHO                                        ok
+* ECHO                                        ok
+* echo rhobebou                               ok
+* echo stop barking                           ok
+* echo "bonjour"                              ok
+* echo bonjour                                ok
+* echo 'bonjour'                              ok
+* echo -n bonjour                             ok
+* echo -nn bonjour
+    * !ERROR! должно быть bonjourminishell:project minishell_user$
+    *  получаем -nn bonjour
+        minishell:project minishell_user$
+* echo -n -n -n bonjour                       ok
+* echo -n -n -n bonjour                       ok
+* echo "-n" bonjour                           ok
+* echo -n"-n" bonjour                         ok
+* echo "-nnnn" bonjour
+    * !ERROR! должно быть bonjourminishell:project minishell_user$
+    *  получаем -nnnn bonjour
+        minishell:project minishell_user$
+* echo "-n -n -n"-n bonjour                   ok
+* echo "-n '-n'" bonjour                      ok
+* echo ~
+    * !ERROR! должно быть /Users/agaralambinia
+    *  получаем ~
+* echo "~"                                    ok
+* echo '~'                                    ok
+* echo ~123                                   ok
+* echo 123~                                   ok
+* echo ~/123
+    * !ERROR! должно быть /Users/agaralambinia/123
+    *  получаем ~/123
+* echo ~/123/456
+    * !ERROR! должно быть /Users/agaralambinia/123/456
+    *  получаем ~/123/456
+* echo $USER                                  ok
+* echo "$USER"                                ok
+* echo "'$USER'"                              ok
+* echo " '$USER' "                            ok
+* echo text"$USER"                            ok
+* echo text"'$USER'" ' $USER '                ok
+* echo "text"   "$USER"    "$USER"            ok
+* echo '              $USER          '        ok
+* echo               text "$USER"            "$USER"text    ok
+* echo ''''''''''$USER''''''''''                            ok
+* echo """"""""$USER""""""""                                ok
+* echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
+    * !ERROR! должно быть agaralambinia$USERtext oui oui oui oui agaralambinia oui agaralambinia 
+    *  получаем ничего
+* echo $USER '' $USER $USER '' $USER '' $USER -n $USER       ok
+* echo ' \' ' \'                                             ok
+* echo ' \' ' \'                                             ok
+* echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
+    * !ERROR! должно быть \" \" \" \"\"\" \'\'\'
+    * получаем ничего
+* echo "$USER""$USER""$USER"                                 ok
+* echo text"$USER"test                                       ok
+* echo '$USER' "$USER" "text \' text"
+    * !ERROR! должно быть $USER agaralambinia text \' text
+    * получаем ничего
+* echo '$USER'
+    * !ERROR! должно быть $USER
+    * получаем ничего
+* echo $USER " "                                              ok
+* echo "$USER""Users/$USER/file""'$USER'"'$USER'
+    * !ERROR! должно быть agaralambiniaUsers/agaralambinia/file'agaralambinia'$USER
+    * получаем ничего
+* echo "$USER$USER$USER"                                      ok
+* echo '$USER'"$USER"'$USER'
+    * !ERROR! должно быть $USERagaralambinia$USER
+    * получаем ничего
+* echo '"$USER"''$USER'"""$USER"
+    * !ERROR! должно быть "$USER"$USERagaralambinia
+    * получаем "$USER"agaralambinia"""$USER"
+* echo " $USER  "'$PWD'
+    * !ERROR! должно быть  agaralambinia  $PWD
+    * получаем ничего
+* echo " $USER  \$ "'$PWD'
+    * !ERROR! должно быть  agaralambinia  $ $PWD
+    * получаем ничего
+* echo $USER=4
+    * !ERROR! должно быть $USER=4
+    * получаем ничего
+* echo $USER=thallard
+    * !ERROR! должно быть agaralambinia=thallard
+    * получаем ничего
+* echo $USER                                                 ok
+* echo $?
+* echo $USER213
+    * !ERROR! должно быть 0
+    * получаем ничего
+* echo $USER$12USER$USER=4$USER12
+    * !ERROR! должно быть agaralambinia2USERagaralambinia=4
+    * получаем ничего
+* echo $USER $123456789USER $USER123456789
+    * !ERROR! должно быть agaralambinia 23456789USER
+    * получаем ничего
+* echo $USER $9999USER $8888USER $7777USER
+    * !ERROR! должно быть agaralambinia 999USER 888USER 777USER
+    * получаем ничего
+* echo $USER $USER9999 $USER8888 $USER7777
+    * !ERROR! должно быть agaralambinia
+    * получаем ничего
+* echo $USER $USER9999 $USER8888 $USER7777 "$USER"
+    * !ERROR! должно быть agaralambinia agaralambinia
+    * получаем ничего
+* echo "$USER=12$USER"
+    * !ERROR! должно быть agaralambinia=12agaralambinia
+    * получаем ничего
+* echo "$9USER" "'$USER=12$SOMETHING'"
+    * !ERROR! должно быть USER 'agaralambinia=12'
+    * получаем ничего
+* echo $HOME/file
+    * !ERROR! должно быть /Users/agaralambinia/file
+    * получаем ничего
+* echo "$HOME/file"
+    * !ERROR! должно быть /Users/agaralambinia/file
+    * получаем ничего
+* echo "text" "text$USER" ... "$USER"                                                                         ok
 * echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                               ok
 * echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                              ok
 * echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n                                           ok
@@ -163,6 +286,130 @@
     * !ERROR! pwd после команды должен выдавать //home а выдает /System/Volumes/Data/home
 * echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD                                         ok
 * echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD                                 ok
+
+блок ERROR:
+* ;; test
+    * !ERROR! должно быть -bash: syntax error near unexpected token `;;'
+    * получаем ;;: No such file or directory
+* | test
+    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
+    * получаем Bad address
+* echo > <
+    * !ERROR! должно быть -bash: syntax error near unexpected token `<'
+    * получаем пустую строку
+* echo | |
+    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
+    * получаем Bad address\nBad address
+* <
+    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
+    * получаем Bad address
+* ;
+    * !ERROR! должно быть -bash: syntax error near unexpected token `;'
+    * получаем ;: No such file or directory
+* |
+    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
+    * получаем Bad address\nBad address
+* | | |
+    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
+    * получаем Bad address\nBad address\nBad address\nBad address
+* ;;;;;;;
+    * !ERROR! должно быть -bash: syntax error near unexpected token `;;'
+    * получаем ;;;;;;;: No such file or directory
+* hello world
+    * !ERROR! должно быть -bash: hello: command not found
+    * получаем hello: No such file or directory
+* ||||||||
+    * !ERROR! должно быть -bash: syntax error near unexpected token `||'
+    * получаем Bad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address
+* cat wouaf wouaf                               ok
+* >
+    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
+    * получаем Bad address
+* >>>>>>>>
+    * !ERROR! должно быть -bash: syntax error near unexpected token `>>'
+    * получаем Bad address
+* <<<<<<<<<
+    * !ERROR! должно быть -bash: syntax error near unexpected token `<<<'
+    * получаем Bad address
+* > > > >
+    * !ERROR! должно быть -bash: syntax error near unexpected token `>'
+    * получаем Bad address
+* >> >> >> >>
+    * !ERROR! должно быть -bash: syntax error near unexpected token `>>'
+    * получаем Bad address
+* ~
+    * !ERROR! должно быть -bash: /Users/agaralambinia: is a directory
+    * получаем ~: No such file or directory
+* <<
+    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
+    * получаем Bad address
+* /Users
+    * !ERROR! должно быть -bash: /Users: is a directory
+    * получаем agaralambinia
+* .
+    * !ERROR! должно быть .: usage: . filename [arguments]
+    * получаем .: Permission denied
+* ..
+    * !ERROR! должно быть -bash: ..: command not found
+    * получаем ..: Permission denied
+* /
+    * !ERROR! должно быть -bash: /: is a directory
+    * получаем /: Permission denied
+* \\\
+    * !ERROR! должно быть -bash: \: command not found
+    * получаем \\\: No such file or directory
+* EechoE
+    * !ERROR! должно быть -bash: EechoE: command not found
+    * получаем EechoE: No such file or directory
+* .echo.
+    * !ERROR! должно быть -bash: .echo.: command not found
+    * получаем .echo.: No such file or directory
+* >echo>
+    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
+    * получаем Bad address
+* <echo<
+    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
+    * получаем Bad address
+* >>echo>>
+    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
+    * получаем Bad address
+* ;echo;
+    * !ERROR! должно быть -bash: syntax error near unexpected token `;'
+    * получаем Bad address
+* |echo|
+    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
+    * получаем Bad address\nBad address
+* echo -n                                                          ok
+* echo -n ;                                                        ok
+* echo ;                                                           ok
+* echo something ;                                                 ok
+* rm -f something                                                  ok
+* cat something                                                    ok
+* | echo -n oui 
+    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
+    * получаем Bad address
+* ; echo -n oui
+    * !ERROR! должно быть -bash: syntax error near unexpected token `;'
+    * получаем ;: No such file or directory
+* trying to destroy your minishell ; echo hello
+    * !ERROR! должно быть -bash: trying: command not found
+    * получаем trying: No such file or directory
+* trying something again echo if you see this message thats not a good new
+    * !ERROR! должно быть -bash: trying: command not found
+    * получаем trying: No such file or directory
+* qewew
+    * !ERROR! должно быть -bash: qewew: command not found
+    * получаем qewew: No such file or directory
+* wtf
+    * !ERROR! должно быть -bash: wtf: command not found
+    * получаем wtf: No such file or directory
+* hi im thallard
+    * !ERROR! должно быть -bash: hi: command not found
+    * получаем hi: No such file or directory
+* nice to meet you if these tests are green                                  ok
+* your minishell is perfect
+    * !ERROR! должно быть -bash: your: command not found
+    * получаем your: No such file or directory
 
 -----------------------------------------------------------------
  **LOG 06.07.2024**
