@@ -96,7 +96,42 @@
  
 -----------------------------------------------------------------
 РУЧНОЕ ТЕСТИРОВАНИЕ ТЕСТ-КЕЙСОВ
-Сергей - блок cd:
+
+блок CD:
+* cd ; pwd                                    ok
+* cd .. ; pwd                                 ok
+* cd . ; pwd                                  ok
+* cd /Users ; pwd                             ok
+* cd ; pwd                                    ok
+* cd // ; pwd
+    * !ERROR! должны провалиться в //, проваливаемся в /
+* cd '//' ; pwd
+    * !ERROR! должны провалиться в //, проваливаемся в /
+* cd ////// ; pwd                             ok
+* cd ./././ ; pwd                             ok
+* pwd ; cd . ; pwd
+* cd / ; cd Users ; pwd ; cd .. ; pwd         ok
+* cd '/etc' ; pwd
+    * !ERROR! должны провалиться в /etc, проваливаемся в /private/etc
+* cd '/var' ; pwd
+    * !ERROR! должны провалиться в /var, проваливаемся в /private/var
+* cd "$PWD/file_tests" ; pwd
+    * !ERROR! должны получить ошибку -bash: cd: /Users/file_tests: No such file or directory, не получаем
+* cd "doesntexist" ; pwd                      ok
+* cd ../../.. ; pwd ; echo $PWD $OLDPWD       ok
+* cd .. ; unset OLDPWD ; cd $OLDPWD ; pwd
+    * !ERROR! Segmentation fault: 11 при unset OLDPWD
+* cd .. ; unset PWD ; cd $PWD ; pwd           ok
+* cd ?                                        ok
+* cd +                                        ok
+* cd _                                        ok
+* cd woof                                     ok
+* cd bark bark                                ok
+* cd '/' ; pwd                                ok
+* cd $PWD/file_tests ; pwd                    ok
+* cd $OLDPWD/something ; pwd                  ok
+
+блок ECHO:
 * echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                               ok
 * echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                              ok
 * echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n                                           ok
