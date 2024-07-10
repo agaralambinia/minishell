@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/10 19:15:54 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:48:41 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ static int	update_working_directory(t_envp *envp_var, char *dir)
 		return (ERROR);
 	}
 	if (!ft_strcmp(dir, "//"))
-	{
-		printf("%s %d\n", __FILE__, __LINE__);
 		res = env_set_env("PWD", dir, envp_var);
-	}
 	else
 		res = env_set_env("PWD", buffer, envp_var);
 	if (res == ERROR)
@@ -72,7 +69,6 @@ int	builtin_cd(int argc, char **argv, t_envp *envp_var)
 	char	*directory;
 
 	directory = determine_directory(argc, argv, envp_var);
-	printf("target dir is %s\n", directory);
 	if (directory == NULL)
 		return (EXIT_FAILURE);
 	if (chdir(directory) == -1)

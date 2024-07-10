@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/10 19:42:54 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:49:13 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,8 @@ int run_from_args(char *arg, t_envp *envp_var)
 
 	args = ft_split(arg, ';');
 	tmp = args;
-		printf("%s %d\n", __FILE__, __LINE__);
 	while (*args)
 	{
-		printf("%s %d\n", __FILE__, __LINE__);
 		exit_code = execute(*args, envp_var);
 		if (exit_code == 255)
 			break;
