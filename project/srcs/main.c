@@ -70,23 +70,22 @@ int	execute(char *line, t_envp *envp_var)
 {
 	t_list	*commands;
 	char	**args;
-	int		exit_code;
 
-	exit_code = NOTFOUND;
+	envp_var->last_code = NOTFOUND;
 	lexer(line, envp_var);
 	commands = get_commands(envp_var);
 	//print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
 	{
 		args = get_args((t_cmd *)(commands->content));
-		exit_code = builtin_exec(args, 0, envp_var);
+		envp_var->last_code = builtin_exec(args, 0, envp_var);
 		free(args);
 	}
-	if (exit_code == NOTFOUND)
-		exit_code = run_command(commands, envp_var);
+	if (envp_var->last_code == NOTFOUND)
+		envp_var->last_code = run_command(commands, envp_var);
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
-	return (exit_code);
+	return (envp_var->last_code);
 }
 
 int run_from_args(char *arg, t_envp *envp_var)
@@ -98,6 +97,7 @@ int run_from_args(char *arg, t_envp *envp_var)
 
 	args = ft_split(arg, ';');
 	tmp = args;
+	last_code = 0;
 	while (*args)
 	{
 		exit_code = execute(*args, envp_var);
@@ -125,14 +125,12 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_envp	*envp_var;
 	int		exit_code;
-	int		last_code;
 
-	last_code = 0;
 	envp_var = NULL;
 	ft_singals();
 	envp_init(envp, &envp_var);
 	if (argc > 1 && !ft_strcmp(argv[1], "-c"))
-		last_code = run_from_args(argv[2], envp_var);
+		envp_var->last_code = run_from_args(argv[2], envp_var);
 	else
 	{
 		while (get_line(envp_var, &line))
@@ -142,11 +140,13 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			if (exit_code == 255)
 				break;
-			last_code = exit_code;
+			envp_var->last_code = exit_code;
+			print_lexer_debug(envp_var);
 		}
 		printf("exit\n");
 	}
-	 if(envp_var->envp_list && &(envp_var->envp_list))
+	exit_code = envp_var->last_code;
+	if(envp_var->envp_list && &(envp_var->envp_list))
 	 	ft_lstclear(&(envp_var->envp_list), &free);
 	if(envp_var->token_list && &(envp_var->token_list))
 	 	ft_lstclear(&envp_var->token_list, &free_token);
@@ -154,5 +154,5 @@ int	main(int argc, char **argv, char **envp)
 		free(envp_var);
 	//TODO почистить лики от лексера:w
 	system("leaks minishell");
-	return (last_code);
+	return (exit_code);
 }

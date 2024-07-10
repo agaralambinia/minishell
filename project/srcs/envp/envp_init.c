@@ -32,4 +32,5 @@ void	envp_init(char **envp, t_envp **envp_var)
 	//&(envp_var->envp_list) = (t_list *)safe_malloc(sizeof(t_list));
 	envp_list_init(envp, &(*envp_var)->envp_list);
 	(*envp_var)->token_list = (t_list *)safe_malloc(sizeof(t_list));
+	(*envp_var)->last_code = 0;
 }
