@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/09 20:23:49 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:43:34 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ int		builtin_cd(int argc, char **argv, t_envp *envp_var);
 int		builtin_echo(char **argv);
 int		builtin_env(t_envp *envp_var);
 int		builtin_export(int argc, char **argv, t_envp *envp_var);
-int		builtin_pwd(void);
+int		builtin_pwd(t_envp *envp_var);
 int		builtin_unset(char **argv, t_envp *envp_var);
 
 #endif

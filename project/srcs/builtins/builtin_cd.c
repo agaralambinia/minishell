@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/10 15:59:07 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:15:54 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
 	return (directory);
 }
 
-static int	update_working_directory(t_envp *envp_var)
+static int	update_working_directory(t_envp *envp_var, char *dir)
 {
 	char	buffer[PATH_MAX];
 	char	*prev_pwd;
+	int		res;
 
 	prev_pwd = get_envp_list_val("PWD", &envp_var->envp_list);
 	if (prev_pwd)
@@ -48,15 +49,20 @@ static int	update_working_directory(t_envp *envp_var)
 			return (ERROR);
 	}
 	else
-	{
 		env_unset_var("OLDPWD", envp_var);
-	}
 	if (getcwd(buffer, sizeof(buffer)) == NULL)
 	{
 		ft_print_error_errno(SHELL_NAME, "cd", NULL);
 		return (ERROR);
 	}
-	if (env_set_env("PWD", buffer, envp_var) == ERROR)
+	if (!ft_strcmp(dir, "//"))
+	{
+		printf("%s %d\n", __FILE__, __LINE__);
+		res = env_set_env("PWD", dir, envp_var);
+	}
+	else
+		res = env_set_env("PWD", buffer, envp_var);
+	if (res == ERROR)
 		return (ERROR);
 	return (0);
 }
@@ -66,6 +72,7 @@ int	builtin_cd(int argc, char **argv, t_envp *envp_var)
 	char	*directory;
 
 	directory = determine_directory(argc, argv, envp_var);
+	printf("target dir is %s\n", directory);
 	if (directory == NULL)
 		return (EXIT_FAILURE);
 	if (chdir(directory) == -1)
@@ -75,7 +82,7 @@ int	builtin_cd(int argc, char **argv, t_envp *envp_var)
 	}
 	if (argv[1] && ft_strncmp(argv[1], "-", 2) == 0)
 		ft_putendl_fd(directory, STDOUT_FILENO);
-	if (update_working_directory(envp_var) == ERROR)
+	if (update_working_directory(envp_var, directory) == ERROR)
 		return (EXIT_FAILURE);
 	return (0);
 }
