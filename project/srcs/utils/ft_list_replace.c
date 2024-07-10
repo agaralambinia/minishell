@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 18:18:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/06 18:18:50 by defimova         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:38:02 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	ft_list_replace(t_envp *envp_var, char *old_var, char *new_var)
 	}
 	else
 	{
-		temp -> content = new_var;
+		free(temp->content);
+		temp->content = new_var;
 	}
 	return (SUCCESS);
 }

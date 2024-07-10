@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/09 20:25:09 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:43:18 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	execute(char *line, t_envp *envp_var)
 	char	**args;
 	int		exit_code;
 
+	exit_code = NOTFOUND;
 	lexer(line, envp_var);
 	commands = get_commands(envp_var);
 	//print_cmd_debug(commands);
@@ -79,10 +80,12 @@ int	execute(char *line, t_envp *envp_var)
 	{
 		args = get_args((t_cmd *)(commands->content));
 		exit_code = builtin_exec(args, 0, envp_var);
-		if (exit_code != NOTFOUND)
-			return (exit_code);
+		free(args);
 	}
-	exit_code = run_command(commands, envp_var);
+	if (exit_code == NOTFOUND)
+		exit_code = run_command(commands, envp_var);
+	if (commands && &(commands))
+		ft_lstclear(&commands, &free_cmd);
 	return (exit_code);
 }
 
@@ -91,16 +94,21 @@ int run_from_args(char *arg, t_envp *envp_var)
 	char	**args;
 	int		exit_code;
 	int		last_code;
+	char	**tmp;
 
 	args = ft_split(arg, ';');
+	tmp = args;
+		printf("%s %d\n", __FILE__, __LINE__);
 	while (*args)
 	{
+		printf("%s %d\n", __FILE__, __LINE__);
 		exit_code = execute(*args, envp_var);
 		if (exit_code == 255)
 			break;
 		last_code = exit_code;
 		args++;
 	}
+	free_arr((void *)tmp);
 	return (last_code);
 }
 
@@ -108,7 +116,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_envp	*envp_var;
-	t_list	*commands;
 	int		exit_code;
 	int		last_code;
 
@@ -133,12 +140,11 @@ int	main(int argc, char **argv, char **envp)
 		printf("exit\n");
 	}
 	 if(envp_var->envp_list && &(envp_var->envp_list))
-	 	ft_lstclear(&(envp_var->envp_list), &free_mock);
+	 	ft_lstclear(&(envp_var->envp_list), &free);
 	if(envp_var->token_list && &(envp_var->token_list))
 	 	ft_lstclear(&envp_var->token_list, &free_token);
 	if (envp_var && &(envp_var))
 		free(envp_var);
-	ft_lstclear(&commands, &free_cmd);
 	//TODO почистить лики от лексера:w
 	system("leaks minishell");
 	return (last_code);

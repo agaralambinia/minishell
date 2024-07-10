@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/09 19:50:06 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:59:07 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,13 @@ static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
 static int	update_working_directory(t_envp *envp_var)
 {
 	char	buffer[PATH_MAX];
+	char	*prev_pwd;
 
-	if (get_env_val("$PWD", envp_var))
-	//if (get_envp_list_val("PWD", &envp_var->envp_list))
+	prev_pwd = get_envp_list_val("PWD", &envp_var->envp_list);
+	if (prev_pwd)
 	{
-		if (env_set_env("OLDPWD", 
-					get_env_val("$PWD", envp_var), 
-					envp_var) == ERROR)
-		{
+		if (env_set_env("OLDPWD", prev_pwd, envp_var) == ERROR)
 			return (ERROR);
-		}
 	}
 	else
 	{

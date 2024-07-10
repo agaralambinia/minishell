@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:20:17 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/09 19:25:10 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 17:54:24 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	lexer(char *line, t_envp *envp_var)
 
 	i = 0;
 	if (&(envp_var->token_list) && envp_var->token_list)
-		ft_lstclear(&envp_var->token_list, &free);
+		ft_lstclear(&envp_var->token_list, &free_token);
 	while (line[i] != '\0')
 	{
 		if (ft_isspace(line[i]))

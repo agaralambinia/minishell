@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:14:06 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/09 20:05:25 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:28:50 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_cmd(void *data)
 	com = (t_cmd *)data;
 	if (com)
 	{
+		free(com->command);
 		ft_lstclear(&(com->args), &free);
 		ft_lstclear(&(com->redir_in), &free);
 		ft_lstclear(&(com->redir_out), &free);
