@@ -103,18 +103,18 @@
 * cd . ; pwd                                  ok
 * cd /Users ; pwd                             ok
 * cd ; pwd                                    ok
-* cd // ; pwd
-    * !ERROR! должны провалиться в //, проваливаемся в /
-* cd '//' ; pwd
-    * !ERROR! должны провалиться в //, проваливаемся в /
+* cd // ; pwd                                 ok
+* cd '//' ; pwd                               ok
 * cd ////// ; pwd                             ok
 * cd ./././ ; pwd                             ok
 * pwd ; cd . ; pwd
 * cd / ; cd Users ; pwd ; cd .. ; pwd         ok
 * cd '/etc' ; pwd
     * !ERROR! должны провалиться в /etc, проваливаемся в /private/etc
+   - уточнить у Нареков
 * cd '/var' ; pwd
     * !ERROR! должны провалиться в /var, проваливаемся в /private/var
+     - уточнить у Нареков
 * cd "$PWD/file_tests" ; pwd
     * !ERROR! должны получить ошибку -bash: cd: /Users/file_tests: No such file or directory, не получаем
 * cd "doesntexist" ; pwd                      ok
