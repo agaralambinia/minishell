@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:40:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/06 20:58:53 by defimova         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:31:29 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ char	*prompt_msg(t_envp *envp_var)
 
 	dir = getcwd(buf, 4096);
 	parsed_dir = parse_dir(dir, envp_var);
+	if (!parsed_dir)
+		return (NULL);
 	result = ft_strjoin("minishell:", parsed_dir);
+	free(parsed_dir);
 	parsed_dir = ft_strjoin(result, " minishell_user$ ");
 	free(result);
-	//free(dir);
 	return (parsed_dir);
 }
