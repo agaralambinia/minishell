@@ -53,6 +53,7 @@ typedef enum	s_token_type
 	DOUBLE_LA,
 	PIPE,
 	ENVP,
+	EXITSTATUS,
 }	t_token_type;
 
 typedef enum	s_quote
@@ -126,6 +127,7 @@ typedef struct s_envp
 {
 	t_list	*envp_list;
 	t_list	*token_list;
+	int		last_code;
 }	t_envp;
 
 typedef struct s_builtins

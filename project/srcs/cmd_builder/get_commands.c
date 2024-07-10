@@ -75,6 +75,8 @@ static int	handle_token(
 		res = handle_envp(token->t_data, handler, envp_var);
 	else if (type == SPACE)
 		res = bind_field(*com, handler);
+	else if (type == EXITSTATUS)
+		res = add_to_word(ft_itoa(envp_var->last_code), handler);
 	return res;
 }
 

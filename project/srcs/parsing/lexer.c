@@ -33,8 +33,19 @@ static void	word_lex(char *line, int *i, t_envp *envp_var)
 	temp = (t_token *)safe_malloc(sizeof(t_token));
 	if (line[*i] == '$')
 	{
-		temp->token_type = ENVP;
-		ft_straddchar(&temp->t_data, line[(*i)++]);
+		if (line[*i + 1] == '?')
+		{
+			temp->token_type = EXITSTATUS;
+			(*i) += 2;
+			ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+			word_lex(line, i, envp_var);
+			return ;
+		}
+		else
+		{
+			temp->token_type = ENVP;
+			ft_straddchar(&temp->t_data, line[(*i)++]);
+		}
 	}
 	else
 		temp->token_type = WORD;
