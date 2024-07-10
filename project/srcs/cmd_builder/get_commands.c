@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:48:46 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/06 17:09:43 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:28:49 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ t_list	*get_commands(t_envp *envp_var)
 		}
 		token_lst = token_lst->next;
 	}
-	add_command(com, &com_lst, handler);
+	com = add_command(com, &com_lst, handler);
+	free(com);
 	free(handler);
 	return (com_lst);
 }

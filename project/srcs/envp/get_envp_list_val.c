@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:30:16 by defimova          #+#    #+#             */
-/*   Updated: 2024/06/06 20:30:19 by defimova         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:38:17 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*get_envp_list_val(char *var, t_list **envp_list)
 	char	eq[2];
 
 	eq[0] = '=';
-	iter = (t_list *)safe_malloc(sizeof(t_list));
 	temp = ft_strjoin(var, "=");
 	iter = *envp_list;
 	if (envp_list)
