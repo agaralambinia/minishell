@@ -411,6 +411,112 @@
     * !ERROR! должно быть -bash: your: command not found
     * получаем your: No such file or directory
 
+блок EXPORT
+* export | grep "SHLVL"
+    * !ERROR! должно быть declare -x SHLVL="1"
+    * получаем пустоту
+* export | grep "OLDPWD"            ok
+* export | grep "PWD"               ok
+* export $? ; echo $?
+    * !ERROR! должно быть -bash: export: `0': not a valid identifier\n1
+    * получаем пустоту
+* export TEST ; echo $TEST
+    * !ERROR! должна быть пустая строка
+    * получаем пустоту
+* export TEST= ; echo $TEST
+    * !ERROR! должна быть пустая строка
+    * получаем Segmentation fault: 11
+* export TEST=123 ; echo $TEST
+    * !ERROR! должно быть 123
+    * получаем Segmentation fault: 11
+* export ___TEST=123 ; echo $TEST
+    * !ERROR! должно быть 123
+    * получаем Segmentation fault: 11
+* export --TEST=123 ; echo $TEST
+    * !ERROR! должно быть -bash: export: --: invalid option
+export: usage: export [-nf] [name[=value] ...] or export -p
+123
+    * получаем minishell: --TEST=123: not a valid identifier
+    123
+* export ""=""
+    * !ERROR! должно быть -bash: export: `=': not a valid identifier
+    * получаем minishell: =: not a valid identifier
+* export ''=''
+    * !ERROR! должно быть -bash: export: `=': not a valid identifier
+    * получаем minishell: =: not a valid identifier
+* export "="="="
+    * !ERROR! должно быть -bash: export: `===': not a valid identifier
+    * получаем minishell: ===: not a valid identifier
+* export '='='='
+    * !ERROR! должно быть -bash: export: `===': not a valid identifier
+    * получаем minishell: ===: not a valid identifier
+* export TE\\\ST=100
+    * !ERROR! должно быть -bash: export: `TE\ST=100': not a valid identifier
+    * получаем minishell: TE\\\ST=100: not a valid identifier
+* export TE-ST=100
+* export -TEST=100
+* export TEST-=100
+* export _TEST=100
+* export TEST ; env | grep "TEST"
+* export ==========
+* export 1TEST=
+* export TEST
+* export ""=""
+* export TES=T=""
+* export TE+S=T=""
+* export TES\\\\T=123
+* export TES.T=123
+* export TES\\\$T=123
+* export TES\\\\T
+* export TES.T=123
+* export TES+T=123
+* export TES=T=123
+* export TES}T=123
+* export TES{T=123
+* export TES-T=123
+* export -TEST=123
+* export _TEST=123
+* export TES_T=123
+* export TEST_=123
+* export TE*ST=123
+* export TES#T=123
+* export TES@T=123
+* export TES!T=123
+* export TES$?T=123
+* export =============123
+* export +++++++=123
+* export ________=123
+* export export
+* export echo
+* export pwd
+* export cd
+* export export
+* export unset
+* export sudo
+* export TES^T=123
+* export TES!T=123
+* export TES\~T=123
+* export TEST+=100 ; echo $TEST ; export TEST+=200 ; echo $TEST
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST
+* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST
+* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD
+* export TEST=123 0$TEST=0123 ; echo $TEST
+* export TEST ; env | grep "TEST" ; unset TEST
+* export TEST= ; env | grep "TEST" ; unset TEST
+* export TEST="" ; env | grep "TEST" ; unset TEST
+* export TEST='' ; env | grep "TEST" ; unset TEST
+* export TEST=100 TEST2=100 ; env | grep "TEST" ; unset TEST TEST2
+* export TEST=100 TEST1=200 ; env | grep "TEST" ; unset TEST TEST1
+* export TEST="100" ; env | grep "TEST" ; unset TEST
+* export TEST='"$USER"' ; env | grep "TEST" ; unset TEST
+* export TEST="$USER" ; env | grep "TEST" ; unset TEST
+* export TEST="$USER$USER" ; env | grep "TEST" ; unset TEST
+* export TEST="'$USER'""test" ; env | grep "TEST" ; unset TEST
+* export TEST="$USER" TEST1=$TEST ; env | grep "TEST" ; unset TEST
+* export TEST=LOL ; export TEST+=LOL ; env | grep "TEST" ; unset TEST
+* export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST
 -----------------------------------------------------------------
- **LOG 06.07.2024**
- - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
+**LOG 06.07.2024**
+- Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
