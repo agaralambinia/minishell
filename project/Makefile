@@ -55,6 +55,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/setup_pipes_first.c \
 		srcs/execution/setup_pipes_last.c \
 		srcs/execution/setup_pipes_parent.c \
+		srcs/debug/print_envp.c \
 		$(GNL)get_next_line.c \
 	  	$(GNL)get_next_line_utils.c
 

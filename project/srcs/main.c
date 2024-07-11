@@ -6,65 +6,11 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/10 19:49:13 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/11 17:11:30 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-
-void	print_lexer_debug(t_envp *envp_var)
-{
-	t_list	*iter; //TODO убрать - для дебага
-	t_token *t; //TODO убрать - для дебага
-
-	iter = (t_list *)safe_malloc(sizeof(t_list));
-	iter = envp_var->token_list;
-	t = (t_token *)safe_malloc(sizeof(t_token));
-	while (iter != NULL)
-	{
-		t = iter->content;
-		printf(PINK"%i TYPE [%s]\n"RESET, t->token_type, t->t_data);
-		iter = iter -> next;
-	}
-}
-
-void	print_cmd_debug(t_list	*commands)
-{
-	t_list	*args;
-	t_list	*in_redir;
-	t_list	*out_redir;
-	t_redir *redir;
-
-	printf("%s %d\n", __FILE__, __LINE__);
-	while (commands)
-	{
-		t_cmd *com = (t_cmd *)(commands->content);
-		printf("COMMAND - %s\nARGS - ", com->command);
-		args = com->args;
-		while (args)
-		{
-			//printf("%s ", args->content); //TODO сереж тут компилятор ругается
-			args = args->next;
-		}
-		printf("\nINPUT REDIRECTIONS:\n");
-		in_redir = com->redir_in;
-		while (in_redir)
-		{
-			redir = (t_redir  *)(in_redir->content);
-			printf("PATH OR END - %s, IS_HEREDOC - %d\n", redir->path, redir->mode);
-			in_redir = in_redir->next;
-		}
-		printf("OUTPUT REDIRECTIONS:\n");
-		out_redir = com->redir_out;
-		while (out_redir)
-		{
-			redir = (t_redir  *)(out_redir->content);
-			printf("PATH - %s, IS_ADD_MODE - %d\n", redir->path, redir->mode);
-			out_redir = out_redir->next;
-		}
-		commands = commands->next;
-	}
-}
 
 int	execute(char *line, t_envp *envp_var)
 {
@@ -73,13 +19,18 @@ int	execute(char *line, t_envp *envp_var)
 
 	envp_var->last_code = NOTFOUND;
 	lexer(line, envp_var);
+	//print_lexer_debug(envp_var);
 	commands = get_commands(envp_var);
-	//print_cmd_debug(commands);
+//	print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
 	{
+		//printf("\n\nBEFORE:\n");
+		//print_envp(envp_var->envp_list);
 		args = get_args((t_cmd *)(commands->content));
 		envp_var->last_code = builtin_exec(args, 0, envp_var);
 		free(args);
+		//printf("\n\nAFTER:\n");
+		//print_envp(envp_var->envp_list);
 	}
 	if (envp_var->last_code == NOTFOUND)
 		envp_var->last_code = run_command(commands, envp_var);

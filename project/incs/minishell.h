@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/10 19:43:34 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/11 17:07:56 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void	free_mock(void *data);
 bool	ft_is_numeric(char *str);
 void	ft_list_insert_sort(t_list *lst);
 int		ft_list_replace(t_envp *envp_var, char *old_var, char *new_var);
-int		ft_list_remove(char *env_var, t_list *envp_list);
+int		ft_list_remove(char *env_var, t_list **envp_list);
 int		ft_split_count(char **split);
 int		ft_strcmp(char *s1, char *s2);
 
@@ -224,5 +224,10 @@ int		builtin_env(t_envp *envp_var);
 int		builtin_export(int argc, char **argv, t_envp *envp_var);
 int		builtin_pwd(t_envp *envp_var);
 int		builtin_unset(char **argv, t_envp *envp_var);
+
+// debug
+void	print_envp(t_list *envp_list);
+void	print_lexer_debug(t_envp *envp_var);
+void	print_cmd_debug(t_list	*commands);
 
 #endif

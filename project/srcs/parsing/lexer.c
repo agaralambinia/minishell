@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:20:17 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/10 17:54:24 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:36:31 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,14 @@ static void	word_lex(char *line, int *i, t_envp *envp_var)
 	}
 	else
 		temp->token_type = WORD;
-	while (line[*i] != '\0' && !ft_isspace(line[*i]) && !ft_isspecial(line[*i]))
+	if (line[*i] == '/')
 		ft_straddchar(&temp->t_data, line[(*i)++]);
+	while (line[*i] != '\0' && !ft_isspace(line[*i]) && !ft_isspecial(line[*i]))
+	{
+		if (line[*i] == '/')
+			break;
+		ft_straddchar(&temp->t_data, line[(*i)++]);
+	}
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 

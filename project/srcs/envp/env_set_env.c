@@ -8,7 +8,6 @@ int env_set_env(char *name, char *value, t_envp *envp_var)
 
     if (name == NULL || value == NULL)
         return (ERROR);
-
     tmp = ft_strjoin(name, "=");
     if (tmp == NULL)
     {

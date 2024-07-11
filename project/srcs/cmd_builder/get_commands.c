@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:48:46 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/10 18:28:49 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/11 15:47:10 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ static t_cmd	*add_command(t_cmd *com, t_list **com_lst, t_wordhan *handler)
 	return (com);
 }
 
-static int	handle_envp(char *envname, t_wordhan *handler, t_envp *envp_var)
+static int handle_envp(char *envname, t_wordhan *handler, t_envp *envp_var)
 {
 	char	*env_val;
 	int		res;
 
 	env_val = get_env_val(envname, envp_var);	
+	if (!env_val)
+		return (1);
 	res = add_to_word(env_val, handler);
 	return (res);
 }
