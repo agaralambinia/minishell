@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:20:17 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/11 20:01:26 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/11 20:08:43 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 	q = '\"';
 	if (qtype == NA)
 		q = l[(*i)++];
-	if (l[(*i)] != '$')
+	if (l[(*i)] != '$' || q == '\'')
 	{
 		temp = (t_token *)safe_malloc(sizeof(t_token));
 		while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
