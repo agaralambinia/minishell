@@ -138,23 +138,15 @@
 * echo bonjour                                ok
 * echo 'bonjour'                              ok
 * echo -n bonjour                             ok
-* echo -nn bonjour
-    * !ERROR! должно быть bonjourminishell:project minishell_user$
-    *  получаем -nn bonjour
-        minishell:project minishell_user$
+* echo -nn bonjour                            ok
 * echo -n -n -n bonjour                       ok
 * echo -n -n -n bonjour                       ok
 * echo "-n" bonjour                           ok
 * echo -n"-n" bonjour                         ok
-* echo "-nnnn" bonjour
-    * !ERROR! должно быть bonjourminishell:project minishell_user$
-    *  получаем -nnnn bonjour
-        minishell:project minishell_user$
+* echo "-nnnn" bonjour                        ok
 * echo "-n -n -n"-n bonjour                   ok
 * echo "-n '-n'" bonjour                      ok
-* echo ~
-    * !ERROR! должно быть /Users/agaralambinia
-    *  получаем ~
+* echo ~                                      ok
 * echo "~"                                    ok
 * echo '~'                                    ok
 * echo ~123                                   ok
