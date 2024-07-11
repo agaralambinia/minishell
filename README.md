@@ -109,18 +109,12 @@
 * cd ./././ ; pwd                             ok
 * pwd ; cd . ; pwd
 * cd / ; cd Users ; pwd ; cd .. ; pwd         ok
-* cd '/etc' ; pwd
-    * !ERROR! должны провалиться в /etc, проваливаемся в /private/etc
-   - уточнить у Нареков
-* cd '/var' ; pwd
-    * !ERROR! должны провалиться в /var, проваливаемся в /private/var
-     - уточнить у Нареков
-* cd "$PWD/file_tests" ; pwd
-    * !ERROR! должны получить ошибку -bash: cd: /Users/file_tests: No such file or directory, не получаем
+* cd '/etc' ; pwd                             ok - bash тоже проваливается в private, просто маскирует это
+* cd '/var' ; pwd                             ok - bash тоже проваливается в private, просто маскирует это
+* cd "$PWD/file_tests" ; pwd                  ok
 * cd "doesntexist" ; pwd                      ok
 * cd ../../.. ; pwd ; echo $PWD $OLDPWD       ok
-* cd .. ; unset OLDPWD ; cd $OLDPWD ; pwd
-    * !ERROR! Segmentation fault: 11 при unset OLDPWD
+* cd .. ; unset OLDPWD ; cd $OLDPWD ; pwd     ok
 * cd .. ; unset PWD ; cd $PWD ; pwd           ok
 * cd ?                                        ok
 * cd +                                        ok
