@@ -159,12 +159,8 @@
 * echo '~'                                    ok
 * echo ~123                                   ok
 * echo 123~                                   ok
-* echo ~/123
-    * !ERROR! должно быть /Users/agaralambinia/123
-    *  получаем ~/123
-* echo ~/123/456
-    * !ERROR! должно быть /Users/agaralambinia/123/456
-    *  получаем ~/123/456
+* echo ~/123                                  ok
+* echo ~/123/456                              ok
 * echo $USER                                  ok
 * echo "$USER"                                ok
 * echo "'$USER'"                              ok
@@ -176,9 +172,7 @@
 * echo               text "$USER"            "$USER"text    ok
 * echo ''''''''''$USER''''''''''                            ok
 * echo """"""""$USER""""""""                                ok
-* echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
-    * !ERROR! должно быть agaralambinia$USERtext oui oui oui oui agaralambinia oui agaralambinia 
-    *  получаем ничего
+* echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER '' ok
 * echo $USER '' $USER $USER '' $USER '' $USER -n $USER       ok
 * echo ' \' ' \'                                             ok
 * echo ' \' ' \'                                             ok
