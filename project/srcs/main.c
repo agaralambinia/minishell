@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/11 20:01:27 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/11 21:25:17 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	execute(char *line, t_envp *envp_var)
 
 	envp_var->last_code = NOTFOUND;
 	lexer(line, envp_var);
-	print_lexer_debug(envp_var);
+//	print_lexer_debug(envp_var);
 	commands = get_commands(envp_var);
 //	print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
