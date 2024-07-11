@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:20:17 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/11 15:36:31 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/11 20:28:23 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 	char	q;
 	t_token	*temp;
 
-	q = '\"';
-	if (qtype == NA)
-		q = l[(*i)++];
-	if (l[(*i)] == q && qtype != NA)
+	if (l[*i] == l[*i + 1])
 	{
+		printf("%s %d\n", __FILE__, __LINE__);
 		temp = (t_token *)safe_malloc(sizeof(t_token));
 		temp->t_data = (char *)safe_malloc(sizeof(char));
 		temp->t_data[0] = 0; 
@@ -78,6 +76,9 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 		(*i)++;
 		return ;
 	}
+	q = '\"';
+	if (qtype == NA)
+		q = l[(*i)++];
 	if (l[(*i)] != '$' || q == '\'')
 	{
 		temp = (t_token *)safe_malloc(sizeof(t_token));
@@ -125,6 +126,22 @@ static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(t));
 }
 
+static void tild_lexer(char *line, int *i, t_envp *envp_var)
+{
+	t_token	*temp;
+
+	if (line[*i + 1] == '/' || ft_isspace(line[*i + 1]) || line[*i + 1] == '\0')
+	{
+		temp = (t_token *)safe_malloc(sizeof(t_token));
+		temp->t_data = ft_strdup("$HOME");
+		temp->token_type = ENVP;
+		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+		(*i)++;
+	}
+	else
+		word_lex(line, i, envp_var);
+}
+
 void	lexer(char *line, t_envp *envp_var)
 {
 	int	i;	
@@ -140,6 +157,8 @@ void	lexer(char *line, t_envp *envp_var)
 			quote_lex(line, &i, NA, envp_var);
 		else if (line[i] == '>' || line[i] == '<' || line[i] == '|')
 			redirpipe_lex(line, &i, envp_var);
+		else if (line[i] == '~')
+			tild_lexer(line, &i, envp_var);
 		else
 			word_lex(line, &i, envp_var);
 	}
