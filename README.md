@@ -177,15 +177,9 @@
 * echo "$USER""Users/$USER/file""'$USER'"'$USER'             ok
 * echo "$USER$USER$USER"                                     ok
 * echo '$USER'"$USER"'$USER'                                 ok
-* echo '"$USER"''$USER'"""$USER"
-    * !ERROR! должно быть "$USER"$USERagaralambinia
-    * получаем "$USER"agaralambinia"""$USER"
-* echo " $USER  "'$PWD'
-    * !ERROR! должно быть  agaralambinia  $PWD
-    * получаем ничего
-* echo " $USER  \$ "'$PWD'
-    * !ERROR! должно быть  agaralambinia  $ $PWD
-    * получаем ничего
+* echo '"$USER"''$USER'"""$USER"                             ok
+* echo " $USER  "'$PWD'                                      ok
+* echo " $USER  \$ "'$PWD'                                   ok
 * echo $USER=4
     * !ERROR! должно быть $USER=4
     * получаем ничего
