@@ -90,7 +90,8 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 			temp->token_type = HARDWORD;
 		else if (q == '\"')
 			temp->token_type = SOFTWORD;
-		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+		if (temp->t_data)
+			ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 	}
 	if (l[*i] == '$' && (q == '\"'))
 	{

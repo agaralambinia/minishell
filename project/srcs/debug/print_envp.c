@@ -16,7 +16,7 @@ void	print_envp(t_list *envp_list)
 {
 	while(envp_list)
 	{
-		printf("%s\n", envp_list->content);
+		printf("%s\n", (char *)envp_list->content);
 		envp_list = envp_list->next;
 	}
 
