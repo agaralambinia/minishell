@@ -19,7 +19,7 @@ int	execute(char *line, t_envp *envp_var)
 
 	envp_var->last_code = NOTFOUND;
 	lexer(line, envp_var);
-	print_lexer_debug(envp_var);
+	//print_lexer_debug(envp_var);
 	commands = get_commands(envp_var);
 //	print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
