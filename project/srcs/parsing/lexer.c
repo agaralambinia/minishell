@@ -78,7 +78,7 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 		(*i)++;
 		return ;
 	}
-	if (l[(*i)] != '$')
+	if (l[(*i)] != '$' || q == '\'')
 	{
 		temp = (t_token *)safe_malloc(sizeof(t_token));
 		while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
