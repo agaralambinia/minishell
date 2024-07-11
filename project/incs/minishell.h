@@ -43,17 +43,17 @@ enum кодов наименования типа токена
 */
 typedef enum	s_token_type
 {
-	SP,
-	WORD,
-	HARDWORD,
-	SOFTWORD,
-	SINGLE_RA,
-	DOUBLE_RA,
-	SINGLE_LA,
-	DOUBLE_LA,
-	PIPE,
-	ENVP,
-	EXITSTATUS,
+	SP = 32,
+	WORD = 2,
+	HARDWORD = 3,
+	SOFTWORD = 4,
+	SINGLE_RA = 5,
+	DOUBLE_RA = 6,
+	SINGLE_LA = 7,
+	DOUBLE_LA = 8,
+	PIPE = 9,
+	ENVP = 10,
+	EXITSTATUS = 11
 }	t_token_type;
 
 typedef enum	s_quote

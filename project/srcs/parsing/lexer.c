@@ -68,7 +68,7 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 	q = '\"';
 	if (qtype == NA)
 		q = l[(*i)++];
-	if (l[(*i)] == q)
+	if (l[(*i)] == q && qtype != NA)
 	{
 		temp = (t_token *)safe_malloc(sizeof(t_token));
 		temp->t_data = (char *)safe_malloc(sizeof(char));
@@ -89,7 +89,8 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 			temp->token_type = HARDWORD;
 		else if (q == '\"')
 			temp->token_type = SOFTWORD;
-		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+		if (temp->t_data)
+			ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 	}
 	if (l[*i] == '$' && (q == '\"'))
 	{
