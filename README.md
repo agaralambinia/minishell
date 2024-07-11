@@ -168,21 +168,13 @@
 * echo $USER '' $USER $USER '' $USER '' $USER -n $USER       ok
 * echo ' \' ' \'                                             ok
 * echo ' \' ' \'                                             ok
-* echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
-    * !ERROR! должно быть \" \" \" \"\"\" \'\'\'
-    * получаем ничего
+* echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'              ok - вывод отличается, но мы не должны обрабатывать \
 * echo "$USER""$USER""$USER"                                 ok
 * echo text"$USER"test                                       ok
-* echo '$USER' "$USER" "text \' text"
-    * !ERROR! должно быть $USER agaralambinia text \' text
-    * получаем ничего
-* echo '$USER'
-    * !ERROR! должно быть $USER
-    * получаем ничего
-* echo $USER " "                                              ok
-* echo "$USER""Users/$USER/file""'$USER'"'$USER'
-    * !ERROR! должно быть agaralambiniaUsers/agaralambinia/file'agaralambinia'$USER
-    * получаем ничего
+* echo '$USER' "$USER" "text \' text"                        ok
+* echo '$USER'                                               ok
+* echo $USER " "                                             ok
+* echo "$USER""Users/$USER/file""'$USER'"'$USER'             ok
 * echo "$USER$USER$USER"                                      ok
 * echo '$USER'"$USER"'$USER'
     * !ERROR! должно быть $USERagaralambinia$USER
