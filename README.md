@@ -353,29 +353,14 @@
 * export | grep "SHLVL"
     * !ERROR! должно быть declare -x SHLVL="1"
     * получаем пустоту
-* export | grep "OLDPWD"            ok
-* export | grep "PWD"               ok
-* export $? ; echo $?
-    * !ERROR! должно быть -bash: export: `0': not a valid identifier\n1
-    * получаем пустоту
-* export TEST ; echo $TEST
-    * !ERROR! должна быть пустая строка
-    * получаем пустоту
-* export TEST= ; echo $TEST
-    * !ERROR! должна быть пустая строка
-    * получаем Segmentation fault: 11
-* export TEST=123 ; echo $TEST
-    * !ERROR! должно быть 123
-    * получаем Segmentation fault: 11
-* export ___TEST=123 ; echo $TEST
-    * !ERROR! должно быть 123
-    * получаем Segmentation fault: 11
-* export --TEST=123 ; echo $TEST
-    * !ERROR! должно быть -bash: export: --: invalid option
-export: usage: export [-nf] [name[=value] ...] or export -p
-123
-    * получаем minishell: --TEST=123: not a valid identifier
-    123
+* export | grep "OLDPWD"                        ok
+* export | grep "PWD"                           ok
+* export $? ; echo $?                           ok
+* export TEST ; echo $TEST                      ok
+* export TEST= ; echo $TEST                     ok
+* export TEST=123 ; echo $TEST                  ok
+* export ___TEST=123 ; echo $TEST               ok
+* export --TEST=123 ; echo $TEST                ok (не поддерживаем опции)
 * export ""=""                                  ok
 * export ''=''                                  ok
 * export "="="="                                ok
@@ -385,7 +370,8 @@ export: usage: export [-nf] [name[=value] ...] or export -p
 * export -TEST=100                              ok (не поддерживаем опции)
 * export TEST-=100                              ok
 * export _TEST=100                              ok
-* export TEST ; env | grep "TEST"               ok
+* export TEST ; env | grep "TEST"
+    * не ок, кажется пайпы не работают
 * export ==========                             ok
 * export 1TEST=                                 ok
 * export TEST                                   ok
@@ -394,7 +380,8 @@ export: usage: export [-nf] [name[=value] ...] or export -p
 * export TE+S=T=""                              ok
 * export TES\\\\T=123                           ok (не поддерживаем \)
 * export TES.T=123                              ok
-* export TES\\\$T=123                           ok (не поддерживаем \)
+* export TES\\\$T=123
+    * не ок export: `TES\\\Apple_Terminal=123': not a valid identifier
 * export TES\\\\T                               ok (не поддерживаем \)
 * export TES.T=123                              ok
 * export TES+T=123                              ok
@@ -402,53 +389,63 @@ export: usage: export [-nf] [name[=value] ...] or export -p
 * export TES}T=123                              ok
 * export TES{T=123                              ok
 * export TES-T=123                              ok
-* export -TEST=123                              ok
-    * !ERROR! должно быть -bash: export: -T: invalid option
-export: usage: export [-nf] [name[=value] ...] or export -p
-i113735017:project agaralambinia$ 
-    * получаем minishell: export: `-TEST=123': not a valid identifier
-* export _TEST=123
-* export TES_T=123
-* export TEST_=123
-* export TE*ST=123
-* export TES#T=123
-* export TES@T=123
-* export TES!T=123
+* export -TEST=123                              ok (не поддерживаем опции)
+* export _TEST=123                              ok
+* export TES_T=123                              ok
+* export TEST_=123                              ok
+* export TE*ST=123                              ok
+* export TES#T=123                              ok
+* export TES@T=123                              ok
+* export TES!T=123                              ok (не поддерживаем !)
 * export TES$?T=123
-* export =============123
-* export +++++++=123
-* export ________=123
-* export export
-* export echo
-* export pwd
-* export cd
-* export export
-* export unset
-* export sudo
-* export TES^T=123
-* export TES!T=123
+    * ERROR не ок, разыменовывает $?
+* export =============123                       ok
+* export +++++++=123                            ok
+* export ________=123                           ok
+* export export                                 ok
+* export echo                                   ok
+* export pwd                                    ok
+* export cd                                     ok
+* export unset                                  ok
+* export sudo                                   ok
+* export TES^T=123                              ok
+* export TES!T=123                              ok (не поддерживаем !)
 * export TES\~T=123
-* export TEST+=100 ; echo $TEST ; export TEST+=200 ; echo $TEST
-* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST
-* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST
-* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST
-* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST
-* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD
-* export TEST=123 0$TEST=0123 ; echo $TEST
+* export TEST+=100 ; echo $TEST ; export TEST+=200 ; echo $TEST          ok
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST     ok
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST       ok
+* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST       ok
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST       ok
+* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD         ok
+* export TEST=123 0$TEST=0123 ; echo $TEST                  ok
 * export TEST ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST= ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST='' ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=100 TEST2=100 ; env | grep "TEST" ; unset TEST TEST2
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=100 TEST1=200 ; env | grep "TEST" ; unset TEST TEST1
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="100" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST='"$USER"' ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="$USER" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="$USER$USER" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="'$USER'""test" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="$USER" TEST1=$TEST ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=LOL ; export TEST+=LOL ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
