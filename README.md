@@ -183,10 +183,8 @@
 * echo $USER=4                                               ok
 * echo $USER=thallard                                        ok
 * echo $USER                                                 ok
-* echo $?
-* echo $USER213
-    * !ERROR! должно быть 0
-    * получаем ничего
+* echo $?                                                    ok
+* echo $USER213                                              ok
 * echo $USER$12USER$USER=4$USER12
     * !ERROR! должно быть agaralambinia2USERagaralambinia=4
     * получаем ничего
