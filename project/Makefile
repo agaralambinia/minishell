@@ -39,6 +39,8 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_strncpy.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
+		srcs/parsing/word_lexer.c \
+		srcs/parsing/quote_lexer.c \
 		srcs/signals/ft_signals.c \
 		srcs/cmd_builder/get_commands.c \
 		srcs/cmd_builder/bind_field.c \

@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:20:17 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/11 20:28:23 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/12 16:00:54 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,7 @@ static void	space_lex(char *line, int *i, t_envp *envp_var)
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 
-static void	word_lex(char *line, int *i, t_envp *envp_var)
-{
-	t_token	*temp;
-
-	temp = (t_token *)safe_malloc(sizeof(t_token));
-	if (line[*i] == '$')
-	{
-		if (line[*i + 1] == '?')
-		{
-			temp->token_type = EXITSTATUS;
-			(*i) += 2;
-			ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
-			word_lex(line, i, envp_var);
-			return ;
-		}
-		else
-		{
-			temp->token_type = ENVP;
-			ft_straddchar(&temp->t_data, line[(*i)++]);
-		}
-	}
-	else
-		temp->token_type = WORD;
-	if (line[*i] == '/')
-		ft_straddchar(&temp->t_data, line[(*i)++]);
-	while (line[*i] != '\0' && !ft_isspace(line[*i]) && !ft_isspecial(line[*i]))
-	{
-		if (line[*i] == '/')
-			break;
-		ft_straddchar(&temp->t_data, line[(*i)++]);
-	}
-	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
-}
-
-static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
+/*static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 {
 	char	q;
 	t_token	*temp;
@@ -95,10 +61,10 @@ static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
 	}
 	if (l[*i] == '$' && (q == '\"'))
 	{
-		word_lex(l, i, envp_var);
+		word_lexer(l, i, envp_var);
 		quote_lex(l, i, DOUBLE, envp_var);
 	}
-}
+}*/
 
 static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 {
@@ -139,7 +105,7 @@ static void tild_lexer(char *line, int *i, t_envp *envp_var)
 		(*i)++;
 	}
 	else
-		word_lex(line, i, envp_var);
+		word_lexer(line, i, envp_var);
 }
 
 void	lexer(char *line, t_envp *envp_var)
@@ -154,12 +120,12 @@ void	lexer(char *line, t_envp *envp_var)
 		if (ft_isspace(line[i]))
 			space_lex(line, &i, envp_var);
 		else if (line[i] == '\'' || line[i] == '\"')
-			quote_lex(line, &i, NA, envp_var);
+			quote_lexer(line, &i, NA, envp_var);
 		else if (line[i] == '>' || line[i] == '<' || line[i] == '|')
 			redirpipe_lex(line, &i, envp_var);
 		else if (line[i] == '~')
 			tild_lexer(line, &i, envp_var);
 		else
-			word_lex(line, &i, envp_var);
+			word_lexer(line, &i, envp_var);
 	}
 }

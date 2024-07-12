@@ -138,33 +138,21 @@
 * echo bonjour                                ok
 * echo 'bonjour'                              ok
 * echo -n bonjour                             ok
-* echo -nn bonjour
-    * !ERROR! должно быть bonjourminishell:project minishell_user$
-    *  получаем -nn bonjour
-        minishell:project minishell_user$
+* echo -nn bonjour                            ok
 * echo -n -n -n bonjour                       ok
 * echo -n -n -n bonjour                       ok
 * echo "-n" bonjour                           ok
 * echo -n"-n" bonjour                         ok
-* echo "-nnnn" bonjour
-    * !ERROR! должно быть bonjourminishell:project minishell_user$
-    *  получаем -nnnn bonjour
-        minishell:project minishell_user$
+* echo "-nnnn" bonjour                        ok
 * echo "-n -n -n"-n bonjour                   ok
 * echo "-n '-n'" bonjour                      ok
-* echo ~
-    * !ERROR! должно быть /Users/agaralambinia
-    *  получаем ~
+* echo ~                                      ok
 * echo "~"                                    ok
 * echo '~'                                    ok
 * echo ~123                                   ok
 * echo 123~                                   ok
-* echo ~/123
-    * !ERROR! должно быть /Users/agaralambinia/123
-    *  получаем ~/123
-* echo ~/123/456
-    * !ERROR! должно быть /Users/agaralambinia/123/456
-    *  получаем ~/123/456
+* echo ~/123                                  ok
+* echo ~/123/456                              ok
 * echo $USER                                  ok
 * echo "$USER"                                ok
 * echo "'$USER'"                              ok
@@ -176,78 +164,36 @@
 * echo               text "$USER"            "$USER"text    ok
 * echo ''''''''''$USER''''''''''                            ok
 * echo """"""""$USER""""""""                                ok
-* echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
-    * !ERROR! должно быть agaralambinia$USERtext oui oui oui oui agaralambinia oui agaralambinia 
-    *  получаем ничего
+* echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER '' ok
 * echo $USER '' $USER $USER '' $USER '' $USER -n $USER       ok
 * echo ' \' ' \'                                             ok
 * echo ' \' ' \'                                             ok
-* echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
-    * !ERROR! должно быть \" \" \" \"\"\" \'\'\'
-    * получаем ничего
+* echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'              ok - вывод отличается, но мы не должны обрабатывать \
 * echo "$USER""$USER""$USER"                                 ok
 * echo text"$USER"test                                       ok
-* echo '$USER' "$USER" "text \' text"
-    * !ERROR! должно быть $USER agaralambinia text \' text
-    * получаем ничего
-* echo '$USER'
-    * !ERROR! должно быть $USER
-    * получаем ничего
-* echo $USER " "                                              ok
-* echo "$USER""Users/$USER/file""'$USER'"'$USER'
-    * !ERROR! должно быть agaralambiniaUsers/agaralambinia/file'agaralambinia'$USER
-    * получаем ничего
-* echo "$USER$USER$USER"                                      ok
-* echo '$USER'"$USER"'$USER'
-    * !ERROR! должно быть $USERagaralambinia$USER
-    * получаем ничего
-* echo '"$USER"''$USER'"""$USER"
-    * !ERROR! должно быть "$USER"$USERagaralambinia
-    * получаем "$USER"agaralambinia"""$USER"
-* echo " $USER  "'$PWD'
-    * !ERROR! должно быть  agaralambinia  $PWD
-    * получаем ничего
-* echo " $USER  \$ "'$PWD'
-    * !ERROR! должно быть  agaralambinia  $ $PWD
-    * получаем ничего
-* echo $USER=4
-    * !ERROR! должно быть $USER=4
-    * получаем ничего
-* echo $USER=thallard
-    * !ERROR! должно быть agaralambinia=thallard
-    * получаем ничего
+* echo '$USER' "$USER" "text \' text"                        ok
+* echo '$USER'                                               ok
+* echo $USER " "                                             ok
+* echo "$USER""Users/$USER/file""'$USER'"'$USER'             ok
+* echo "$USER$USER$USER"                                     ok
+* echo '$USER'"$USER"'$USER'                                 ok
+* echo '"$USER"''$USER'"""$USER"                             ok
+* echo " $USER  "'$PWD'                                      ok
+* echo " $USER  \$ "'$PWD'                                   ok
+* echo $USER=4                                               ok
+* echo $USER=thallard                                        ok
 * echo $USER                                                 ok
-* echo $?
-* echo $USER213
-    * !ERROR! должно быть 0
-    * получаем ничего
-* echo $USER$12USER$USER=4$USER12
-    * !ERROR! должно быть agaralambinia2USERagaralambinia=4
-    * получаем ничего
-* echo $USER $123456789USER $USER123456789
-    * !ERROR! должно быть agaralambinia 23456789USER
-    * получаем ничего
-* echo $USER $9999USER $8888USER $7777USER
-    * !ERROR! должно быть agaralambinia 999USER 888USER 777USER
-    * получаем ничего
-* echo $USER $USER9999 $USER8888 $USER7777
-    * !ERROR! должно быть agaralambinia
-    * получаем ничего
-* echo $USER $USER9999 $USER8888 $USER7777 "$USER"
-    * !ERROR! должно быть agaralambinia agaralambinia
-    * получаем ничего
-* echo "$USER=12$USER"
-    * !ERROR! должно быть agaralambinia=12agaralambinia
-    * получаем ничего
-* echo "$9USER" "'$USER=12$SOMETHING'"
-    * !ERROR! должно быть USER 'agaralambinia=12'
-    * получаем ничего
-* echo $HOME/file
-    * !ERROR! должно быть /Users/agaralambinia/file
-    * получаем ничего
-* echo "$HOME/file"
-    * !ERROR! должно быть /Users/agaralambinia/file
-    * получаем ничего
+* echo $?                                                    ok
+* echo $USER213                                              ok
+* echo $USER$12USER$USER=4$USER12                            ok
+* echo $USER $123456789USER $USER123456789                   ok
+* echo $USER $9999USER $8888USER $7777USER                   ok
+* echo $USER $USER9999 $USER8888 $USER7777                   ok
+* echo $USER $USER9999 $USER8888 $USER7777 "$USER"           ok
+* echo "$USER=12$USER"                                       ok
+* echo "$9USER" "'$USER=12$SOMETHING'"                       ok
+* echo $HOME/file                                            ok
+* echo "$HOME/file"                                          ok
 * echo "text" "text$USER" ... "$USER"                                                                         ok
 * echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                               ok
 * echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                              ok
@@ -265,8 +211,7 @@
 * echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD                                                ok
 * echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD                                               ok
 * echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD                                         ok
-* echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD
-    * !ERROR! должны провалиться в //, проваливаемся в /
+* echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD                                                ok
 * echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD                                               ok
 * echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD
 * echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD          ok
@@ -276,8 +221,7 @@
 * echo $PWD; echo $OLDPWD; cd '                  /'; pwd; echo $PWD; echo $OLDPWD                             ok
 * echo $PWD; echo $OLDPWD; cd '                  /              '; pwd; echo $PWD; echo $OLDPWD               ok
 * echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD                                            ok
-* echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD
-    * !ERROR! pwd после команды должен выдавать //home а выдает /System/Volumes/Data/home
+* echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD                                            ok
 * echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD                                         ok
 * echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD                                 ok
 
