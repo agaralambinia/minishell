@@ -163,7 +163,6 @@ void	envp_init(char **envp, t_envp **envp_var);
 char	*get_envp_list_val(char *var, t_list **envp_list);
 int     env_init(void);
 bool    env_var_is_value(char *var_name, char *value);
-bool    env_is_var_char(char c);
 int     env_unset_var(char *name, t_envp *envp_var);
 int		env_put_var(char *name, char *str, t_envp *envp_var);
 int		env_set_env(char *name, char *value, t_envp *envp_var);
@@ -195,6 +194,7 @@ int		ft_list_replace(t_envp *envp_var, char *old_var, char *new_var);
 int		ft_list_remove(char *env_var, t_list **envp_list);
 int		ft_split_count(char **split);
 int		ft_strcmp(char *s1, char *s2);
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
 
 // wraps
 void	*safe_malloc(size_t str);

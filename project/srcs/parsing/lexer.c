@@ -33,7 +33,7 @@ static void	space_lex(char *line, int *i, t_envp *envp_var)
 
 	if (l[*i] == l[*i + 1])
 	{
-		printf("%s %d\n", __FILE__, __LINE__);
+		//printf("%s %d\n", __FILE__, __LINE__);
 		temp = (t_token *)safe_malloc(sizeof(t_token));
 		temp->t_data = (char *)safe_malloc(sizeof(char));
 		temp->t_data[0] = 0; 

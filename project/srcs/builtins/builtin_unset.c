@@ -23,8 +23,8 @@ int	builtin_unset(char **argv, t_envp *envp_var)
 	while (argv[arg_index])
 	{
 		char_index = 0;
-		while (argv[arg_index][char_index] && env_is_var_char(
-			argv[arg_index][char_index]))
+		while (argv[arg_index][char_index] && (ft_isalnum(argv[arg_index]
+				[char_index]) || argv[arg_index][char_index] == '_'))
 			char_index++;
 		if (argv[arg_index][char_index] != '\0' || argv[arg_index][0] == '\0')
 		{
