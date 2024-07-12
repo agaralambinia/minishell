@@ -186,30 +186,14 @@
 * echo $?                                                    ok
 * echo $USER213                                              ok
 * echo $USER$12USER$USER=4$USER12                            ok
-* echo $USER $123456789USER $USER123456789
-    * !ERROR! должно быть agaralambinia 23456789USER
-    * получаем ничего
-* echo $USER $9999USER $8888USER $7777USER
-    * !ERROR! должно быть agaralambinia 999USER 888USER 777USER
-    * получаем ничего
-* echo $USER $USER9999 $USER8888 $USER7777
-    * !ERROR! должно быть agaralambinia
-    * получаем ничего
-* echo $USER $USER9999 $USER8888 $USER7777 "$USER"
-    * !ERROR! должно быть agaralambinia agaralambinia
-    * получаем ничего
-* echo "$USER=12$USER"
-    * !ERROR! должно быть agaralambinia=12agaralambinia
-    * получаем ничего
-* echo "$9USER" "'$USER=12$SOMETHING'"
-    * !ERROR! должно быть USER 'agaralambinia=12'
-    * получаем ничего
-* echo $HOME/file
-    * !ERROR! должно быть /Users/agaralambinia/file
-    * получаем ничего
-* echo "$HOME/file"
-    * !ERROR! должно быть /Users/agaralambinia/file
-    * получаем ничего
+* echo $USER $123456789USER $USER123456789                   ok
+* echo $USER $9999USER $8888USER $7777USER                   ok
+* echo $USER $USER9999 $USER8888 $USER7777                   ok
+* echo $USER $USER9999 $USER8888 $USER7777 "$USER"           ok
+* echo "$USER=12$USER"                                       ok
+* echo "$9USER" "'$USER=12$SOMETHING'"                       ok
+* echo $HOME/file                                            ok
+* echo "$HOME/file"                                          ok
 * echo "text" "text$USER" ... "$USER"                                                                         ok
 * echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                               ok
 * echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                              ok
@@ -227,8 +211,7 @@
 * echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD                                                ok
 * echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD                                               ok
 * echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD                                         ok
-* echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD
-    * !ERROR! должны провалиться в //, проваливаемся в /
+* echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD                                                ok
 * echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD                                               ok
 * echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD
 * echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD          ok
@@ -238,8 +221,7 @@
 * echo $PWD; echo $OLDPWD; cd '                  /'; pwd; echo $PWD; echo $OLDPWD                             ok
 * echo $PWD; echo $OLDPWD; cd '                  /              '; pwd; echo $PWD; echo $OLDPWD               ok
 * echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD                                            ok
-* echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD
-    * !ERROR! pwd после команды должен выдавать //home а выдает /System/Volumes/Data/home
+* echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD                                            ok
 * echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD                                         ok
 * echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD                                 ok
 
