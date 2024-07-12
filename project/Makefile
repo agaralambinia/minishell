@@ -71,7 +71,9 @@ RLDIR = libs/rl_lib
 
 DEPS = incs/minishell.h
 
-CFLAGS  	:= -Wall -Wextra -Werror
+CFLAGS  	:= -Wall -Wextra -Werror -g
+#CFLAGS  	:= -fsanitize=address
+
 #CFLAGS		+= -I/opt/homebrew/opt/readlineinclude
 #READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
 
