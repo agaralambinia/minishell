@@ -57,19 +57,18 @@ static int env_put_var_export(char *name, char *str, t_envp *envp_var)
 {
     char *old_var;
 
-    printf("DEBUG %s %d\n", __FILE__, __LINE__);
     if (str == NULL)
         return (ERROR);
-    printf("DEBUG %s %d\n", __FILE__, __LINE__);
+    // printf("DEBUG %s %d\n", __FILE__, __LINE__);
     if (str == NULL)
     {
         ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
         return (ERROR);
     }
-    printf("DEBUG %s %d %s\n", __FILE__, __LINE__, get_env_val(ft_strjoin(name, "="), envp_var));
-    printf("DEBUG %s %d %s\n", __FILE__, __LINE__, name);
-    old_var = ft_strjoin(ft_strjoin(name, "="), get_env_val(name, envp_var));
-    printf("DEBUG %s %d NEW=%s OLD=%s\n", __FILE__, __LINE__, ft_strjoin(ft_strjoin(name, "="), str), old_var);
+    // printf("DEBUG %s %d %s\n", __FILE__, __LINE__, get_envp_list_val("SHLVL", &envp_var->envp_list));
+    // printf("DEBUG %s %d %s\n", __FILE__, __LINE__, name);
+    old_var = ft_strjoin(ft_strjoin(name, "="), get_envp_list_val(name, &envp_var->envp_list));
+    // printf("DEBUG %s %d NEW=%s OLD=%s\n", __FILE__, __LINE__, ft_strjoin(ft_strjoin(name, "="), str), old_var);
     ft_list_replace(envp_var, old_var, ft_strjoin(ft_strjoin(name, "="), str));
     free(old_var);
     return (SUCCESS);
@@ -87,7 +86,7 @@ static int	export_put_var(char *arg, t_envp *envp_var)
 		i++;
 	name = (char *)safe_malloc(sizeof(char) * (i + 1));
 	name = ft_strncpy(name, arg, i);
-	printf("DEBUG %s %d %s %s\n", __FILE__, __LINE__, name, ft_strchr(arg, '=') + 1);
+	// printf("DEBUG %s %d %s %s\n", __FILE__, __LINE__, name, ft_strchr(arg, '=') + 1);
 	exit_status = env_put_var_export(name, ft_strchr(arg, '=') + 1, envp_var);
 	free (name);
 	return (exit_status);
@@ -102,19 +101,19 @@ int	builtin_export(int argc, char **argv, t_envp *envp_var)
 	if (argc == 1)
 		print_environment_vars(envp_var);
 	index = 1;
-	printf("DEBUG %s %d\n", __FILE__, __LINE__);
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	while (argc > 1 && argv[index])
 	{
 		if (is_valid_arg(argv[index]) == false)
 		{
-			printf("DEBUG %s %d %s\n", __FILE__, __LINE__, argv[index]);
+			// printf("DEBUG %s %d %s\n", __FILE__, __LINE__, argv[index]);
 			ft_print_error(SHELL_NAME,
 				"export", ft_strjoin(ft_strjoin("`", argv[index]), "\'"), "not a valid identifier");
 			exit_status = ERROR;
 		}
 		else if (ft_strchr(argv[index], '='))
 		{
-			printf("DEBUG %s %d %s\n", __FILE__, __LINE__, argv[index]);
+			// printf("DEBUG %s %d %s\n", __FILE__, __LINE__, argv[index]);
 			exit_status = export_put_var(argv[index], envp_var);
 		}
 		index++;

@@ -432,45 +432,37 @@ export: usage: export [-nf] [name[=value] ...] or export -p
 123
     * получаем minishell: --TEST=123: not a valid identifier
     123
-* export ""=""
-    * !ERROR! должно быть -bash: export: `=': not a valid identifier
-    * получаем minishell: =: not a valid identifier
-* export ''=''
-    * !ERROR! должно быть -bash: export: `=': not a valid identifier
-    * получаем minishell: =: not a valid identifier
-* export "="="="
-    * !ERROR! должно быть -bash: export: `===': not a valid identifier
-    * получаем minishell: ===: not a valid identifier
-* export '='='='
-    * !ERROR! должно быть -bash: export: `===': not a valid identifier
-    * получаем minishell: ===: not a valid identifier
-* export TE\\\ST=100
-    * !ERROR! должно быть -bash: export: `TE\ST=100': not a valid identifier
-    * получаем minishell: TE\\\ST=100: not a valid identifier
-* export TE-ST=100
-    * !ERROR! должно быть -bash: export: `TE-ST=100': not a valid identifier
-    * получаем minishell: TE-ST=100: not a valid identifier
-* export -TEST=100
-* export TEST-=100
-* export _TEST=100
-* export TEST ; env | grep "TEST"
-* export ==========
-* export 1TEST=
-* export TEST
-* export ""=""
-* export TES=T=""
-* export TE+S=T=""
-* export TES\\\\T=123
-* export TES.T=123
-* export TES\\\$T=123
-* export TES\\\\T
-* export TES.T=123
-* export TES+T=123
-* export TES=T=123
-* export TES}T=123
-* export TES{T=123
-* export TES-T=123
-* export -TEST=123
+* export ""=""                                  ok
+* export ''=''                                  ok
+* export "="="="                                ok
+* export '='='='                                ok
+* export TE\\\ST=100                            ok (не поддерживаем \)
+* export TE-ST=100                              ok
+* export -TEST=100                              ok (не поддерживаем опции)
+* export TEST-=100                              ok
+* export _TEST=100                              ok
+* export TEST ; env | grep "TEST"               ok
+* export ==========                             ok
+* export 1TEST=                                 ok
+* export TEST                                   ok
+* export ""=""                                  ok
+* export TES=T=""                               ok
+* export TE+S=T=""                              ok
+* export TES\\\\T=123                           ok (не поддерживаем \)
+* export TES.T=123                              ok
+* export TES\\\$T=123                           ok (не поддерживаем \)
+* export TES\\\\T                               ok (не поддерживаем \)
+* export TES.T=123                              ok
+* export TES+T=123                              ok
+* export TES=T=123                              ok
+* export TES}T=123                              ok
+* export TES{T=123                              ok
+* export TES-T=123                              ok
+* export -TEST=123                              ok
+    * !ERROR! должно быть -bash: export: -T: invalid option
+export: usage: export [-nf] [name[=value] ...] or export -p
+i113735017:project agaralambinia$ 
+    * получаем minishell: export: `-TEST=123': not a valid identifier
 * export _TEST=123
 * export TES_T=123
 * export TEST_=123
