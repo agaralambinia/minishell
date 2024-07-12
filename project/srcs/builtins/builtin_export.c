@@ -111,7 +111,8 @@ int	builtin_export(int argc, char **argv, t_envp *envp_var)
 		if (is_valid_arg(argv[index]) == false)
 		{
 			ft_print_error(SHELL_NAME,
-				"export", ft_strjoin(ft_strjoin("`", argv[index]), "\'"), "not a valid identifier");
+				"export", ft_strjoin(ft_strjoin("`", argv[index]), "\'"),
+				"not a valid identifier");
 			exit_status = ERROR;
 		}
 		else if (ft_strchr(argv[index], '='))
