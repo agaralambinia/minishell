@@ -6,7 +6,7 @@
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/11 20:14:27 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/12 16:01:38 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,8 @@ int		env_set_env(char *name, char *value, t_envp *envp_var);
 
 // parsing funcs
 void	lexer(char *line, t_envp *envp_var);
+void	word_lexer(char *line, int *i, t_envp *envp_var);
+void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var);
 
 // signal funcs
 void	ft_singals(void);

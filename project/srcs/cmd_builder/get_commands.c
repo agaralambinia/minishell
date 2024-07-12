@@ -6,7 +6,7 @@
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:48:46 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/11 21:24:28 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/07/12 15:37:08 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	handle_token(
 	else if (type == SPACE)
 		res = bind_field(*com, handler);
 	else if (type == EXITSTATUS)
-		res = add_to_word(ft_itoa(envp_var->last_code), handler);
+		res = add_to_word(token->t_data, handler);
 	return res;
 }
 
