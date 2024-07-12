@@ -185,9 +185,7 @@
 * echo $USER                                                 ok
 * echo $?                                                    ok
 * echo $USER213                                              ok
-* echo $USER$12USER$USER=4$USER12
-    * !ERROR! должно быть agaralambinia2USERagaralambinia=4
-    * получаем ничего
+* echo $USER$12USER$USER=4$USER12                            ok
 * echo $USER $123456789USER $USER123456789
     * !ERROR! должно быть agaralambinia 23456789USER
     * получаем ничего
