@@ -180,12 +180,8 @@
 * echo '"$USER"''$USER'"""$USER"                             ok
 * echo " $USER  "'$PWD'                                      ok
 * echo " $USER  \$ "'$PWD'                                   ok
-* echo $USER=4
-    * !ERROR! должно быть $USER=4
-    * получаем ничего
-* echo $USER=thallard
-    * !ERROR! должно быть agaralambinia=thallard
-    * получаем ничего
+* echo $USER=4                                               ok
+* echo $USER=thallard                                        ok
 * echo $USER                                                 ok
 * echo $?
 * echo $USER213
