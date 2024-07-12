@@ -446,6 +446,47 @@
     * !ERROR! не ок, кажется пайпы не работают
 * export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST
     * !ERROR! не ок, кажется пайпы не работают
+
+блок UNSET:
+* unset                                                 ok
+* export TEST=100 ; echo $TEST ; unset TEST             ok
+* unset doesntexist                                     ok
+* unset PWD                                             ok
+* unset PWD ; echo $PWD                                 ok
+* unset OLDPWD ; echo $PWD                              ok
+* unset PATH ; ls                                       ok
+* unset PATH ; echo "something"                         ok
+* unset PATH ; bash                                     ok
+* unset TES\\\\T                                        ok (не обрабатываем \)
+* unset TES;T                                           ok (не обрабатываем ;)
+* unset TES.T                                           ok
+* unset TES+T                                           ok
+* unset TES=T                                           ok
+* unset TES}T                                           ok
+* unset TES{T                                           ok
+* unset TES-T                                           ok
+* unset -TEST                                           ok (не обрабатываем опции)
+* unset _TEST                                           ok
+* unset TES_T                                           ok
+* unset TEST_                                           ok
+* unset TE*ST                                           ok
+* unset TES#T                                           ok
+* unset TES@T                                           ok
+* unset TES!T                                           ok (не обрабатываем !)
+* unset TES$?T
+    * скорее всего ERROR и подставляется $?
+* unset ============                                    ok
+* unset +++++++                                         ok
+* unset ________                                        ok
+* unset export                                          ok
+* unset echo                                            ok
+* unset pwd                                             ok
+* unset cd                                              ok
+* unset unset                                           ok
+* unset sudo                                            ok
+* unset TES^T                                           ok
+* unset TES!T                                           ok (не обрабатываем !)
+* unset TES\~T                                          ok (не обрабатываем \)
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
