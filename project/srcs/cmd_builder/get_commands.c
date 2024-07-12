@@ -109,5 +109,6 @@ t_list	*get_commands(t_envp *envp_var)
 	com = add_command(com, &com_lst, handler);
 	free(com);
 	free(handler);
+//	system("leaks minishell");
 	return (com_lst);
 }

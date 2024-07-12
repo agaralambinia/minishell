@@ -62,4 +62,5 @@ void	word_lexer(char *line, int *i, t_envp *envp_var)
 		temp->token_type = WORD;
 	fill_content(line, i, temp);
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+	//system("leaks minishell");
 }

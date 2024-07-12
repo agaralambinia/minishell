@@ -128,4 +128,5 @@ void	lexer(char *line, t_envp *envp_var)
 		else
 			word_lexer(line, &i, envp_var);
 	}
+	//system("leaks minishell");
 }

@@ -39,6 +39,8 @@ void	fill_content(char q, char *l, int *i, t_envp *envp_var)
 		temp->token_type = SOFTWORD;
 	if (temp->t_data)
 		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+	else
+		free(temp);
 }
 
 void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var)
