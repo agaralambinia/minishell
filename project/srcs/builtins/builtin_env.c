@@ -21,7 +21,6 @@ int	builtin_env(t_envp *envp_var)
 		ft_print_error(SHELL_NAME, "env", NULL, "environ not set");
 		return (ERROR);
 	}
-	iter = (t_list *)safe_malloc(sizeof(t_list));
 	iter = envp_var->envp_list;
 	while (iter != NULL)
 	{

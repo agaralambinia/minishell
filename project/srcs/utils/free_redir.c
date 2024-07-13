@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd.c                                         :+:      :+:    :+:   */
+/*   free_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/23 17:14:06 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/10 18:28:50 by sosokin          ###   ########.fr       */
+/*   Created: 2024/07/13 21:34:24 by sosokin           #+#    #+#             */
+/*   Updated: 2024/07/13 21:34:34 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	free_cmd(void *data)
+void	free_redir(void *data)
 {
-	t_cmd	*com;	
+	t_redir	*redir;	
 
-	com = (t_cmd *)data;
-	if (com)
+	redir = (t_redir *)data;
+	if (redir)
 	{
-		free(com->command);
-		ft_lstclear(&(com->args), &free);
-		ft_lstclear(&(com->redir_in), &free_redir);
-		ft_lstclear(&(com->redir_out), &free_redir);
-		free(com);
+		free(redir->path);
+		free(redir);
 	}
 }
