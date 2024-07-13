@@ -26,49 +26,10 @@ static void	space_lex(char *line, int *i, t_envp *envp_var)
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 
-/*static void	quote_lex(char *l, int *i, t_quote qtype, t_envp *envp_var)
-{
-	char	q;
-	t_token	*temp;
-
-	if (l[*i] == l[*i + 1])
-	{
-		//printf("%s %d\n", __FILE__, __LINE__);
-		temp = (t_token *)safe_malloc(sizeof(t_token));
-		temp->t_data = (char *)safe_malloc(sizeof(char));
-		temp->t_data[0] = 0; 
-		temp->token_type = WORD;
-		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
-		(*i)++;
-		return ;
-	}
-	q = '\"';
-	if (qtype == NA)
-		q = l[(*i)++];
-	if (l[(*i)] != '$' || q == '\'')
-	{
-		temp = (t_token *)safe_malloc(sizeof(t_token));
-		while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
-			ft_straddchar(&temp->t_data, l[(*i)++]);
-		if (l[*i] == q)
-			(*i)++;
-		if (q == '\'')
-			temp->token_type = HARDWORD;
-		else if (q == '\"')
-			temp->token_type = SOFTWORD;
-		if (temp->t_data)
-			ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
-	}
-	if (l[*i] == '$' && (q == '\"'))
-	{
-		word_lexer(l, i, envp_var);
-		quote_lex(l, i, DOUBLE, envp_var);
-	}
-}*/
-
 static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 {
 	t_token	*t;
+	t_list	*last;
 
 	t = (t_token *)safe_malloc(sizeof(t_token));
 	ft_straddchar(&t->t_data, line[(*i)++]);
@@ -88,7 +49,15 @@ static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 			t->token_type = SINGLE_RA;
 	}
 	else if (line[*i - 1] == '|')
+	{
+		last = (ft_lstlast(envp_var->token_list));
+		if (!last || ((t_token *)(last->content))->token_type == PIPE){
+			printf("minishell: syntax error near unexpected token '|'\n");
+			free(t);
+			return ;
+		}
 		t->token_type = PIPE;
+	}
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(t));
 }
 
