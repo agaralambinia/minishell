@@ -21,8 +21,10 @@ int	execute(char *line, t_envp *envp_var)
 	lexer(line, envp_var);
 	//print_lexer_debug(envp_var);
 	commands = get_commands(envp_var);
-	//print_lexer_debug(envp_var);
-//	print_cmd_debug(commands);
+
+//	print_lexer_debug(envp_var);
+	//print_cmd_debug(commands);
+
 	if (ft_lstsize(commands) == 1)
 	{
 		//printf("\n\nBEFORE:\n");
@@ -33,10 +35,8 @@ int	execute(char *line, t_envp *envp_var)
 		//printf("\n\nAFTER:\n");
 		//print_envp(envp_var->envp_list);
 	}
-	if (envp_var->last_code == NOTFOUND)
-	{
+	if (ft_lstsize(commands) > 1 || envp_var->last_code == NOTFOUND)
 		envp_var->last_code = run_command(commands, envp_var);
-	}
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
 	return (envp_var->last_code);

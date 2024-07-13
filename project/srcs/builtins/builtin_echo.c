@@ -53,12 +53,15 @@ int	builtin_echo(char **argv)
 	include_newline = check_for_newline(argv, &index);
 	while (argv[index])
 	{
-		ft_putstr_fd(argv[index], 1);
+		//ft_putstr_fd(argv[index], 1);
+		printf("%s", argv[index]);
 		if (argv[index + 1])
-			ft_putchar_fd(' ', 1);
+			printf(" ");
+			//ft_putchar_fd(' ', 1);
 		index++;
 	}
 	if (include_newline)
-		ft_putchar_fd('\n', 1);
+		printf("\n");
+		//ft_putchar_fd('\n', 1);
 	return (SUCCESS);
 }
