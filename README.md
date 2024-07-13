@@ -226,12 +226,10 @@
 * echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD                                 ok
 
 блок ERROR:
-* ;; test
-    * !ERROR! должно быть -bash: syntax error near unexpected token `;;'
-    * получаем ;;: No such file or directory
+* ;; test                                               ok (не обрабатываем ;)
 * | test
     * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем Bad address
+    * получаем пустоту
 * echo > <
     * !ERROR! должно быть -bash: syntax error near unexpected token `<'
     * получаем пустую строку
@@ -253,9 +251,7 @@
 * ;;;;;;;
     * !ERROR! должно быть -bash: syntax error near unexpected token `;;'
     * получаем ;;;;;;;: No such file or directory
-* hello world
-    * !ERROR! должно быть -bash: hello: command not found
-    * получаем hello: No such file or directory
+* hello world                                           ok
 * ||||||||
     * !ERROR! должно быть -bash: syntax error near unexpected token `||'
     * получаем Bad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address

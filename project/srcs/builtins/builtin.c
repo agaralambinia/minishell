@@ -53,7 +53,6 @@ int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
 		return (NOTFOUND);
 	else if (builtin_index == INT_MAX)
 		return (INT_MAX);
-	//errno = 0; TODO подозреваю это exit code
 	if (!(ft_strncmp(argv[0], "cd", 2)))
 		return (builtin_cd(ft_split_count(argv), argv, envp_var));
 	else if (!(ft_strncmp(argv[0], "echo", 4)))

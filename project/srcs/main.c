@@ -34,7 +34,9 @@ int	execute(char *line, t_envp *envp_var)
 		//print_envp(envp_var->envp_list);
 	}
 	if (envp_var->last_code == NOTFOUND)
+	{
 		envp_var->last_code = run_command(commands, envp_var);
+	}
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
 	return (envp_var->last_code);
