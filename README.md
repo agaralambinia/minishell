@@ -138,33 +138,21 @@
 * echo bonjour                                ok
 * echo 'bonjour'                              ok
 * echo -n bonjour                             ok
-* echo -nn bonjour
-    * !ERROR! должно быть bonjourminishell:project minishell_user$
-    *  получаем -nn bonjour
-        minishell:project minishell_user$
+* echo -nn bonjour                            ok
 * echo -n -n -n bonjour                       ok
 * echo -n -n -n bonjour                       ok
 * echo "-n" bonjour                           ok
 * echo -n"-n" bonjour                         ok
-* echo "-nnnn" bonjour
-    * !ERROR! должно быть bonjourminishell:project minishell_user$
-    *  получаем -nnnn bonjour
-        minishell:project minishell_user$
+* echo "-nnnn" bonjour                        ok
 * echo "-n -n -n"-n bonjour                   ok
 * echo "-n '-n'" bonjour                      ok
-* echo ~
-    * !ERROR! должно быть /Users/agaralambinia
-    *  получаем ~
+* echo ~                                      ok
 * echo "~"                                    ok
 * echo '~'                                    ok
 * echo ~123                                   ok
 * echo 123~                                   ok
-* echo ~/123
-    * !ERROR! должно быть /Users/agaralambinia/123
-    *  получаем ~/123
-* echo ~/123/456
-    * !ERROR! должно быть /Users/agaralambinia/123/456
-    *  получаем ~/123/456
+* echo ~/123                                  ok
+* echo ~/123/456                              ok
 * echo $USER                                  ok
 * echo "$USER"                                ok
 * echo "'$USER'"                              ok
@@ -176,78 +164,36 @@
 * echo               text "$USER"            "$USER"text    ok
 * echo ''''''''''$USER''''''''''                            ok
 * echo """"""""$USER""""""""                                ok
-* echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
-    * !ERROR! должно быть agaralambinia$USERtext oui oui oui oui agaralambinia oui agaralambinia 
-    *  получаем ничего
+* echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER '' ok
 * echo $USER '' $USER $USER '' $USER '' $USER -n $USER       ok
 * echo ' \' ' \'                                             ok
 * echo ' \' ' \'                                             ok
-* echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
-    * !ERROR! должно быть \" \" \" \"\"\" \'\'\'
-    * получаем ничего
+* echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'              ok - вывод отличается, но мы не должны обрабатывать \
 * echo "$USER""$USER""$USER"                                 ok
 * echo text"$USER"test                                       ok
-* echo '$USER' "$USER" "text \' text"
-    * !ERROR! должно быть $USER agaralambinia text \' text
-    * получаем ничего
-* echo '$USER'
-    * !ERROR! должно быть $USER
-    * получаем ничего
-* echo $USER " "                                              ok
-* echo "$USER""Users/$USER/file""'$USER'"'$USER'
-    * !ERROR! должно быть agaralambiniaUsers/agaralambinia/file'agaralambinia'$USER
-    * получаем ничего
-* echo "$USER$USER$USER"                                      ok
-* echo '$USER'"$USER"'$USER'
-    * !ERROR! должно быть $USERagaralambinia$USER
-    * получаем ничего
-* echo '"$USER"''$USER'"""$USER"
-    * !ERROR! должно быть "$USER"$USERagaralambinia
-    * получаем "$USER"agaralambinia"""$USER"
-* echo " $USER  "'$PWD'
-    * !ERROR! должно быть  agaralambinia  $PWD
-    * получаем ничего
-* echo " $USER  \$ "'$PWD'
-    * !ERROR! должно быть  agaralambinia  $ $PWD
-    * получаем ничего
-* echo $USER=4
-    * !ERROR! должно быть $USER=4
-    * получаем ничего
-* echo $USER=thallard
-    * !ERROR! должно быть agaralambinia=thallard
-    * получаем ничего
+* echo '$USER' "$USER" "text \' text"                        ok
+* echo '$USER'                                               ok
+* echo $USER " "                                             ok
+* echo "$USER""Users/$USER/file""'$USER'"'$USER'             ok
+* echo "$USER$USER$USER"                                     ok
+* echo '$USER'"$USER"'$USER'                                 ok
+* echo '"$USER"''$USER'"""$USER"                             ok
+* echo " $USER  "'$PWD'                                      ok
+* echo " $USER  \$ "'$PWD'                                   ok
+* echo $USER=4                                               ok
+* echo $USER=thallard                                        ok
 * echo $USER                                                 ok
-* echo $?
-* echo $USER213
-    * !ERROR! должно быть 0
-    * получаем ничего
-* echo $USER$12USER$USER=4$USER12
-    * !ERROR! должно быть agaralambinia2USERagaralambinia=4
-    * получаем ничего
-* echo $USER $123456789USER $USER123456789
-    * !ERROR! должно быть agaralambinia 23456789USER
-    * получаем ничего
-* echo $USER $9999USER $8888USER $7777USER
-    * !ERROR! должно быть agaralambinia 999USER 888USER 777USER
-    * получаем ничего
-* echo $USER $USER9999 $USER8888 $USER7777
-    * !ERROR! должно быть agaralambinia
-    * получаем ничего
-* echo $USER $USER9999 $USER8888 $USER7777 "$USER"
-    * !ERROR! должно быть agaralambinia agaralambinia
-    * получаем ничего
-* echo "$USER=12$USER"
-    * !ERROR! должно быть agaralambinia=12agaralambinia
-    * получаем ничего
-* echo "$9USER" "'$USER=12$SOMETHING'"
-    * !ERROR! должно быть USER 'agaralambinia=12'
-    * получаем ничего
-* echo $HOME/file
-    * !ERROR! должно быть /Users/agaralambinia/file
-    * получаем ничего
-* echo "$HOME/file"
-    * !ERROR! должно быть /Users/agaralambinia/file
-    * получаем ничего
+* echo $?                                                    ok
+* echo $USER213                                              ok
+* echo $USER$12USER$USER=4$USER12                            ok
+* echo $USER $123456789USER $USER123456789                   ok
+* echo $USER $9999USER $8888USER $7777USER                   ok
+* echo $USER $USER9999 $USER8888 $USER7777                   ok
+* echo $USER $USER9999 $USER8888 $USER7777 "$USER"           ok
+* echo "$USER=12$USER"                                       ok
+* echo "$9USER" "'$USER=12$SOMETHING'"                       ok
+* echo $HOME/file                                            ok
+* echo "$HOME/file"                                          ok
 * echo "text" "text$USER" ... "$USER"                                                                         ok
 * echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n                                               ok
 * echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n                                              ok
@@ -265,8 +211,7 @@
 * echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD                                                ok
 * echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD                                               ok
 * echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD                                         ok
-* echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD
-    * !ERROR! должны провалиться в //, проваливаемся в /
+* echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD                                                ok
 * echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD                                               ok
 * echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD
 * echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD          ok
@@ -276,18 +221,15 @@
 * echo $PWD; echo $OLDPWD; cd '                  /'; pwd; echo $PWD; echo $OLDPWD                             ok
 * echo $PWD; echo $OLDPWD; cd '                  /              '; pwd; echo $PWD; echo $OLDPWD               ok
 * echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD                                            ok
-* echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD
-    * !ERROR! pwd после команды должен выдавать //home а выдает /System/Volumes/Data/home
+* echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD                                            ok
 * echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD                                         ok
 * echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD                                 ok
 
 блок ERROR:
-* ;; test
-    * !ERROR! должно быть -bash: syntax error near unexpected token `;;'
-    * получаем ;;: No such file or directory
+* ;; test                                               ok (не обрабатываем ;)
 * | test
     * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем Bad address
+    * получаем пустоту
 * echo > <
     * !ERROR! должно быть -bash: syntax error near unexpected token `<'
     * получаем пустую строку
@@ -309,9 +251,7 @@
 * ;;;;;;;
     * !ERROR! должно быть -bash: syntax error near unexpected token `;;'
     * получаем ;;;;;;;: No such file or directory
-* hello world
-    * !ERROR! должно быть -bash: hello: command not found
-    * получаем hello: No such file or directory
+* hello world                                           ok
 * ||||||||
     * !ERROR! должно быть -bash: syntax error near unexpected token `||'
     * получаем Bad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address
@@ -409,110 +349,140 @@
 * export | grep "SHLVL"
     * !ERROR! должно быть declare -x SHLVL="1"
     * получаем пустоту
-* export | grep "OLDPWD"            ok
-* export | grep "PWD"               ok
-* export $? ; echo $?
-    * !ERROR! должно быть -bash: export: `0': not a valid identifier\n1
-    * получаем пустоту
-* export TEST ; echo $TEST
-    * !ERROR! должна быть пустая строка
-    * получаем пустоту
-* export TEST= ; echo $TEST
-    * !ERROR! должна быть пустая строка
-    * получаем Segmentation fault: 11
-* export TEST=123 ; echo $TEST
-    * !ERROR! должно быть 123
-    * получаем Segmentation fault: 11
-* export ___TEST=123 ; echo $TEST
-    * !ERROR! должно быть 123
-    * получаем Segmentation fault: 11
-* export --TEST=123 ; echo $TEST
-    * !ERROR! должно быть -bash: export: --: invalid option
-export: usage: export [-nf] [name[=value] ...] or export -p
-123
-    * получаем minishell: --TEST=123: not a valid identifier
-    123
-* export ""=""
-    * !ERROR! должно быть -bash: export: `=': not a valid identifier
-    * получаем minishell: =: not a valid identifier
-* export ''=''
-    * !ERROR! должно быть -bash: export: `=': not a valid identifier
-    * получаем minishell: =: not a valid identifier
-* export "="="="
-    * !ERROR! должно быть -bash: export: `===': not a valid identifier
-    * получаем minishell: ===: not a valid identifier
-* export '='='='
-    * !ERROR! должно быть -bash: export: `===': not a valid identifier
-    * получаем minishell: ===: not a valid identifier
-* export TE\\\ST=100
-    * !ERROR! должно быть -bash: export: `TE\ST=100': not a valid identifier
-    * получаем minishell: TE\\\ST=100: not a valid identifier
-* export TE-ST=100
-    * !ERROR! должно быть -bash: export: `TE-ST=100': not a valid identifier
-    * получаем minishell: TE-ST=100: not a valid identifier
-* export -TEST=100
-* export TEST-=100
-* export _TEST=100
+* export | grep "OLDPWD"                        ok
+* export | grep "PWD"                           ok
+* export $? ; echo $?                           ok
+* export TEST ; echo $TEST                      ok
+* export TEST= ; echo $TEST                     ok
+* export TEST=123 ; echo $TEST                  ok
+* export ___TEST=123 ; echo $TEST               ok
+* export --TEST=123 ; echo $TEST                ok (не поддерживаем опции)
+* export ""=""                                  ok
+* export ''=''                                  ok
+* export "="="="                                ok
+* export '='='='                                ok
+* export TE\\\ST=100                            ok (не поддерживаем \)
+* export TE-ST=100                              ok
+* export -TEST=100                              ok (не поддерживаем опции)
+* export TEST-=100                              ok
+* export _TEST=100                              ok
 * export TEST ; env | grep "TEST"
-* export ==========
-* export 1TEST=
-* export TEST
-* export ""=""
-* export TES=T=""
-* export TE+S=T=""
-* export TES\\\\T=123
-* export TES.T=123
+    * не ок, кажется пайпы не работают
+* export ==========                             ok
+* export 1TEST=                                 ok
+* export TEST                                   ok
+* export ""=""                                  ok
+* export TES=T=""                               ok
+* export TE+S=T=""                              ok
+* export TES\\\\T=123                           ok (не поддерживаем \)
+* export TES.T=123                              ok
 * export TES\\\$T=123
-* export TES\\\\T
-* export TES.T=123
-* export TES+T=123
-* export TES=T=123
-* export TES}T=123
-* export TES{T=123
-* export TES-T=123
-* export -TEST=123
-* export _TEST=123
-* export TES_T=123
-* export TEST_=123
-* export TE*ST=123
-* export TES#T=123
-* export TES@T=123
-* export TES!T=123
+    * не ок export: `TES\\\Apple_Terminal=123': not a valid identifier
+* export TES\\\\T                               ok (не поддерживаем \)
+* export TES.T=123                              ok
+* export TES+T=123                              ok
+* export TES=T=123                              ok
+* export TES}T=123                              ok
+* export TES{T=123                              ok
+* export TES-T=123                              ok
+* export -TEST=123                              ok (не поддерживаем опции)
+* export _TEST=123                              ok
+* export TES_T=123                              ok
+* export TEST_=123                              ok
+* export TE*ST=123                              ok
+* export TES#T=123                              ok
+* export TES@T=123                              ok
+* export TES!T=123                              ok (не поддерживаем !)
 * export TES$?T=123
-* export =============123
-* export +++++++=123
-* export ________=123
-* export export
-* export echo
-* export pwd
-* export cd
-* export export
-* export unset
-* export sudo
-* export TES^T=123
-* export TES!T=123
+    * ERROR не ок, разыменовывает $?
+* export =============123                       ok
+* export +++++++=123                            ok
+* export ________=123                           ok
+* export export                                 ok
+* export echo                                   ok
+* export pwd                                    ok
+* export cd                                     ok
+* export unset                                  ok
+* export sudo                                   ok
+* export TES^T=123                              ok
+* export TES!T=123                              ok (не поддерживаем !)
 * export TES\~T=123
-* export TEST+=100 ; echo $TEST ; export TEST+=200 ; echo $TEST
-* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST
-* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST
-* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST
-* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST
-* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD
-* export TEST=123 0$TEST=0123 ; echo $TEST
+* export TEST+=100 ; echo $TEST ; export TEST+=200 ; echo $TEST          ok
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST     ok
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST       ok
+* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST       ok
+* export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST       ok
+* export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD         ok
+* export TEST=123 0$TEST=0123 ; echo $TEST                  ok
 * export TEST ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST= ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST='' ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=100 TEST2=100 ; env | grep "TEST" ; unset TEST TEST2
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=100 TEST1=200 ; env | grep "TEST" ; unset TEST TEST1
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="100" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST='"$USER"' ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="$USER" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="$USER$USER" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="'$USER'""test" ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST="$USER" TEST1=$TEST ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=LOL ; export TEST+=LOL ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
 * export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST
+    * !ERROR! не ок, кажется пайпы не работают
+
+блок UNSET:
+* unset                                                 ok
+* export TEST=100 ; echo $TEST ; unset TEST             ok
+* unset doesntexist                                     ok
+* unset PWD                                             ok
+* unset PWD ; echo $PWD                                 ok
+* unset OLDPWD ; echo $PWD                              ok
+* unset PATH ; ls                                       ok
+* unset PATH ; echo "something"                         ok
+* unset PATH ; bash                                     ok
+* unset TES\\\\T                                        ok (не обрабатываем \)
+* unset TES;T                                           ok (не обрабатываем ;)
+* unset TES.T                                           ok
+* unset TES+T                                           ok
+* unset TES=T                                           ok
+* unset TES}T                                           ok
+* unset TES{T                                           ok
+* unset TES-T                                           ok
+* unset -TEST                                           ok (не обрабатываем опции)
+* unset _TEST                                           ok
+* unset TES_T                                           ok
+* unset TEST_                                           ok
+* unset TE*ST                                           ok
+* unset TES#T                                           ok
+* unset TES@T                                           ok
+* unset TES!T                                           ok (не обрабатываем !)
+* unset TES$?T
+    * скорее всего ERROR и подставляется $?
+* unset ============                                    ok
+* unset +++++++                                         ok
+* unset ________                                        ok
+* unset export                                          ok
+* unset echo                                            ok
+* unset pwd                                             ok
+* unset cd                                              ok
+* unset unset                                           ok
+* unset sudo                                            ok
+* unset TES^T                                           ok
+* unset TES!T                                           ok (не обрабатываем !)
+* unset TES\~T                                          ok (не обрабатываем \)
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
