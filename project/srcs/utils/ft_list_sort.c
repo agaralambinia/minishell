@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_insert_sort.c                              :+:      :+:    :+:   */
+/*   ft_list_sort.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,39 +12,42 @@
 
 #include "../../incs/minishell.h"
 
-static void	ft_sort(t_list *newnode, t_list *sorted)
-{
-	t_list	*cur;
-
-	if (sorted == NULL || sorted->content >= newnode->content)
-	{
-		newnode->next = sorted;
-		sorted = newnode;
-	}
-	else
-	{
-		cur = sorted;
-		while (cur->next != NULL && cur->next->content < newnode->content)
-			cur = cur->next;
-		newnode->next = cur->next;
-		cur->next = newnode;
-	}
-}
-
-void	ft_list_insert_sort(t_list *lst)
+static void	swap(t_list **lst)
 {
 	t_list	*temp;
-	t_list	*head;
-	t_list	*sorted;
 
-	head = NULL;
-	sorted = NULL;
-	temp = head;
-	while (lst != NULL)
+	if (!(*lst) || (*lst)->next == NULL)
+		return ;
+	temp = malloc(sizeof(t_list));
+	if (!temp)
+		return ;
+	temp->content = (*lst)->content;
+	(*lst)->content = (*lst)->next->content;
+	(*lst)->next->content = temp->content;
+	free(temp);
+}
+
+void	ft_list_sort(t_list *lst)
+{
+	int		i;
+	int		j;
+	t_list	*iter;
+	int		len;
+
+	i = 0;
+	j = 0;
+	len = ft_lstsize(lst);
+	while (i < len - 1)
 	{
-		temp = lst->next;
-		ft_sort(lst, sorted);
-		lst = temp;
+		j = 0;
+		iter = lst;
+		while (j < len - i - 1)
+		{
+			if (ft_strcmp(iter -> content, iter -> next -> content) > 0)
+				swap(&iter);
+			j++;
+			iter = iter -> next;
+		}
+		i++;
 	}
-	head = sorted;
 }

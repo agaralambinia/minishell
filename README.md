@@ -346,9 +346,7 @@
     * получаем your: No such file or directory
 
 блок EXPORT
-* export | grep "SHLVL"
-    * !ERROR! должно быть declare -x SHLVL="1"
-    * получаем пустоту
+* export | grep "SHLVL"                         ok
 * export | grep "OLDPWD"                        ok
 * export | grep "PWD"                           ok
 * export $? ; echo $?                           ok
@@ -366,8 +364,7 @@
 * export -TEST=100                              ok (не поддерживаем опции)
 * export TEST-=100                              ok
 * export _TEST=100                              ok
-* export TEST ; env | grep "TEST"
-    * не ок, кажется пайпы не работают
+* export TEST ; env | grep "TEST"               ok
 * export ==========                             ok
 * export 1TEST=                                 ok
 * export TEST                                   ok
@@ -413,35 +410,21 @@
 * export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST       ok
 * export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST       ok
 * export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD         ok
-* export TEST=123 0$TEST=0123 ; echo $TEST                  ok
-* export TEST ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST= ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST='' ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=100 TEST2=100 ; env | grep "TEST" ; unset TEST TEST2
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=100 TEST1=200 ; env | grep "TEST" ; unset TEST TEST1
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="100" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST='"$USER"' ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="$USER" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="$USER$USER" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="'$USER'""test" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="$USER" TEST1=$TEST ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=LOL ; export TEST+=LOL ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
+* export TEST=123 0$TEST=0123 ; echo $TEST                             ok
+* export TEST ; env | grep "TEST" ; unset TEST                         ok
+* export TEST= ; env | grep "TEST" ; unset TEST                        ok
+* export TEST="" ; env | grep "TEST" ; unset TEST                      ok
+* export TEST='' ; env | grep "TEST" ; unset TEST                      ok
+* export TEST=100 TEST2=100 ; env | grep "TEST" ; unset TEST TEST2     ok
+* export TEST=100 TEST1=200 ; env | grep "TEST" ; unset TEST TEST1     ok
+* export TEST="100" ; env | grep "TEST" ; unset TEST                   ok
+* export TEST='"$USER"' ; env | grep "TEST" ; unset TEST               ok
+* export TEST="$USER" ; env | grep "TEST" ; unset TEST                 ok
+* export TEST="$USER$USER" ; env | grep "TEST" ; unset TEST            ok
+* export TEST="'$USER'""test" ; env | grep "TEST" ; unset TEST         ok
+* export TEST="$USER" TEST1=$TEST ; env | grep "TEST" ; unset TEST     ok
+* export TEST=LOL ; export TEST+=LOL ; env | grep "TEST" ; unset TEST  ok
+* export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST  ok
 
 блок UNSET:
 * unset                                                 ok
@@ -483,6 +466,74 @@
 * unset TES^T                                           ok
 * unset TES!T                                           ok (не обрабатываем !)
 * unset TES\~T                                          ok (не обрабатываем \)
+
+
+  БЛОК PIPES - все ок
+
+* env | grep "_="
+* env | grep "SHLVL"
+* echo oui | cat -e
+* echo oui | echo non | echo something | grep oui
+* echo oui | echo non | echo something | grep non
+* echo oui | echo non | echo something | grep something
+* pwd ; cd .. | echo "something"
+* pwd ; cd .. | echo "something" ; pwd
+* pwd ; cd / | echo "something" ; pwd
+* cd .. | pwd
+* ifconfig | grep ":"
+* ifconfig | grep nothing
+* whoami | grep $USER
+* whoami | grep $USER > file; cat file
+* whoami | cat -e | cat -e > file ; cat file ; echo $USER
+* cat Makefile | grep "FLAGS"
+* cat Makefile | cat -e | cat -e
+* cat Makefile | grep "FLAGS" | grep "FLAGS" | cat -e
+* export TEST=123 | cat -e | cat -e ; echo $TEST
+* unset TEST | cat -e
+* echo test | cat -e | cat -e | cat -e
+* whereis ls | cat -e | cat -e > test
+* echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+* ls -la | grep "."
+* whereis grep > file ; cat file ; ls -la file | grep "grep"
+* whereis grep > file ; cat file ; ls -la file
+* ls -la > file ; cat < file doesntexist
+
+
+
+
+
+БЛОК REDIRECTIONS
+* ls -la > file ; cat file
+* ifconfig | grep "192.168" > file ; cat file
+* echo text > file text2 > file1 ; cat file file1
+* echo text > file ; cat file
+* echo text > file ; cat file
+* echo text > $PWD/file text2 ; cat $PWD/file
+* echo text$USER > file $USER ; cat file
+* echo "text"$USER > file ; cat file
+* echo $USER"text""'$USER'""$USER" > file >> file2 $USER ; cat file file2
+* echo '$USER'"123$USER123""text" > file ; cat file
+* echo "text" > file >> file1 ; cat file file1
+* echo "text" > file text2 ; cat file
+* echo "text" > file text ; cat file
+* echo "text" > file ; cat file
+* echo "text" > file ; cat file ; rm -f file
+* echo text$USER > file $USER ; cat file ; rm -f file
+* echo "text"$USER > file ; cat file ; rm -f file
+* echo $USER"text""'$USER'""$USER" > file >> file2 $USER ; cat file file2 ; rm -f file file2
+* echo '$USER'"123$USER123""text" > file ; cat file ; rm -f file
+* echo "text" > file >> file1 ; cat file file1 ; rm -f file file1
+* echo $USER  $USER7777"text"$USER $USER9999 > file $USER $USER9999 ; cat file ; rm -f file
+* echo $USER  $USER7777"text"$USER $USER9999 > file $USER $USER9999 ; cat file
+* echo something > > file ; cat < file
+* echo something > file ; cat file
+* echo something > file ; >> file ls -la ; cat file
+* > file echo something ; cat file
+* > file cat test.sh
+* cat < README.md
+* cat < README.md test.sh
+* cat < README.md | wc -l | xargs
+* cat < README.md > file ; cat file | wc -l | xargs > file1 ; cat file1
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md

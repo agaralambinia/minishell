@@ -15,7 +15,8 @@
 static void	print_environment_vars(t_envp *envp_var)
 {
 	t_list	*env_copy;
-	int		var_name_len;
+	char	*temp;
+	int		i;
 
 	if (envp_var == NULL)
 		return ;
@@ -26,14 +27,18 @@ static void	print_environment_vars(t_envp *envp_var)
 		return ;
 	}
 	env_copy = envp_var->envp_list;
-	ft_list_insert_sort(env_copy);
+	ft_list_sort(env_copy);
 	while (env_copy != NULL)
 	{
-		var_name_len = ft_strlen(ft_strchr(env_copy->content, '='));
-		printf("%.*s", var_name_len + 1, (char *)env_copy->content);
-		printf("\"%s\"\n", get_envp_list_val(
-				env_copy->content, &(envp_var->envp_list)));
+		i = 0;
+		while (((char *)env_copy->content)[i] != '=')
+			i++;
+		temp = (char *)safe_malloc(sizeof(char) * (i + 1));
+		temp = ft_strncpy(temp, env_copy->content, i + 1);
+		printf("declare -x %s\"%s\"\n", temp, (
+			ft_strchr(env_copy->content, '=') + 1));
 		env_copy = env_copy -> next;
+		free (temp);
 	}
 }
 
