@@ -483,6 +483,37 @@
 * unset TES^T                                           ok
 * unset TES!T                                           ok (не обрабатываем !)
 * unset TES\~T                                          ok (не обрабатываем \)
+
+  БЛОК PIPES
+
+* env | grep "_="
+* env | grep "SHLVL"
+* echo oui | cat -e
+* echo oui | echo non | echo something | grep oui
+* echo oui | echo non | echo something | grep non
+* echo oui | echo non | echo something | grep something
+* pwd ; cd .. | echo "something"
+* pwd ; cd .. | echo "something" ; pwd
+* pwd ; cd / | echo "something" ; pwd
+* cd .. | pwd
+* ifconfig | grep ":"
+* ifconfig | grep nothing
+* whoami | grep $USER
+* whoami | grep $USER > file; cat file
+* whoami | cat -e | cat -e > file ; cat file ; echo $USER
+* cat Makefile | grep "FLAGS"
+* cat Makefile | cat -e | cat -e
+* cat Makefile | grep "FLAGS" | grep "FLAGS" | cat -e
+* export TEST=123 | cat -e | cat -e ; echo $TEST
+* unset TEST | cat -e
+* echo test | cat -e | cat -e | cat -e
+* whereis ls | cat -e | cat -e > test
+* echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+* ls -la | grep "."
+* whereis grep > file ; cat file ; ls -la file | grep "grep"
+* whereis grep > file ; cat file ; ls -la file
+* ls -la > file ; cat < file doesntexist
+
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
