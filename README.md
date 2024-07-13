@@ -499,6 +499,7 @@
 * ls -la > file ; cat < file doesntexist
 
 
+
 БЛОК REDIRECTIONS
 * ls -la > file ; cat file
 * ifconfig | grep "192.168" > file ; cat file
