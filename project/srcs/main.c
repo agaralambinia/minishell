@@ -17,8 +17,11 @@ int	execute(char *line, t_envp *envp_var)
 	t_list	*commands;
 	char	**args;
 
-	envp_var->last_code = 0;
-	lexer(line, envp_var);
+	if (!lexer(line, envp_var))
+	{
+		envp_var->last_code = 258;
+		return (envp_var->last_code);
+	}
 	//print_lexer_debug(envp_var);
 	commands = get_commands(envp_var);
 
@@ -83,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 	envp_var = NULL;
 	ft_singals();
 	envp_init(envp, &envp_var);
+	envp_var->last_code = 0;
 	if (argc > 1 && !ft_strcmp(argv[1], "-c"))
 		envp_var->last_code = run_from_args(argv[2], envp_var);
 	else

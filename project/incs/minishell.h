@@ -116,7 +116,7 @@ typedef struct s_cmd
 	t_list	*args;
 	t_list	*redir_in;
 	t_list	*redir_out;
-}			t_cmd; //TODO - поправить на t_cmd
+}			t_cmd; 
 
 /*
 сруктура глобальной переменной	
@@ -168,7 +168,7 @@ int		env_put_var(char *name, char *str, t_envp *envp_var);
 int		env_set_env(char *name, char *value, t_envp *envp_var);
 
 // parsing funcs
-void	lexer(char *line, t_envp *envp_var);
+int		lexer(char *line, t_envp *envp_var);
 void	word_lexer(char *line, int *i, t_envp *envp_var);
 void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var);
 
