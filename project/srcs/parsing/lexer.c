@@ -26,7 +26,7 @@ static void	space_lex(char *line, int *i, t_envp *envp_var)
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 
-static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
+static int	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 {
 	t_token	*t;
 	t_list	*last;
@@ -53,15 +53,16 @@ static void	redirpipe_lex(char *line, int *i, t_envp *envp_var)
 		last = (ft_lstlast(envp_var->token_list));
 		if (!last || ((t_token *)(last->content))->token_type == PIPE){
 			printf("minishell: syntax error near unexpected token '|'\n");
-			free(t);
-			return ;
+			free_token(t);
+			return (0);
 		}
 		t->token_type = PIPE;
 	}
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(t));
+	return (1);
 }
 
-static void tild_lexer(char *line, int *i, t_envp *envp_var)
+static void	tild_lexer(char *line, int *i, t_envp *envp_var)
 {
 	t_token	*temp;
 
@@ -74,14 +75,16 @@ static void tild_lexer(char *line, int *i, t_envp *envp_var)
 		(*i)++;
 	}
 	else
-		word_lexer(line, i, envp_var);
+		 word_lexer(line, i, envp_var);
 }
 
-void	lexer(char *line, t_envp *envp_var)
+int	lexer(char *line, t_envp *envp_var)
 {
 	int	i;	
+	int	res;
 
 	i = 0;
+	res = 1;
 	if (&(envp_var->token_list) && envp_var->token_list)
 		ft_lstclear(&envp_var->token_list, &free_token);
 	while (line[i] != '\0')
@@ -91,11 +94,14 @@ void	lexer(char *line, t_envp *envp_var)
 		else if (line[i] == '\'' || line[i] == '\"')
 			quote_lexer(line, &i, NA, envp_var);
 		else if (line[i] == '>' || line[i] == '<' || line[i] == '|')
-			redirpipe_lex(line, &i, envp_var);
+			res = redirpipe_lex(line, &i, envp_var);
 		else if (line[i] == '~')
 			tild_lexer(line, &i, envp_var);
 		else
 			word_lexer(line, &i, envp_var);
+		if (!res)
+			break ;
 	}
+	return (res);
 	//system("leaks minishell");
 }
