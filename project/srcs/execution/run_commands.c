@@ -103,6 +103,7 @@ int	run_command(t_list *cmd_lst, t_envp *envp_var)
 	int		i;
 	int		exit_info;
 
+	printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
 	cmd_cnt = ft_lstsize(cmd_lst);
 	pp = get_pipes(cmd_cnt);
