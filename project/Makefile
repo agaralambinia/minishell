@@ -32,7 +32,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/free_token.c \
 		srcs/utils/free_mock.c \
 		srcs/utils/ft_is_numeric.c \
-		srcs/utils/ft_list_insert_sort.c \
+		srcs/utils/ft_list_sort.c \
 		srcs/utils/ft_list_replace.c \
 		srcs/utils/ft_list_remove.c \
 		srcs/utils/ft_strcmp.c \

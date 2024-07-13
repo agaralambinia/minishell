@@ -59,7 +59,9 @@ void	run(char **paths, char **args, t_envp *envp_var)
 	char	**env_arr;
 	int		builtin_res;
 
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	builtin_res = builtin_exec(args, 0, envp_var);
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	if (builtin_res == NOTFOUND)
 	{
 		prog_path = get_prog_path(paths, args[0]);

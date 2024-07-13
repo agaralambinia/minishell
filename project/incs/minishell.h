@@ -189,7 +189,7 @@ void	free_cmd(void *data);
 void	free_token(void *data);
 void	free_mock(void *data);
 bool	ft_is_numeric(char *str);
-void	ft_list_insert_sort(t_list *lst);
+void	ft_list_sort(t_list *lst);
 int		ft_list_replace(t_envp *envp_var, char *old_var, char *new_var);
 int		ft_list_remove(char *env_var, t_list **envp_list);
 int		ft_split_count(char **split);

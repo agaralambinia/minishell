@@ -346,9 +346,7 @@
     * получаем your: No such file or directory
 
 блок EXPORT
-* export | grep "SHLVL"
-    * !ERROR! должно быть declare -x SHLVL="1"
-    * получаем пустоту
+* export | grep "SHLVL"                         ok
 * export | grep "OLDPWD"                        ok
 * export | grep "PWD"                           ok
 * export $? ; echo $?                           ok
@@ -366,8 +364,7 @@
 * export -TEST=100                              ok (не поддерживаем опции)
 * export TEST-=100                              ok
 * export _TEST=100                              ok
-* export TEST ; env | grep "TEST"
-    * не ок, кажется пайпы не работают
+* export TEST ; env | grep "TEST"               ok
 * export ==========                             ok
 * export 1TEST=                                 ok
 * export TEST                                   ok
@@ -413,35 +410,21 @@
 * export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST       ok
 * export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST       ok
 * export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD         ok
-* export TEST=123 0$TEST=0123 ; echo $TEST                  ok
-* export TEST ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST= ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST='' ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=100 TEST2=100 ; env | grep "TEST" ; unset TEST TEST2
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=100 TEST1=200 ; env | grep "TEST" ; unset TEST TEST1
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="100" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST='"$USER"' ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="$USER" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="$USER$USER" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="'$USER'""test" ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST="$USER" TEST1=$TEST ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=LOL ; export TEST+=LOL ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
-* export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST
-    * !ERROR! не ок, кажется пайпы не работают
+* export TEST=123 0$TEST=0123 ; echo $TEST                             ok
+* export TEST ; env | grep "TEST" ; unset TEST                         ok
+* export TEST= ; env | grep "TEST" ; unset TEST                        ok
+* export TEST="" ; env | grep "TEST" ; unset TEST                      ok
+* export TEST='' ; env | grep "TEST" ; unset TEST                      ok
+* export TEST=100 TEST2=100 ; env | grep "TEST" ; unset TEST TEST2     ok
+* export TEST=100 TEST1=200 ; env | grep "TEST" ; unset TEST TEST1     ok
+* export TEST="100" ; env | grep "TEST" ; unset TEST                   ok
+* export TEST='"$USER"' ; env | grep "TEST" ; unset TEST               ok
+* export TEST="$USER" ; env | grep "TEST" ; unset TEST                 ok
+* export TEST="$USER$USER" ; env | grep "TEST" ; unset TEST            ok
+* export TEST="'$USER'""test" ; env | grep "TEST" ; unset TEST         ok
+* export TEST="$USER" TEST1=$TEST ; env | grep "TEST" ; unset TEST     ok
+* export TEST=LOL ; export TEST+=LOL ; env | grep "TEST" ; unset TEST  ok
+* export TEST=LOL ; export TEST-=LOL ; env | grep "TEST" ; unset TEST  ok
 
 блок UNSET:
 * unset                                                 ok

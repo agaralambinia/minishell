@@ -33,15 +33,21 @@ int	execute(char *line, t_envp *envp_var)
 		//printf("\n\nBEFORE:\n");
 		//print_envp(envp_var->envp_list);
 		args = get_args((t_cmd *)(commands->content));
+		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 		envp_var->last_code = builtin_exec(args, 0, envp_var);
+		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 		free((void *)args);
+		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 		//printf("\n\nAFTER:\n");
 		//print_envp(envp_var->envp_list);
 	}
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	if (ft_lstsize(commands) > 1 || envp_var->last_code == NOTFOUND)
 		envp_var->last_code = run_command(commands, envp_var);
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	return (envp_var->last_code);
 }
 
@@ -93,16 +99,24 @@ int	main(int argc, char **argv, char **envp)
 	{
 		while (get_line(envp_var, &line))
 		{
+			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			add_history(line);
+			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			exit_code = execute(line, envp_var);
+			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			free(line);
+			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			if (exit_code == 255)
 				break;
+			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			envp_var->last_code = exit_code;
+			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 //			print_lexer_debug(envp_var);
 		}
+		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 		printf("exit\n");
 	}
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	exit_code = envp_var->last_code;
 	if(envp_var->envp_list && &(envp_var->envp_list))
 	 	ft_lstclear(&(envp_var->envp_list), &free);
@@ -111,6 +125,7 @@ int	main(int argc, char **argv, char **envp)
 	if (envp_var && &(envp_var))
 		free(envp_var);
 	//TODO почистить лики от лексера:w
+	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	system("leaks minishell");
 	return (exit_code);
 }
