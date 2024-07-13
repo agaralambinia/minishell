@@ -8,7 +8,6 @@ SRC = 	srcs/main.c \
 		srcs/envp/env_set_env.c \
 		srcs/envp/env_put_var.c \
 		srcs/envp/env_unset_var.c \
-		srcs/envp/env_is_var_char.c \
 		srcs/builtins/builtin_cd.c \
 		srcs/builtins/builtin_echo.c \
 		srcs/builtins/builtin_env.c \
@@ -37,6 +36,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_list_replace.c \
 		srcs/utils/ft_list_remove.c \
 		srcs/utils/ft_strcmp.c \
+		srcs/utils/ft_strncpy.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/parsing/word_lexer.c \

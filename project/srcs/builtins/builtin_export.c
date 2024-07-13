@@ -41,16 +41,60 @@ static bool	is_valid_arg(char *arg)
 {
 	int	index;
 
-	if (arg[0] == '\0' || arg[0] == '=')
+	if (arg[0] == '\0' || arg[0] == '=' || ft_isdigit(arg[0]))
 		return (false);
 	index = 0;
-	while (arg[index] != '\0' && arg[index] != '='
-		&& env_is_var_char(arg[index]))
+	while (arg[index] != '\0' && arg[index] != '=' &&
+		(ft_isalnum(arg[index]) || arg[index] == '_' ||
+		(arg[index] == '+' && arg[index + 1] != '\0' &&
+		arg[index + 1] == '=')))
 		index++;
 	if (arg[index] == '\0' || arg[index] == '=')
 		return (true);
 	else
 		return (false);
+}
+
+static int env_put_var_export(char *name, char *str, t_envp *envp_var, bool plus)
+{
+    char *old_var;
+
+    if (str == NULL)
+        return (ERROR);
+    if (str == NULL)
+    {
+        ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
+        return (ERROR);
+    }
+    old_var = ft_strjoin(ft_strjoin(name, "="), get_envp_list_val(name, &envp_var->envp_list));
+	if (!plus)
+    	ft_list_replace(envp_var, old_var, ft_strjoin(ft_strjoin(name, "="), str));
+	else
+		ft_list_replace(envp_var, old_var, ft_strjoin(old_var, str));
+	free(old_var);
+    return (SUCCESS);
+}
+
+static int	export_put_var(char *arg, t_envp *envp_var)
+{
+	int		i;
+	char	*name;
+	int		exit_status;
+
+	i = 0;
+	exit_status = SUCCESS;
+	while (arg[i] != '=' && arg[i] != '+')
+		i++;
+	name = (char *)safe_malloc(sizeof(char) * (i + 1));
+	name = ft_strncpy(name, arg, i);
+	if (arg[i] == '=')
+		exit_status = env_put_var_export(name, ft_strchr(arg, '=') + 1,
+			envp_var, false);
+	else
+		exit_status = env_put_var_export(name, ft_strchr(arg, '=') + 1,
+			envp_var, true);
+	free (name);
+	return (exit_status);
 }
 
 int	builtin_export(int argc, char **argv, t_envp *envp_var)
@@ -67,11 +111,14 @@ int	builtin_export(int argc, char **argv, t_envp *envp_var)
 		if (is_valid_arg(argv[index]) == false)
 		{
 			ft_print_error(SHELL_NAME,
-				argv[index], NULL, "not a valid identifier");
+				"export", ft_strjoin(ft_strjoin("`", argv[index]), "\'"),
+				"not a valid identifier");
 			exit_status = ERROR;
 		}
 		else if (ft_strchr(argv[index], '='))
-			env_put_var("name", argv[index], envp_var);
+		{
+			exit_status = export_put_var(argv[index], envp_var);
+		}
 		index++;
 	}
 	return (exit_status);
