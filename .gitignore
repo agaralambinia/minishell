@@ -1,2 +1,4 @@
 *log
 */*log
+.vscode/
+minishell.dSYM/
