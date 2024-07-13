@@ -467,7 +467,8 @@
 * unset TES!T                                           ok (не обрабатываем !)
 * unset TES\~T                                          ok (не обрабатываем \)
 
-  БЛОК PIPES
+
+  БЛОК PIPES - все ок
 
 * env | grep "_="
 * env | grep "SHLVL"
