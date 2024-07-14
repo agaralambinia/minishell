@@ -14,7 +14,7 @@
 
 void	redir_out(t_cmd *cmd)
 {
-	int	fd;
+	int		fd;
 	t_list	*tmp;
 	t_redir	*cur;
 
