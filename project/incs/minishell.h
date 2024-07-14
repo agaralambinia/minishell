@@ -171,6 +171,8 @@ int		env_set_env(char *name, char *value, t_envp *envp_var);
 int		lexer(char *line, t_envp *envp_var);
 void	word_lexer(char *line, int *i, t_envp *envp_var);
 void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var);
+int		pipe_lexer(char *line, int *i, t_envp *envp_var);
+int		redirect_lexer(char *line, int *i, t_envp *envp_var);
 
 // signal funcs
 void	ft_singals(void);
@@ -195,6 +197,7 @@ int		ft_list_remove(char *env_var, t_list **envp_list);
 int		ft_split_count(char **split);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
+t_list	*ft_lstprelast(t_list *lst);
 
 // wraps
 void	*safe_malloc(size_t str);
