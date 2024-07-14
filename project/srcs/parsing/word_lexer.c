@@ -38,7 +38,20 @@ static void	fill_content(char *line, int *i, t_token *temp)
 	}
 }
 
-void	word_lexer(char *line, int *i, t_envp *envp_var)
+// static int	word_checker(t_envp *envp_var, char *word)
+// {
+	// t_list	*l;
+// 
+	// l = (ft_lstlast(envp_var->token_list));
+	// if (!l)
+	// {
+		// printf("minishell: %s: command not found\n", word);
+		// return (0);
+	// }
+	// return (1);
+// }
+
+int	word_lexer(char *line, int *i, t_envp *envp_var)
 {
 	t_token	*temp;
 
@@ -48,7 +61,7 @@ void	word_lexer(char *line, int *i, t_envp *envp_var)
 		if (line[*i + 1] == '?')
 		{
 			handle_exit_code(temp, envp_var, i);
-			return ;
+			return (1);
 		}
 		else if (ft_isdigit(line[*i + 1]))
 		{
@@ -61,6 +74,11 @@ void	word_lexer(char *line, int *i, t_envp *envp_var)
 	else
 		temp->token_type = WORD;
 	fill_content(line, i, temp);
+	//if (temp->token_type == WORD && !word_checker(envp_var, temp->t_data))
+	//{
+	//	free_token(temp);
+	//	return (0);
+	//}
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
-	//system("leaks minishell");
+	return (1);
 }

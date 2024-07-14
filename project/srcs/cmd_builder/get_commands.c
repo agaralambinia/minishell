@@ -62,11 +62,11 @@ static int	handle_token(
 		res = add_to_word(token->t_data, handler);
 	else if (type == SINGLE_RA)
 		set_field(handler, 'o', 0);
-	else if (type == DOUBLE_RA)
+	else if (type == D_RA)
 		set_field(handler, 'o', 1);
 	else if (type == SINGLE_LA)
 		set_field(handler, 'i', 0);
-	else if (type == DOUBLE_LA)
+	else if (type == D_LA)
 		set_field(handler, 'i', 1);
 	else if (type == PIPE)
 	{
