@@ -211,14 +211,17 @@ t_wordhan	*get_word_handler(void);
 t_cmd		*get_new_command(void);
 int			add_to_word(char *word, t_wordhan *handler);
 int			bind_field(t_cmd *com, t_wordhan *handler);
-void		free_res(t_list **com_lst, t_cmd **com);
+void		free_res(t_list **com_lst, t_cmd **com, t_wordhan *handler);
+int			handle_token(
+			void **info_cont, t_cmd **com, t_list **com_lst, t_envp *envp_var);
+t_cmd		*add_command(t_cmd *com, t_list **com_lst, t_wordhan *handler);
 
 //execution
 char	**get_args(t_cmd *cmd);
 int		**get_pipes(int cmd_cnt);
 void	redir_in(t_cmd *cmd);
 void	redir_out(t_cmd *cmd);
-void	run(char **paths, char **args, t_envp *envp_var);
+void	run(char **args, t_envp *envp_var);
 int		run_command(t_list *cmd_lst, t_envp *envp_var);
 int		run_single(t_list *cmd, t_envp *envp_var);
 void	setup_pipes_first(int **pp);

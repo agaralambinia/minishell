@@ -23,7 +23,7 @@ int	add_to_word(char *word, t_wordhan *handler)
 		handler->word = "";
 		is_freeable = 0;
 	}
-	tmp = handler->word; 
+	tmp = handler->word;
 	handler->word = ft_strjoin(handler->word, word);
 	if (is_freeable)
 		free(tmp);

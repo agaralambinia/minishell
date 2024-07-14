@@ -53,15 +53,15 @@ static char	*get_prog_path(char **paths, char *name)
 	return (name);
 }
 
-void	run(char **paths, char **args, t_envp *envp_var)
+void	run(char **args, t_envp *envp_var)
 {
 	char	*prog_path;
 	char	**env_arr;
 	int		builtin_res;
+	char	**paths;
 
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
+	paths = ft_split(get_env_val("$PATH", envp_var), ':');
 	builtin_res = builtin_exec(args, 0, envp_var);
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	if (builtin_res == NOTFOUND)
 	{
 		prog_path = get_prog_path(paths, args[0]);
@@ -70,8 +70,14 @@ void	run(char **paths, char **args, t_envp *envp_var)
 			printf("minishell: %s: command not found\n", prog_path);
 		else
 			perror(args[0]);
+		if (paths)
+			free_arr((void **)paths);
 		exit(127);
 	}
 	else
+	{
+		if (paths)
+			free_arr((void **)paths);
 		exit(builtin_res);
+	}
 }
