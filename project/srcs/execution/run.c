@@ -66,8 +66,10 @@ void	run(char **paths, char **args, t_envp *envp_var)
 	{
 		prog_path = get_prog_path(paths, args[0]);
 		env_arr = get_env_arr(envp_var);
-		execve(prog_path, args, env_arr);
-		perror(args[0]);
+		if (execve(prog_path, args, env_arr) == -1)
+			printf("minishell: %s: command not found\n", prog_path);
+		else
+			perror(args[0]);
 		exit(127);
 	}
 	else
