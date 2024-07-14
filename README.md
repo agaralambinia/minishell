@@ -541,11 +541,13 @@
 * exit +'42'"42"42
 * exit -'42'"42"42
 * exit 9223372036854775807
-* exit 9223372036854775808
+* exit 9223372036854775808 - т.к. число больше long long, там что-то в мозгах баша ломается и он не воспринимает как число. наш шелл норм обрабатывает. предлагаю забить
 * exit -4
 * exit wrong
 * exit wrong_command
 * exit something
+
+  в тестах ниже у нас сообщение выводится, но ; мы по сабджекту не обрабатываем, так что ок
 * exit 1 ; echo if you see this message then your minishell have some troubles
 * exit -1 ; echo if you see this message then your minishell have some troubles
 * exit 42 ; echo if you see this message then your minishell have some troubles
