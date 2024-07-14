@@ -14,30 +14,30 @@
 
 void	handle_empty_quotes(t_envp *envp_var, int *i)
 {
-	t_token	*temp;
+	t_tn	*temp;
 
-	temp = (t_token *)safe_malloc(sizeof(t_token));
-	temp->t_data = (char *)safe_malloc(sizeof(char));
-	temp->t_data[0] = 0; 
-	temp->token_type = WORD;
+	temp = (t_tn *)safe_malloc(sizeof(t_tn));
+	temp->data = (char *)safe_malloc(sizeof(char));
+	temp->data[0] = 0;
+	temp->t_tp = WORD;
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 	(*i)++;
 }
 
-void	fill_content(char q, char *l, int *i, t_envp *envp_var)
+void	fill_data(char q, char *l, int *i, t_envp *envp_var)
 {
-	t_token	*temp;
+	t_tn	*temp;
 
-	temp = (t_token *)safe_malloc(sizeof(t_token));
+	temp = (t_tn *)safe_malloc(sizeof(t_tn));
 	while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
-		ft_straddchar(&temp->t_data, l[(*i)++]);
+		ft_straddchar(&temp->data, l[(*i)++]);
 	if (l[*i] == q)
 		(*i)++;
 	if (q == '\'')
-		temp->token_type = HARDWORD;
+		temp->t_tp = HARDWORD;
 	else if (q == '\"')
-		temp->token_type = SOFTWORD;
-	if (temp->t_data)
+		temp->t_tp = SOFTWORD;
+	if (temp->data)
 		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 	else
 		free(temp);
@@ -56,7 +56,7 @@ void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var)
 	if (qtype == NA)
 		q = l[(*i)++];
 	if (l[(*i)] != '$' || q == '\'')
-		fill_content(q, l, i, envp_var);
+		fill_data(q, l, i, envp_var);
 	if (l[*i] == '$' && (q == '\"'))
 	{
 		word_lexer(l, i, envp_var);

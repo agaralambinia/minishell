@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_lexer.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/14 22:15:15 by defimova          #+#    #+#             */
+/*   Updated: 2024/07/14 22:15:18 by defimova         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incs/minishell.h"
 
 static int	pipe_checker(t_envp *envp_var, char *line)
@@ -13,11 +25,11 @@ static int	pipe_checker(t_envp *envp_var, char *line)
 		return (0);
 	}
 	if (!l
-	|| ((t_token *)(l->content))->token_type == PIPE
-	|| (((t_token *)(l->content))->token_type == SPACE
+		|| ((t_tn *)(l->dt))->t_tp == PIPE
+		|| (((t_tn *)(l->dt))->t_tp == SP
 		&& (ft_lstsize(envp_var->token_list) == 1))
-	|| (((t_token *)(l->content))->token_type == SPACE
-		&& ((t_token *)(pl->content))->token_type == PIPE)
+		|| (((t_tn *)(l->dt))->t_tp == SP
+		&& ((t_tn *)(pl->dt))->t_tp == PIPE)
 	)
 	{
 		printf("minishell: syntax error near unexpected token `|'\n");
@@ -28,16 +40,16 @@ static int	pipe_checker(t_envp *envp_var, char *line)
 
 int	pipe_lexer(char *line, int *i, t_envp *envp_var)
 {
-	t_token	*t;
+	t_tn	*t;
 
-	t = (t_token *)safe_malloc(sizeof(t_token));
-	ft_straddchar(&t->t_data, line[(*i)++]);
+	t = (t_tn *)safe_malloc(sizeof(t_tn));
+	ft_straddchar(&t->data, line[(*i)++]);
 	if (!pipe_checker(envp_var, line))
 	{
 		free_token(t);
 		return (0);
 	}
-	t->token_type = PIPE;
+	t->t_tp = PIPE;
 	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(t));
 	return (1);
 }

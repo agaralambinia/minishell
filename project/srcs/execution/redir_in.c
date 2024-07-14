@@ -45,7 +45,7 @@ void	redir_in(t_cmd *cmd)
 	tmp = cmd->redir_in;
 	while (tmp)
 	{
-		cur = (t_redir *)(tmp->content);
+		cur = (t_redir *)(tmp->dt);
 		file = cur->path;
 		if (cur->mode)
 		{

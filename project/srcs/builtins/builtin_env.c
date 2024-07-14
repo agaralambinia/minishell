@@ -24,7 +24,7 @@ int	builtin_env(t_envp *envp_var)
 	iter = envp_var->envp_list;
 	while (iter != NULL)
 	{
-		ft_putendl_fd(iter -> content, STDOUT_FILENO);
+		ft_putendl_fd(iter -> dt, STDOUT_FILENO);
 		iter = iter -> next;
 	}
 	return (SUCCESS);

@@ -21,7 +21,7 @@ void	redir_out(t_cmd *cmd)
 	tmp = cmd->redir_out;
 	while (tmp)
 	{
-		cur = (t_redir *)(tmp->content);
+		cur = (t_redir *)(tmp->dt);
 		if (cur->mode)
 			fd = open(cur->path, O_CREAT | O_WRONLY | O_APPEND, 0666);
 		else

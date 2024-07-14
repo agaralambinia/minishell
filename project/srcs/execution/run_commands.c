@@ -73,7 +73,7 @@ static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths, t_
 	tmp = cmd_lst;
 	while (tmp)
 	{
-		cmd = (t_cmd *)(tmp->content);
+		cmd = (t_cmd *)(tmp->dt);
 		if (i == 0)
 		{
 			if (fork() == 0)

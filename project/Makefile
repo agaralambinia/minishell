@@ -46,6 +46,7 @@ SRC = 	srcs/main.c \
 		srcs/parsing/quote_lexer.c \
 		srcs/parsing/pipe_lexer.c \
 		srcs/parsing/redirect_lexer.c \
+		srcs/parsing/token_check.c \
 		srcs/signals/ft_signals.c \
 		srcs/cmd_builder/get_commands.c \
 		srcs/cmd_builder/bind_field.c \

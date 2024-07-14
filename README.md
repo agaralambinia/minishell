@@ -230,16 +230,15 @@
 * | test                                                ok
 * echo > <                                              ok
 * echo | |                                              ok
-* <
-    * segmentation fault
+* <                                                     ok
 * ;                                                     ok (не обрабатываем ;)
 * |                                                     ok
 * | | |                                                 ok
 * ;;;;;;;                                               ok (не обрабатываем ;)
 * hello world                                           ok
 * ||||||||                                              ok
-* cat wouaf wouaf
-* >                                                     
+* cat wouaf wouaf                                       ok
+* >                                                     ok
 * >>>>>>>>                                              ok
 * <<<<<<<<<                                             ok
 * > > > >                                               ok
@@ -247,33 +246,23 @@
 * ~
     * !ERROR! должно быть -bash: /Users/agaralambinia: is a directory
     * получаем ~: No such file or directory
-* <<
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем Bad address
+* <<                                                    ok
 * /Users
     * !ERROR! должно быть -bash: /Users: is a directory
     * получаем agaralambinia
 * .
     * !ERROR! должно быть .: usage: . filename [arguments]
     * получаем .: Permission denied
-* ..
-    * !ERROR! должно быть -bash: ..: command not found
-    * получаем ..: Permission denied
+* ..                                                    ok
 * /
     * !ERROR! должно быть -bash: /: is a directory
     * получаем /: Permission denied
 * \\\                                                               ok (не обрабатываем \)
 * EechoE                                                            ok
 * .echo.                                                            ok
-* >echo>
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем nothing
-* <echo<
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем segmentation fault
-* >>echo>>
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем nothing
+* >echo>                                                            ok
+* <echo<                                                            ok
+* >>echo>>                                                          ok
 * ;echo;                                                           ok (не обрабатываем ;)
 * |echo|                                                           ok
 * echo -n                                                          ok

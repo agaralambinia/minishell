@@ -18,13 +18,13 @@ int	ft_list_remove(char *env_var, t_list **envp_list)
 	t_list	*todel;
 
 	temp = *envp_list;
-	if (ft_strcmp(temp->content, env_var) == 0)
+	if (ft_strcmp(temp->dt, env_var) == 0)
 	{
 		envp_list = &(temp->next);
 		ft_lstdelone(temp, &free);
 		return (SUCCESS);
 	}
-	while (temp->next != NULL && ft_strcmp(temp->next->content, env_var) != 0)
+	while (temp->next != NULL && ft_strcmp(temp->next->dt, env_var) != 0)
 		temp = temp -> next;
 	if (temp->next == NULL)
 		return (SUCCESS);

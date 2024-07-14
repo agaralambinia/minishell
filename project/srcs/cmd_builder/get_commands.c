@@ -51,20 +51,20 @@ static int handle_envp(char *envname, t_wordhan *handler, t_envp *envp_var)
 }
 
 static int	handle_token(
-		t_token *token, t_cmd **com, t_wordhan *handler, t_list **com_lst,  t_envp *envp_var)
+		t_tn *token, t_cmd **com, t_wordhan *handler, t_list **com_lst,  t_envp *envp_var)
 {
 	int	type;
 	int	res;
 
 	res = 1;
-	type = token->token_type;
+	type = token->t_tp;
 	if (type == WORD || type == HARDWORD || type == SOFTWORD)
-		res = add_to_word(token->t_data, handler);
-	else if (type == SINGLE_RA)
+		res = add_to_word(token->data, handler);
+	else if (type == S_RA)
 		set_field(handler, 'o', 0);
 	else if (type == D_RA)
 		set_field(handler, 'o', 1);
-	else if (type == SINGLE_LA)
+	else if (type == S_LA)
 		set_field(handler, 'i', 0);
 	else if (type == D_LA)
 		set_field(handler, 'i', 1);
@@ -74,18 +74,18 @@ static int	handle_token(
 		res = *com != NULL;
 	}
 	else if (type == ENVP)
-		res = handle_envp(token->t_data, handler, envp_var);
-	else if (type == SPACE)
+		res = handle_envp(token->data, handler, envp_var);
+	else if (type == SP)
 		res = bind_field(*com, handler);
 	else if (type == EXITSTATUS)
-		res = add_to_word(token->t_data, handler);
+		res = add_to_word(token->data, handler);
 	return res;
 }
 
 t_list	*get_commands(t_envp *envp_var)
 {
 	t_list		*token_lst;
-	t_token		*token;
+	t_tn		*token;
 	t_wordhan	*handler;
 	t_cmd		*com;
 	t_list		*com_lst;
@@ -98,7 +98,7 @@ t_list	*get_commands(t_envp *envp_var)
 		return (NULL);
 	while (token_lst)
 	{
-		token = (t_token *)(token_lst->content);
+		token = (t_tn *)(token_lst->dt);
 		if (!handle_token(token, &com, handler, &com_lst, envp_var))
 		{
 			free_res(&com_lst, &com);

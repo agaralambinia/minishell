@@ -25,10 +25,10 @@ char	*get_envp_list_val(char *var, t_list **envp_list)
 	{
 		while (iter != NULL)
 		{
-			if (ft_strbegins(iter->content, temp))
+			if (ft_strbegins(iter->dt, temp))
 			{
 				free(temp);
-				return (ft_strchr(iter->content, '=') + 1);
+				return (ft_strchr(iter->dt, '=') + 1);
 			}
 			iter = iter -> next;
 		}

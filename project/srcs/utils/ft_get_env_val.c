@@ -22,9 +22,9 @@ char	*get_env_val(char *envvar, t_envp *envp_var)
 	tmp = envp_var->envp_list;
 	while (tmp)
 	{
-		if (ft_strbegins(tmp->content, envvar + 1))
+		if (ft_strbegins(tmp->dt, envvar + 1))
 		{
-			eqptr = ft_strchr(tmp->content, '=');
+			eqptr = ft_strchr(tmp->dt, '=');
 			return (eqptr + 1);
 		}
 		tmp = tmp->next;
