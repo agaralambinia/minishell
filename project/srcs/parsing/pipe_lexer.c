@@ -1,14 +1,17 @@
 #include "../../incs/minishell.h"
 
-static int	pipe_checker(t_envp *envp_var)
+static int	pipe_checker(t_envp *envp_var, char *line)
 {
 	t_list	*l;
 	t_list	*pl;
 
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	l = (ft_lstlast(envp_var->token_list));
 	pl = (ft_lstprelast(envp_var->token_list));
-	// printf("DEBUG %s %d  l=%i, pl=%i;\n", __FILE__, __LINE__, ((t_token *)(l->content))->token_type, ((t_token *)(pl->content))->token_type);
+	if (!l && *(line + 1) == '|')
+	{
+		printf("minishell: syntax error near unexpected token `||'\n");
+		return (0);
+	}
 	if (!l
 	|| ((t_token *)(l->content))->token_type == PIPE
 	|| (((t_token *)(l->content))->token_type == SPACE
@@ -20,7 +23,6 @@ static int	pipe_checker(t_envp *envp_var)
 		printf("minishell: syntax error near unexpected token `|'\n");
 		return (0);
 	}
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	return (1);
 }
 
@@ -30,7 +32,7 @@ int	pipe_lexer(char *line, int *i, t_envp *envp_var)
 
 	t = (t_token *)safe_malloc(sizeof(t_token));
 	ft_straddchar(&t->t_data, line[(*i)++]);
-	if (!pipe_checker(envp_var))
+	if (!pipe_checker(envp_var, line))
 	{
 		free_token(t);
 		return (0);

@@ -93,7 +93,7 @@ int	main(int argc, char **argv, char **envp)
 			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			envp_var->last_code = exit_code;
 			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-//			print_lexer_debug(envp_var);
+			// print_lexer_debug(envp_var);
 		}
 		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 		printf("exit\n");

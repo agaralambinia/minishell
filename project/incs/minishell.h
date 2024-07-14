@@ -35,9 +35,9 @@ enum кодов наименования типа токена
 	- HARDWORD 		любой набор символов, заключенный в '' 
 	- SOFTWORD 		любой набор символов, заключенный в "" 
 	- SINGLE_RA 	>
-	- DOUBLE_RA 	>>
+	- D_RA 	>>
 	- SINGLE_LA 	<
-	- DOUBLE_LA 	<<
+	- D_LA 	<<
 	- PIPE			|
 	- ENVP			переменная окружения ($ и слово после него)
 */
@@ -48,9 +48,9 @@ typedef enum	s_token_type
 	HARDWORD = 3,
 	SOFTWORD = 4,
 	SINGLE_RA = 5,
-	DOUBLE_RA = 6,
+	D_RA = 6,
 	SINGLE_LA = 7,
-	DOUBLE_LA = 8,
+	D_LA = 8,
 	PIPE = 9,
 	ENVP = 10,
 	EXITSTATUS = 11
@@ -169,7 +169,7 @@ int		env_set_env(char *name, char *value, t_envp *envp_var);
 
 // parsing funcs
 int		lexer(char *line, t_envp *envp_var);
-void	word_lexer(char *line, int *i, t_envp *envp_var);
+int		word_lexer(char *line, int *i, t_envp *envp_var);
 void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var);
 int		pipe_lexer(char *line, int *i, t_envp *envp_var);
 int		redirect_lexer(char *line, int *i, t_envp *envp_var);

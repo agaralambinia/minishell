@@ -64,7 +64,7 @@ int	lexer(char *line, t_envp *envp_var)
 		else if (line[i] == '~')
 			tild_lexer(line, &i, envp_var);
 		else
-			word_lexer(line, &i, envp_var);
+			res = word_lexer(line, &i, envp_var);
 		if (!res)
 			break ;
 	}
