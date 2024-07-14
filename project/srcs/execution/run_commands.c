@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-static void	run_first(t_cmd *cmd, int **pp, char **paths, t_envp *envp_var)
+static void	run_first(t_cmd *cmd, int **pp, t_envp *envp_var)
 {
 	char	**args;
 
@@ -20,10 +20,10 @@ static void	run_first(t_cmd *cmd, int **pp, char **paths, t_envp *envp_var)
 	redir_in(cmd);
 	redir_out(cmd);
 	args = get_args(cmd);
-	run(paths, args, envp_var);
+	run(args, envp_var);
 }
 
-static void	run_mid(t_cmd *cmd, int **pp, int ind, char **paths, t_envp *envp_var)
+static void	run_mid(t_cmd *cmd, int **pp, int ind, t_envp *envp_var)
 {
 	char	**args;
 	int		i;
@@ -49,10 +49,10 @@ static void	run_mid(t_cmd *cmd, int **pp, int ind, char **paths, t_envp *envp_va
 	redir_in(cmd);
 	redir_out(cmd);
 	args = get_args(cmd);
-	run(paths, args, envp_var);
+	run(args, envp_var);
 }
 
-static void	run_last(t_cmd *cmd, int cmd_cnt, int **pp, char **paths, t_envp *envp_var)
+static void	run_last(t_cmd *cmd, int cmd_cnt, int **pp, t_envp *envp_var)
 {
 	char	**args;
 
@@ -60,10 +60,12 @@ static void	run_last(t_cmd *cmd, int cmd_cnt, int **pp, char **paths, t_envp *en
 	redir_in(cmd);
 	redir_out(cmd);
 	args = get_args(cmd);
-	run(paths, args, envp_var);
+	run(args, envp_var);
 }
 
-static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths, t_envp *envp_var)
+/*
+static int	run_pipeline(
+	t_list *cmd_lst, int **pp, char **paths, t_envp *envp_var)
 {
 	int		i;
 	t_cmd	*cmd;
@@ -79,10 +81,10 @@ static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths, t_
 			if (fork() == 0)
 				run_first(cmd, pp, paths, envp_var);
 		}
-		else if (i == cmd_cnt - 1)
+		else if (i == ft_lstsize(cmd_lst) - 1)
 		{
 			if (fork() == 0)
-				run_last(cmd, cmd_cnt, pp, paths, envp_var);
+				run_last(cmd, ft_lstsize(cmd_lst), pp, paths, envp_var);
 		}
 		else
 		{
@@ -94,29 +96,53 @@ static int	run_pipeline(int cmd_cnt, t_list *cmd_lst, int **pp, char **paths, t_
 	}
 	return (i);
 }
+*/
+
+static int	run_pipeline(
+	int cmd_cnt, t_list *cmd_lst, int **pp, t_envp *envp_var)
+{
+	int		i;
+	t_cmd	*cmd;
+	t_list	*tmp;
+
+	i = 0;
+	tmp = cmd_lst;
+	while (tmp)
+	{
+		cmd = (t_cmd *)(tmp->content);
+		if (fork() == 0)
+		{
+			if (i == 0)
+				run_first(cmd, pp, envp_var);
+			else if (i == cmd_cnt - 1)
+				run_last(cmd, cmd_cnt, pp, envp_var);
+			else
+				run_mid(cmd, pp, i, envp_var);
+		}
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 int	run_command(t_list *cmd_lst, t_envp *envp_var)
 {
-	char	**paths;
-	int		**pp;
-	int		cmd_cnt;
-	int		i;
-	int		exit_info;
+	int	**pp;
+	int	i;
+	int	exit_info;
+	int	cmd_cnt;
 
-	paths = ft_split(get_env_val("$PATH", envp_var), ':');
 	cmd_cnt = ft_lstsize(cmd_lst);
 	pp = get_pipes(cmd_cnt);
 	if (!pp)
 		return (1);
-	i = run_pipeline(cmd_cnt, cmd_lst, pp, paths, envp_var);
+	i = run_pipeline(cmd_cnt, cmd_lst, pp, envp_var);
 	setup_pipes_parent(pp);
 	while (i >= 0)
 	{
 		wait(&exit_info);
 		i--;
 	}
-	if (paths)
-		free_arr((void **)paths);
 	free_arr((void **)pp);
 	unlink("here_doc");
 	if (WIFEXITED(exit_info))

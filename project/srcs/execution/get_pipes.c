@@ -26,10 +26,7 @@ int	**get_pipes(int cmd_cnt)
 	{
 		pp[i] = (int *)malloc(sizeof(int) * 2);
 		if (!(pp[i]))
-		{
-//			free_arr((void **)pp);
 			return (NULL);
-		}
 		pp[i + 1] = NULL;
 		pipe(pp[i]);
 		i++;

@@ -16,23 +16,23 @@ static int	setinout(t_cmd *com, t_wordhan *handler)
 {
 	t_list	*node;
 	t_redir	*redir;
-	
+
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
-		return 0;
+		return (0);
 	redir->path = handler->word;
 	if (handler->is_redir_mode)
 		redir->mode = 1;
 	node = ft_lstnew(redir);
 	if (!node)
-		return 0;
+		return (0);
 	if (handler->redir == 'i')
 		ft_lstadd_back(&(com->redir_in), node);
 	else if (handler->redir == 'o')
 		ft_lstadd_back(&(com->redir_out), node);
 	handler->redir = 0;
 	handler->is_redir_mode = 0;
-	return 1;
+	return (1);
 }
 
 int	bind_field(t_cmd *com, t_wordhan *handler)
@@ -61,5 +61,5 @@ int	bind_field(t_cmd *com, t_wordhan *handler)
 		}
 		handler->word = NULL;
 	}
-	return res;
+	return (res);
 }

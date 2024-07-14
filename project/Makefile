@@ -53,6 +53,8 @@ SRC = 	srcs/main.c \
 		srcs/cmd_builder/get_word_handler.c \
 		srcs/cmd_builder/add_to_word.c \
 		srcs/cmd_builder/free_res.c \
+		srcs/cmd_builder/handle_token.c \
+		srcs/cmd_builder/add_command.c \
 		srcs/execution/get_args.c \
 		srcs/execution/get_pipes.c \
 		srcs/execution/redir_in.c \
