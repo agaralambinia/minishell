@@ -44,27 +44,27 @@ int	handle_token(
 	void **info_cont, t_cmd **com, t_list **com_lst, t_envp *envp_var)
 {
 	int			res;
-	t_token		*token;
+	t_tn		*token;
 	t_wordhan	*handler;
 
 	res = 1;
-	token = (t_token *)(info_cont[0]);
+	token = (t_tn *)(info_cont[0]);
 	handler = (t_wordhan *)(info_cont[0]);
-	if (token->token_type == SINGLE_RA)
+	if (token->t_tp == S_RA)
 		set_field(handler, 'o', 0);
-	else if (token->token_type == D_RA)
+	else if (token->t_tp == D_RA)
 		set_field(handler, 'o', 1);
-	else if (token->token_type == SINGLE_LA)
+	else if (token->t_tp == S_LA)
 		set_field(handler, 'i', 0);
-	else if (token->token_type == D_LA)
+	else if (token->t_tp == D_LA)
 		set_field(handler, 'i', 1);
-	else if (token->token_type == PIPE)
+	else if (token->t_tp == PIPE)
 		res = handle_pipe(com, com_lst, handler);
-	else if (token->token_type == ENVP)
-		res = handle_envp(token->t_data, handler, envp_var);
-	else if (token->token_type == SPACE)
+	else if (token->t_tp == ENVP)
+		res = handle_envp(token->data, handler, envp_var);
+	else if (token->t_tp == SPACE)
 		res = bind_field(*com, handler);
 	else
-		res = add_to_word(token->t_data, handler);
+		res = add_to_word(token->data, handler);
 	return (res);
 }
