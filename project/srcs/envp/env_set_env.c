@@ -22,6 +22,5 @@ int env_set_env(char *name, char *value, t_envp *envp_var)
     }
     status = env_put_var(tmp, var_str, envp_var);
     free(tmp);
-    free(var_str);
     return (status);
 }

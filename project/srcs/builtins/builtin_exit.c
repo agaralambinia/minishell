@@ -57,12 +57,10 @@ bool	is_valid_str(char *str)
 unsigned char	builtin_exit(char **argv, t_envp *envp_var)
 {
 	int				arglen;
-	char			*mes;
 	unsigned char	result;
 	char			*err_mes;
 
 	arglen = arrlen((void **)argv);
-	mes = "exit\n";
 	err_mes = "exit\nminishell: exit:";
 	result = 0;
 	envp_var->is_exit = true;
@@ -70,19 +68,19 @@ unsigned char	builtin_exit(char **argv, t_envp *envp_var)
 	{
 		if (!is_valid_str(argv[1]))
 		{
-			printf("%s %s numeric argument required\n", err_mes, argv[1]);
+			printf("%s %s: numeric argument required\n", err_mes, argv[1]);
 			envp_var->last_code = 255;
 			return (ERROR);
 		}
 		result = ft_atoi(argv[1]);
 		envp_var->last_code = result;
 	}
-	if (arglen > 2)
+	else if (arglen > 2)
 	{
 		printf("%s too many arguments\n", err_mes);
 		envp_var->is_exit = false;
 		return (ERROR);
 	}
-	printf("%s", mes);
+	printf("exit\n");
 	return (result);
 }
