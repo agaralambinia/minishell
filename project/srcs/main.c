@@ -15,7 +15,6 @@
 int	execute(char *line, t_envp *envp_var)
 {
 	t_list	*commands;
-	char	**args;
 
 	if (!lexer(line, envp_var))
 	{
@@ -24,27 +23,13 @@ int	execute(char *line, t_envp *envp_var)
 	}
 	commands = get_commands(envp_var);
 //	print_lexer_debug(envp_var);
-	//print_cmd_debug(commands);
+//	print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
-	{
-		//printf("\n\nBEFORE:\n");
-		//print_envp(envp_var->envp_list);
-		args = get_args((t_cmd *)(commands->content));
-		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-		envp_var->last_code = builtin_exec(args, 0, envp_var);
-		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-		free((void *)args);
-		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-		//printf("\n\nAFTER:\n");
-		//print_envp(envp_var->envp_list);
-	}
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-	if (ft_lstsize(commands) > 1 || envp_var->last_code == NOTFOUND)
+		run_single(commands, envp_var);
+	else
 		envp_var->last_code = run_command(commands, envp_var);
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	return (envp_var->last_code);
 }
 

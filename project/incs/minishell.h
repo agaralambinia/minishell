@@ -215,6 +215,7 @@ void	redir_in(t_cmd *cmd);
 void	redir_out(t_cmd *cmd);
 void	run(char **paths, char **args, t_envp *envp_var);
 int		run_command(t_list *cmd_lst, t_envp *envp_var);
+void	run_single(t_list *cmd, t_envp *envp_var);
 void	setup_pipes_first(int **pp);
 void	setup_pipes_last(int **pp, int count);
 void	setup_pipes_parent(int **pp);
