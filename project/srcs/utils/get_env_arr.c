@@ -26,7 +26,7 @@ char	**get_env_arr(void)
 	tmp = g_envp->envp_list;
 	while (i < len)
 	{
-		arr[i] = (char *)(tmp->content);
+		arr[i] = (char *)(tmp->dt);
 		i++;
 		tmp = tmp->next;
 	}

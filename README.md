@@ -230,94 +230,56 @@
 * | test                                                ok
 * echo > <                                              ok
 * echo | |                                              ok
-* <                                                     
-* ;                                                     
-* |                                                     
-* | | |                                                 
-* ;;;;;;;                                               
-* hello world                                           
-* ||||||||                                              
-* cat wouaf wouaf                                       
-* >                                                     
-* >>>>>>>>                                              
-* <<<<<<<<<                                             
-* > > > >                                               
-* >> >> >> >>
-    * !ERROR! должно быть -bash: syntax error near unexpected token `>>'
-    * получаем Bad address
+* <                                                     ok
+* ;                                                     ok (не обрабатываем ;)
+* |                                                     ok
+* | | |                                                 ok
+* ;;;;;;;                                               ok (не обрабатываем ;)
+* hello world                                           ok
+* ||||||||                                              ok
+* cat wouaf wouaf                                       ok
+* >                                                     ok
+* >>>>>>>>                                              ok
+* <<<<<<<<<                                             ok
+* > > > >                                               ok
+* >> >> >> >>                                           ok
 * ~
     * !ERROR! должно быть -bash: /Users/agaralambinia: is a directory
     * получаем ~: No such file or directory
-* <<
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем Bad address
+* <<                                                    ok
 * /Users
     * !ERROR! должно быть -bash: /Users: is a directory
     * получаем agaralambinia
 * .
     * !ERROR! должно быть .: usage: . filename [arguments]
     * получаем .: Permission denied
-* ..
-    * !ERROR! должно быть -bash: ..: command not found
-    * получаем ..: Permission denied
+* ..                                                    ok
 * /
     * !ERROR! должно быть -bash: /: is a directory
     * получаем /: Permission denied
-* \\\
-    * !ERROR! должно быть -bash: \: command not found
-    * получаем \\\: No such file or directory
-* EechoE
-    * !ERROR! должно быть -bash: EechoE: command not found
-    * получаем EechoE: No such file or directory
-* .echo.
-    * !ERROR! должно быть -bash: .echo.: command not found
-    * получаем .echo.: No such file or directory
-* >echo>
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем Bad address
-* <echo<
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем Bad address
-* >>echo>>
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем Bad address
-* ;echo;
-    * !ERROR! должно быть -bash: syntax error near unexpected token `;'
-    * получаем Bad address
-* |echo|
-    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем Bad address\nBad address
+* \\\                                                               ok (не обрабатываем \)
+* EechoE                                                            ok
+* .echo.                                                            ok
+* >echo>                                                            ok
+* <echo<                                                            ok
+* >>echo>>                                                          ok
+* ;echo;                                                           ok (не обрабатываем ;)
+* |echo|                                                           ok
 * echo -n                                                          ok
 * echo -n ;                                                        ok
 * echo ;                                                           ok
 * echo something ;                                                 ok
 * rm -f something                                                  ok
 * cat something                                                    ok
-* | echo -n oui 
-    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем Bad address
-* ; echo -n oui
-    * !ERROR! должно быть -bash: syntax error near unexpected token `;'
-    * получаем ;: No such file or directory
-* trying to destroy your minishell ; echo hello
-    * !ERROR! должно быть -bash: trying: command not found
-    * получаем trying: No such file or directory
-* trying something again echo if you see this message thats not a good new
-    * !ERROR! должно быть -bash: trying: command not found
-    * получаем trying: No such file or directory
-* qewew
-    * !ERROR! должно быть -bash: qewew: command not found
-    * получаем qewew: No such file or directory
-* wtf
-    * !ERROR! должно быть -bash: wtf: command not found
-    * получаем wtf: No such file or directory
-* hi im thallard
-    * !ERROR! должно быть -bash: hi: command not found
-    * получаем hi: No such file or directory
-* nice to meet you if these tests are green                                  ok
-* your minishell is perfect
-    * !ERROR! должно быть -bash: your: command not found
-    * получаем your: No such file or directory
+* | echo -n oui                                                    ok
+* ; echo -n oui                                                    ok (не обрабатываем ;)
+* trying to destroy your minishell ; echo hello                    ok (не обрабатываем ;)
+* trying something again echo if you see this message thats not a good new          ok
+* qewew                                                                             ok
+* wtf                                                                               ok
+* hi im thallard                                                                    ok
+* nice to meet you if these tests are green                                         ok
+* your minishell is perfect                                                         ok
 
 блок EXPORT
 * export | grep "SHLVL"                         ok
@@ -364,8 +326,7 @@
 * export TES#T=123                              ok
 * export TES@T=123                              ok
 * export TES!T=123                              ok (не поддерживаем !)
-* export TES$?T=123
-    * ERROR не ок, разыменовывает $?
+* export TES$?T=123                             ok  (don't support \)
 * export =============123                       ok
 * export +++++++=123                            ok
 * export ________=123                           ok

@@ -30,31 +30,31 @@
 
 /*
 enum кодов наименования типа токена
-	- SPACE 		пробельные символы
+	- SP 		пробельные символы
 	- WORD 			любой набор символов без разделителя
 	- HARDWORD 		любой набор символов, заключенный в '' 
 	- SOFTWORD 		любой набор символов, заключенный в "" 
-	- SINGLE_RA 	>
+	- S_RA 	>
 	- D_RA 	>>
-	- SINGLE_LA 	<
+	- S_LA 	<
 	- D_LA 	<<
 	- PIPE			|
 	- ENVP			переменная окружения ($ и слово после него)
 */
-typedef enum	s_token_type
+typedef enum	s_t_tp
 {
 	SP = 32,
 	WORD = 2,
 	HARDWORD = 3,
 	SOFTWORD = 4,
-	SINGLE_RA = 5,
+	S_RA = 5,
 	D_RA = 6,
-	SINGLE_LA = 7,
+	S_LA = 7,
 	D_LA = 8,
 	PIPE = 9,
 	ENVP = 10,
 	EXITSTATUS = 11
-}	t_token_type;
+}	t_t_tp;
 
 typedef enum	s_quote
 {
@@ -72,14 +72,14 @@ typedef enum	s_exec_status
 
 /*
 сруктура для хранения токена	
-	token_type: тип токена - одно из значений t_token_type;
-	t_data: строка-значение токена;
+	t_tp: тип токена - одно из значений t_t_tp;
+	data: строка-значение токена;
 */
-typedef struct s_token
+typedef struct s_tn
 {
-	int		token_type;
-	char	*t_data;
-}	t_token;
+	int		t_tp;
+	char	*data;
+}	t_tn;
 
 //структура для обработки очередного токена типа WORD, SOFTWORD, HARDWORD
 //	word:		накопленное значение для записи в поле
@@ -174,6 +174,7 @@ int		word_lexer(char *line, int *i, t_envp *envp_var);
 void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var);
 int		pipe_lexer(char *line, int *i, t_envp *envp_var);
 int		redirect_lexer(char *line, int *i, t_envp *envp_var);
+int		token_check(t_list *tlist);
 
 // signal funcs
 void	ft_singals(void);

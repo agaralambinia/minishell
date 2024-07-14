@@ -22,7 +22,7 @@ int	ft_list_replace(t_envp *envp_var, char *old_var, char *new_var)
 		ft_lstadd_back(&(envp_var->envp_list), ft_lstnew(new_var));
 		return (SUCCESS);
 	}
-	while (temp != NULL && ft_strcmp((char *)(temp->content), old_var) != 0)
+	while (temp != NULL && ft_strcmp((char *)(temp->dt), old_var) != 0)
 		temp = temp -> next;
 	if (temp == NULL)
 	{
@@ -30,8 +30,8 @@ int	ft_list_replace(t_envp *envp_var, char *old_var, char *new_var)
 	}
 	else
 	{
-		free(temp->content);
-		temp->content = new_var;
+		free(temp->dt);
+		temp->dt = new_var;
 	}
 	return (SUCCESS);
 }

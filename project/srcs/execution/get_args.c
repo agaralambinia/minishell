@@ -27,7 +27,7 @@ char	**get_args(t_cmd *cmd)
 	i = 1;
 	while (i < len)
 	{
-		args[i] = (char *)(tmp->content);
+		args[i] = (char *)(tmp->dt);
 		i++;
 		tmp = tmp->next;
 	}

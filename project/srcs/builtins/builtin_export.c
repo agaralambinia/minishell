@@ -31,12 +31,12 @@ static void	print_environment_vars(t_envp *envp_var)
 	while (env_copy != NULL)
 	{
 		i = 0;
-		while (((char *)env_copy->content)[i] != '=')
+		while (((char *)env_copy->dt)[i] != '=')
 			i++;
 		temp = (char *)safe_malloc(sizeof(char) * (i + 1));
-		temp = ft_strncpy(temp, env_copy->content, i + 1);
+		temp = ft_strncpy(temp, env_copy->dt, i + 1);
 		printf("declare -x %s\"%s\"\n", temp, (
-			ft_strchr(env_copy->content, '=') + 1));
+			ft_strchr(env_copy->dt, '=') + 1));
 		env_copy = env_copy -> next;
 		free (temp);
 	}

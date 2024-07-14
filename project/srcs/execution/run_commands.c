@@ -75,7 +75,7 @@ static int	run_pipeline(
 	tmp = cmd_lst;
 	while (tmp)
 	{
-		cmd = (t_cmd *)(tmp->content);
+		cmd = (t_cmd *)(tmp->dt);
 		if (i == 0)
 		{
 			if (fork() == 0)

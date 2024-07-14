@@ -25,7 +25,7 @@ static char	**get_env_arr(t_envp *envp_var)
 	tmp = envp_var->envp_list;
 	while (i < len)
 	{
-		arr[i] = (char *)(tmp->content);
+		arr[i] = (char *)(tmp->dt);
 		i++;
 		tmp = tmp->next;
 	}
