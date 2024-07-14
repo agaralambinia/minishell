@@ -20,8 +20,8 @@ int	execute(char *line, t_envp *envp_var)
 	if (!lexer(line, envp_var))
 		return (258);
 	commands = get_commands(envp_var);
-//	print_lexer_debug(envp_var);
-//	print_cmd_debug(commands);
+	//print_lexer_debug(envp_var);
+	//print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
 		exit_code = run_single(commands, envp_var);
 	else
@@ -99,6 +99,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
-	system("leaks minishell");
+//	system("leaks minishell");
 	return (exit_code);
 }
