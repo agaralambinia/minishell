@@ -227,47 +227,21 @@
 
 блок ERROR:
 * ;; test                                               ok (не обрабатываем ;)
-* | test
-    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем пустоту
-* echo > <
-    * !ERROR! должно быть -bash: syntax error near unexpected token `<'
-    * получаем пустую строку
-* echo | |
-    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем Bad address\nBad address
-* <
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем Bad address
-* ;
-    * !ERROR! должно быть -bash: syntax error near unexpected token `;'
-    * получаем ;: No such file or directory
-* |
-    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем Bad address\nBad address
-* | | |
-    * !ERROR! должно быть -bash: syntax error near unexpected token `|'
-    * получаем Bad address\nBad address\nBad address\nBad address
-* ;;;;;;;
-    * !ERROR! должно быть -bash: syntax error near unexpected token `;;'
-    * получаем ;;;;;;;: No such file or directory
-* hello world                                           ok
-* ||||||||
-    * !ERROR! должно быть -bash: syntax error near unexpected token `||'
-    * получаем Bad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address\nBad address
-* cat wouaf wouaf                               ok
-* >
-    * !ERROR! должно быть -bash: syntax error near unexpected token `newline'
-    * получаем Bad address
-* >>>>>>>>
-    * !ERROR! должно быть -bash: syntax error near unexpected token `>>'
-    * получаем Bad address
-* <<<<<<<<<
-    * !ERROR! должно быть -bash: syntax error near unexpected token `<<<'
-    * получаем Bad address
-* > > > >
-    * !ERROR! должно быть -bash: syntax error near unexpected token `>'
-    * получаем Bad address
+* | test                                                ok
+* echo > <                                              ok
+* echo | |                                              ok
+* <                                                     
+* ;                                                     
+* |                                                     
+* | | |                                                 
+* ;;;;;;;                                               
+* hello world                                           
+* ||||||||                                              
+* cat wouaf wouaf                                       
+* >                                                     
+* >>>>>>>>                                              
+* <<<<<<<<<                                             
+* > > > >                                               
 * >> >> >> >>
     * !ERROR! должно быть -bash: syntax error near unexpected token `>>'
     * получаем Bad address
