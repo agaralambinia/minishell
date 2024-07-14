@@ -15,14 +15,14 @@
 static int	setinout(t_cmd *com, t_wordhan *handler)
 {
 	t_list	*node;
-	t_redir	*redir;
+	t_r		*redir;
 
-	redir = (t_redir *)malloc(sizeof(t_redir));
+	redir = (t_r *)malloc(sizeof(t_r));
 	if (!redir)
 		return (0);
 	redir->path = handler->word;
 	if (handler->is_redir_mode)
-		redir->mode = 1;
+		redir->m = 1;
 	node = ft_lstnew(redir);
 	if (!node)
 		return (0);

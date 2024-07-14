@@ -20,8 +20,6 @@ int	execute(char *line, t_envp *envp_var)
 	if (!lexer(line, envp_var))
 		return (258);
 	commands = get_commands(envp_var);
-	//print_lexer_debug(envp_var);
-	//print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
 		exit_code = run_single(commands, envp_var);
 	else
@@ -31,7 +29,7 @@ int	execute(char *line, t_envp *envp_var)
 	return (exit_code);
 }
 
-int run_from_args(char *arg, t_envp *envp_var)
+int	run_from_args(char *arg, t_envp *envp_var)
 {
 	char	**args;
 	int		exit_code;
@@ -63,7 +61,7 @@ char	*get_line(t_envp *envp_var, char **line)
 	return (*line);
 }
 
-void free_envp(t_envp *envp_var)
+void	free_envp(t_envp *envp_var)
 {
 	if (envp_var->envp_list && &(envp_var->envp_list))
 		ft_lstclear(&(envp_var->envp_list), &free);
@@ -99,6 +97,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
-//	system("leaks minishell");
 	return (exit_code);
 }
