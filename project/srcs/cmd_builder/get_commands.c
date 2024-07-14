@@ -35,7 +35,7 @@ t_list	*get_commands(t_envp *envp_var)
 	info_cont[1] = handler;
 	while (token_lst)
 	{
-		info_cont[0] = (t_token *)(token_lst->content);
+		info_cont[0] = (t_tn *)(token_lst->dt);
 		if (!handle_token(info_cont, &com, &com_lst, envp_var))
 		{
 			free_res(&com_lst, &com, handler);
