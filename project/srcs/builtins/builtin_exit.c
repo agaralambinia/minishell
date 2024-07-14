@@ -35,7 +35,7 @@ static int	isspace_check(const char a)
 
 bool	is_valid_str(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (isspace_check(str[i]))
@@ -51,36 +51,32 @@ bool	is_valid_str(char *str)
 		i++;
 	}
 	return (true);
-
 }
 
 unsigned char	builtin_exit(char **argv, t_envp *envp_var)
 {
-	int				arglen;
-	unsigned char	result;
-	char			*err_mes;
+	envp_var->last_code = 0;
 
 	arglen = arrlen((void **)argv);
 	err_mes = "exit\nminishell: exit:";
-	result = 0;
 	envp_var->is_exit = true;
-	if (arglen == 2)
+	if (arrlen((void **)argv) == 2)
 	{
 		if (!is_valid_str(argv[1]))
 		{
-			printf("%s %s: numeric argument required\n", err_mes, argv[1]);
+			printf("exit\nminishell: exit: %s numeric argument required\n",
+				argv[1]);
 			envp_var->last_code = 255;
 			return (ERROR);
 		}
-		result = ft_atoi(argv[1]);
-		envp_var->last_code = result;
+		envp_var->last_code = ft_atoi(argv[1]);
 	}
-	else if (arglen > 2)
+	if (arrlen((void **)argv) > 2)
 	{
-		printf("%s too many arguments\n", err_mes);
+		printf("exit\nminishell: exit: too many arguments\n");
 		envp_var->is_exit = false;
 		return (ERROR);
 	}
 	printf("exit\n");
-	return (result);
+	return (envp_var->last_code);
 }
