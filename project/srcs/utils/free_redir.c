@@ -14,9 +14,9 @@
 
 void	free_redir(void *data)
 {
-	t_redir	*redir;	
+	t_r	*redir;	
 
-	redir = (t_redir *)data;
+	redir = (t_r *)data;
 	if (redir)
 	{
 		free(redir->path);

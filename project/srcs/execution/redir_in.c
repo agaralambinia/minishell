@@ -40,14 +40,14 @@ void	redir_in(t_cmd *cmd)
 	int		cmd_ind;
 	int		fd;
 	t_list	*tmp;
-	t_redir	*cur;
+	t_r		*cur;
 
 	tmp = cmd->redir_in;
 	while (tmp)
 	{
-		cur = (t_redir *)(tmp->dt);
+		cur = (t_r *)(tmp->dt);
 		file = cur->path;
-		if (cur->mode)
+		if (cur->m)
 		{
 			cmd_ind = run_heredoc(file);
 			check_for_exit(cmd->command, cmd_ind < 0);

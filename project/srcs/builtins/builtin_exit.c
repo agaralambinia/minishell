@@ -56,9 +56,6 @@ bool	is_valid_str(char *str)
 unsigned char	builtin_exit(char **argv, t_envp *envp_var)
 {
 	envp_var->last_code = 0;
-
-	arglen = arrlen((void **)argv);
-	err_mes = "exit\nminishell: exit:";
 	envp_var->is_exit = true;
 	if (arrlen((void **)argv) == 2)
 	{
