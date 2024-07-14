@@ -546,6 +546,8 @@
 * exit wrong
 * exit wrong_command
 * exit something
+
+  в тестах ниже у нас сообщение выводится, но ; мы по сабджекту не обрабатываем, так что ок
 * exit 1 ; echo if you see this message then your minishell have some troubles
 * exit -1 ; echo if you see this message then your minishell have some troubles
 * exit 42 ; echo if you see this message then your minishell have some troubles
