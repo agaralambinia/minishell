@@ -67,7 +67,7 @@ typedef enum	s_exec_status
 {
 	SUCCESS,
 	ERROR,
-	NOTFOUND
+	NOTFOUND = INT_MAX
 }	t_exec_status;
 
 /*
@@ -128,6 +128,7 @@ typedef struct s_envp
 	t_list	*envp_list;
 	t_list	*token_list;
 	int		last_code;
+	bool	is_exit;
 }	t_envp;
 
 typedef struct s_builtins
@@ -218,19 +219,20 @@ void	redir_in(t_cmd *cmd);
 void	redir_out(t_cmd *cmd);
 void	run(char **paths, char **args, t_envp *envp_var);
 int		run_command(t_list *cmd_lst, t_envp *envp_var);
-void	run_single(t_list *cmd, t_envp *envp_var);
+int		run_single(t_list *cmd, t_envp *envp_var);
 void	setup_pipes_first(int **pp);
 void	setup_pipes_last(int **pp, int count);
 void	setup_pipes_parent(int **pp);
 
 // buildins
-int		builtin_exec(char **argv, bool subshell, t_envp *envp_var);
-int		builtin_cd(int argc, char **argv, t_envp *envp_var);
-int		builtin_echo(char **argv);
-int		builtin_env(t_envp *envp_var);
-int		builtin_export(int argc, char **argv, t_envp *envp_var);
-int		builtin_pwd(t_envp *envp_var);
-int		builtin_unset(char **argv, t_envp *envp_var);
+int				builtin_exec(char **argv, bool subshell, t_envp *envp_var);
+int				builtin_cd(int argc, char **argv, t_envp *envp_var);
+int				builtin_echo(char **argv);
+int				builtin_env(t_envp *envp_var);
+int				builtin_export(int argc, char **argv, t_envp *envp_var);
+int				builtin_pwd(t_envp *envp_var);
+int				builtin_unset(char **argv, t_envp *envp_var);
+unsigned char	builtin_exit(char **argv, t_envp *envp_var);
 
 // debug
 void	print_envp(t_list *envp_list);

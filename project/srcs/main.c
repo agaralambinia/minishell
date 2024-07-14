@@ -15,22 +15,20 @@
 int	execute(char *line, t_envp *envp_var)
 {
 	t_list	*commands;
+	int		exit_code;
 
 	if (!lexer(line, envp_var))
-	{
-		envp_var->last_code = 258;
-		return (envp_var->last_code);
-	}
+		return (258);
 	commands = get_commands(envp_var);
 //	print_lexer_debug(envp_var);
 //	print_cmd_debug(commands);
 	if (ft_lstsize(commands) == 1)
-		run_single(commands, envp_var);
+		exit_code = run_single(commands, envp_var);
 	else
-		envp_var->last_code = run_command(commands, envp_var);
+		exit_code = run_command(commands, envp_var);
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
-	return (envp_var->last_code);
+	return (exit_code);
 }
 
 int run_from_args(char *arg, t_envp *envp_var)
@@ -47,7 +45,7 @@ int run_from_args(char *arg, t_envp *envp_var)
 	{
 		exit_code = execute(*args, envp_var);
 		if (exit_code == 255)
-			break;
+			break ;
 		last_code = exit_code;
 		args++;
 	}
@@ -63,6 +61,16 @@ char	*get_line(t_envp *envp_var, char **line)
 	*line = readline(prompt);
 	free(prompt);
 	return (*line);
+}
+
+void free_envp(t_envp *envp_var)
+{
+	if (envp_var->envp_list && &(envp_var->envp_list))
+		ft_lstclear(&(envp_var->envp_list), &free);
+	if (envp_var->token_list && &(envp_var->token_list))
+		ft_lstclear(&envp_var->token_list, &free_token);
+	if (envp_var && &(envp_var))
+		free(envp_var);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -81,33 +89,16 @@ int	main(int argc, char **argv, char **envp)
 	{
 		while (get_line(envp_var, &line))
 		{
-			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			add_history(line);
-			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			exit_code = execute(line, envp_var);
-			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 			free(line);
-			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-			if (exit_code == 255)
-				break;
-			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
+			if (envp_var->is_exit)
+				break ;
 			envp_var->last_code = exit_code;
-			// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-			// print_lexer_debug(envp_var);
 		}
-		// printf("DEBUG %s %d\n", __FILE__, __LINE__);
-		printf("exit\n");
 	}
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
 	exit_code = envp_var->last_code;
-	if(envp_var->envp_list && &(envp_var->envp_list))
-	 	ft_lstclear(&(envp_var->envp_list), &free);
-	if(envp_var->token_list && &(envp_var->token_list))
-	 	ft_lstclear(&envp_var->token_list, &free_token);
-	if (envp_var && &(envp_var))
-		free(envp_var);
-	//TODO почистить лики от лексера:w
-	// printf("DEBUG %s %d\n", __FILE__, __LINE__);
+	free_envp(envp_var);
 	system("leaks minishell");
 	return (exit_code);
 }
