@@ -441,7 +441,8 @@
 * unset TES!T                                           ok (не обрабатываем !)
 * unset TES\~T                                          ok (не обрабатываем \)
 
-  БЛОК PIPES
+
+  БЛОК PIPES - все ок
 
 * env | grep "_="
 * env | grep "SHLVL"
@@ -471,6 +472,99 @@
 * whereis grep > file ; cat file ; ls -la file
 * ls -la > file ; cat < file doesntexist
 
+
+
+
+
+БЛОК REDIRECTIONS
+* ls -la > file ; cat file
+* ifconfig | grep "192.168" > file ; cat file
+* echo text > file text2 > file1 ; cat file file1
+* echo text > file ; cat file
+* echo text > file ; cat file
+* echo text > $PWD/file text2 ; cat $PWD/file
+* echo text$USER > file $USER ; cat file
+* echo "text"$USER > file ; cat file
+* echo $USER"text""'$USER'""$USER" > file >> file2 $USER ; cat file file2
+* echo '$USER'"123$USER123""text" > file ; cat file
+* echo "text" > file >> file1 ; cat file file1
+* echo "text" > file text2 ; cat file
+* echo "text" > file text ; cat file
+* echo "text" > file ; cat file
+* echo "text" > file ; cat file ; rm -f file
+* echo text$USER > file $USER ; cat file ; rm -f file
+* echo "text"$USER > file ; cat file ; rm -f file
+* echo $USER"text""'$USER'""$USER" > file >> file2 $USER ; cat file file2 ; rm -f file file2
+* echo '$USER'"123$USER123""text" > file ; cat file ; rm -f file
+* echo "text" > file >> file1 ; cat file file1 ; rm -f file file1
+* echo $USER  $USER7777"text"$USER $USER9999 > file $USER $USER9999 ; cat file ; rm -f file
+* echo $USER  $USER7777"text"$USER $USER9999 > file $USER $USER9999 ; cat file
+* echo something > > file ; cat < file - проблемка в лексере
+* echo something > file ; cat file
+* echo something > file ; >> file ls -la ; cat file
+* > file echo something ; cat file
+* > file cat test.sh
+* cat < README.md
+* cat < README.md test.sh
+* cat < README.md | wc -l | xargs
+* cat < README.md > file ; cat file | wc -l | xargs > file1 ; cat file1
+
+
+
+БЛОК EXIT
+* exit
+* exit 0 0
+* exit 42 42
+* exit -42 -24
+* exit 42
+* exit 42 53 68
+* exit 259
+* exit -12030
+* exit --1239312
+* exit ++++1203020103
+* exit +0
+* exit ++++++0
+* exit -----0
+* exit azerty
+* exit kewkwqke
+* exit a
+* exit z
+* exit "1"
+* exit "2"
+* exit "+102"
+* exit "1230"
+* exit "+++1230"
+* exit "1"23
+* exit "2"32"32"
+* exit "'42'"
+* exit '42'"42"42
+* exit +'42'"42"42
+* exit -'42'"42"42
+* exit 9223372036854775807
+* exit 9223372036854775808
+* exit -4
+* exit wrong
+* exit wrong_command
+* exit something
+* exit 1 ; echo if you see this message then your minishell have some troubles
+* exit -1 ; echo if you see this message then your minishell have some troubles
+* exit 42 ; echo if you see this message then your minishell have some troubles
+* exit 0 ; echo if you see this message then your minishell have some troubles
+* exit --000 ; echo if you see this message then your minishell have some troubles
+* exit +++++++000 ; echo if you see this message then your minishell have some troubles
+* exit ++++3193912939 ; echo if you see this message then your minishell have some troubles
+* exit ---31232103012 ; echo if you see this message then your minishell have some troubles
+* exit "something" ; echo if you see this message then your minishell have some troubles
+* exit q ; echo if you see this message then your minishell have some troubles
+* exit help ; echo if you see this message then your minishell have some troubles
+* exit export ; echo if you see this message then your minishell have some troubles
+* exit echo ; echo if you see this message then your minishell have some troubles
+* exit cd .. ; echo if you see this message then your minishell have some troubles
+* exit 0 0 ; echo if you see this message then your minishell have some troubles
+* exit something somethingv2 ; echo if you see this message then your minishell have some troubles
+exit 42 42 42 42 42 ; echo if you see this message then your minishell have some troubles
+exit echo something ; echo if you see this message then your minishell have some troubles
+exit exit ; echo if you see this message then your minishell have some troubles
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
