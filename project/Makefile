@@ -31,6 +31,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/free_cmd.c \
 		srcs/utils/free_token.c \
 		srcs/utils/free_mock.c \
+		srcs/utils/free_redir.c \
 		srcs/utils/ft_is_numeric.c \
 		srcs/utils/ft_list_sort.c \
 		srcs/utils/ft_list_replace.c \
@@ -54,6 +55,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/redir_out.c \
 		srcs/execution/run.c \
 		srcs/execution/run_commands.c \
+		srcs/execution/run_single.c \
 		srcs/execution/setup_pipes_first.c \
 		srcs/execution/setup_pipes_last.c \
 		srcs/execution/setup_pipes_parent.c \
