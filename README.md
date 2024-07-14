@@ -525,7 +525,7 @@
 * echo "text" > file >> file1 ; cat file file1 ; rm -f file file1
 * echo $USER  $USER7777"text"$USER $USER9999 > file $USER $USER9999 ; cat file ; rm -f file
 * echo $USER  $USER7777"text"$USER $USER9999 > file $USER $USER9999 ; cat file
-* echo something > > file ; cat < file
+* echo something > > file ; cat < file - проблемка в лексере
 * echo something > file ; cat file
 * echo something > file ; >> file ls -la ; cat file
 * > file echo something ; cat file
