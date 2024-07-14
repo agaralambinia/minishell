@@ -14,6 +14,7 @@ SRC = 	srcs/main.c \
 		srcs/builtins/builtin_export.c \
 		srcs/builtins/builtin_pwd.c \
 		srcs/builtins/builtin_unset.c \
+		srcs/builtins/builtin_exit.c \
 		srcs/builtins/builtin.c \
 		srcs/error/ft_exit_error.c \
 		srcs/error/ft_print_error_errno.c \
