@@ -19,11 +19,11 @@ int	run_single(t_list *commands, t_envp *envp_var)
 	t_cmd	*cmd;
 	int		exit_code;
 
-	cmd = (t_cmd *)(ft_lstlast(commands)->content);
+	cmd = (t_cmd *)(ft_lstlast(commands)->dt);
 	is_any_redir = ft_lstsize(cmd->redir_out);
 	if (!is_any_redir)
 	{
-		args = get_args((t_cmd *)(commands->content));
+		args = get_args((t_cmd *)(commands->dt));
 		exit_code = builtin_exec(args, 0, envp_var);
 		free((void *)args);
 		if (exit_code == NOTFOUND)

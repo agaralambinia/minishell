@@ -14,12 +14,12 @@
 
 void	free_token(void *data)
 {
-	t_token	*token;	
+	t_tn	*token;	
 
-	token = (t_token *)data;
+	token = (t_tn *)data;
 	if (token)
 	{
-		free(token->t_data);
+		free(token->data);
 		free(token);
 	}
 }

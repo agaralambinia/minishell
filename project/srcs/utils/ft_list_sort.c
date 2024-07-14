@@ -21,9 +21,9 @@ static void	swap(t_list **lst)
 	temp = malloc(sizeof(t_list));
 	if (!temp)
 		return ;
-	temp->content = (*lst)->content;
-	(*lst)->content = (*lst)->next->content;
-	(*lst)->next->content = temp->content;
+	temp->dt = (*lst)->dt;
+	(*lst)->dt = (*lst)->next->dt;
+	(*lst)->next->dt = temp->dt;
 	free(temp);
 }
 
@@ -43,7 +43,7 @@ void	ft_list_sort(t_list *lst)
 		iter = lst;
 		while (j < len - i - 1)
 		{
-			if (ft_strcmp(iter -> content, iter -> next -> content) > 0)
+			if (ft_strcmp(iter -> dt, iter -> next -> dt) > 0)
 				swap(&iter);
 			j++;
 			iter = iter -> next;
