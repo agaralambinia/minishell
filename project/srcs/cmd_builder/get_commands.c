@@ -44,6 +44,7 @@ t_list	*get_commands(t_envp *envp_var)
 		token_lst = token_lst->next;
 	}
 	com = add_command(com, &com_lst, handler);
-	free_res(&com_lst, &com, handler);
+	free_cmd(com);
+	free(handler);
 	return (com_lst);
 }
