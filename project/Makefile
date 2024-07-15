@@ -33,6 +33,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/free_token.c \
 		srcs/utils/free_mock.c \
 		srcs/utils/free_redir.c \
+		srcs/utils/free_envp.c \
 		srcs/utils/ft_is_numeric.c \
 		srcs/utils/ft_list_sort.c \
 		srcs/utils/ft_list_replace.c \

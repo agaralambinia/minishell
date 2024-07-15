@@ -65,3 +65,5 @@ void	print_cmd_debug(t_list	*commands)
 		commands = commands->next;
 	}
 }
+
+
