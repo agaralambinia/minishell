@@ -29,6 +29,30 @@ int	execute(char *line, t_envp *envp_var)
 	return (exit_code);
 }
 
+char	*get_line(t_envp *envp_var, char **line)
+{
+	char	*prompt;
+
+	prompt = prompt_msg(envp_var);
+	*line = readline(prompt);
+	free(prompt);
+	return (*line);
+}
+
+
+static int	handle_input(char *line, t_envp *envp_var)
+{
+	int		exit_code;
+
+	add_history(line);
+	exit_code = execute(line, envp_var);
+	free(line);
+	if (envp_var->is_exit)
+		return (0);
+	envp_var->last_code = exit_code;
+	return (1);
+}
+
 int	run_from_args(char *arg, t_envp *envp_var)
 {
 	char	**args;
@@ -51,26 +75,6 @@ int	run_from_args(char *arg, t_envp *envp_var)
 	return (last_code);
 }
 
-char	*get_line(t_envp *envp_var, char **line)
-{
-	char	*prompt;
-
-	prompt = prompt_msg(envp_var);
-	*line = readline(prompt);
-	free(prompt);
-	return (*line);
-}
-
-void	free_envp(t_envp *envp_var)
-{
-	if (envp_var->envp_list && &(envp_var->envp_list))
-		ft_lstclear(&(envp_var->envp_list), &free);
-	if (envp_var->token_list && &(envp_var->token_list))
-		ft_lstclear(&envp_var->token_list, &free_token);
-	if (envp_var && &(envp_var))
-		free(envp_var);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -87,14 +91,12 @@ int	main(int argc, char **argv, char **envp)
 	{
 		while (get_line(envp_var, &line))
 		{
-			add_history(line);
-			exit_code = execute(line, envp_var);
-			free(line);
-			if (envp_var->is_exit)
+			if (!handle_input(line, envp_var))
 				break ;
-			envp_var->last_code = exit_code;
 		}
 	}
+	if (!(envp_var->is_exit))
+		printf("exit\n");
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
 	return (exit_code);
