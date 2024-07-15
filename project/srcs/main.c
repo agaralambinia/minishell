@@ -94,9 +94,9 @@ int	main(int argc, char **argv, char **envp)
 			if (!handle_input(line, envp_var))
 				break ;
 		}
+		if (!(envp_var->is_exit))
+			printf("exit\n");
 	}
-	if (!(envp_var->is_exit))
-		printf("exit\n");
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
 	return (exit_code);
