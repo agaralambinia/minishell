@@ -49,7 +49,7 @@ int	handle_token(
 
 	res = 1;
 	token = (t_tn *)(info_cont[0]);
-	handler = (t_wordhan *)(info_cont[0]);
+	handler = (t_wordhan *)(info_cont[1]);
 	if (token->t_tp == S_RA)
 		set_field(handler, 'o', 0);
 	else if (token->t_tp == D_RA)
