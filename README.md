@@ -338,7 +338,7 @@
 * export sudo                                   ok
 * export TES^T=123                              ok
 * export TES!T=123                              ok (не поддерживаем !)
-* export TES\~T=123
+* export TES\~T=123                             ok (не поддерживаем \)
 * export TEST+=100 ; echo $TEST ; export TEST+=200 ; echo $TEST          ok
 * export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST     ok
 * export TEST=$USER ; echo $TEST ; export TEST+=$PWD ; echo $TEST ; cd $TEST       ok
@@ -387,7 +387,7 @@
 * unset TES#T                                           ok
 * unset TES@T                                           ok
 * unset TES!T                                           ok (не обрабатываем !)
-* unset TES$?T
+* unset TES$?T                                          ok
     * скорее всего ERROR и подставляется $?
 * unset ============                                    ok
 * unset +++++++                                         ok

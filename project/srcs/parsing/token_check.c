@@ -17,6 +17,7 @@ static int	printlexerror(void)
 	char	*err;
 
 	err = "minishell: syntax error near unexpected token `newline'\n";
+	printf("%s", err);
 	return (0);
 }
 
