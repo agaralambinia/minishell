@@ -81,20 +81,12 @@ RLDIR = libs/rl_lib
 DEPS = incs/minishell.h
 
 CFLAGS  	:= -Wall -Wextra -Werror -g
-#CFLAGS  	:= -fsanitize=address
-
-#CFLAGS		+= -I/opt/homebrew/opt/readlineinclude
-#READLINE 	= -L/opt/homebrew/opt/readline/lib -lreadline
-
-#CFLAGS		+= -I $(RLDIR)/include/readline
 CFLAGS		+=-I incs
 READLINE 	= -L $(RLDIR)/lib -lreadline
 
 
 all:  ${DEPS} ${NAME}
-#${LIBFT_PATH}/${LIBFT_NAME}
 
-#rlbuild 
 ${NAME}: ${LIBFT_PATH}/${LIBFT_NAME} $(RLDIR) ${OBJ}
 	${CC} ${CFLAGS} ${LIBFT_PATH}/${LIBFT_NAME} ${SRC} ${READLINE} -o $@
 
@@ -116,8 +108,6 @@ fclean: clean
 	rm -rf $(RLDIR)
 	make fclean -C $(LIBFT_PATH)
 	make distclean -C libs/readline
-#	cd $(LIBFT_PATH) && make fclean
-
 
 re: fclean all
 

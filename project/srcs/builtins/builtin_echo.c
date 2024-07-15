@@ -17,7 +17,7 @@ static int	check_for_n_arg(char *str)
 	int		i;
 
 	i = 2;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != 'n')
 			return (0);
@@ -40,8 +40,8 @@ static int	check_for_newline(char **argv, int *index)
 			(*index)++;
 		}
 		else
-			break;
-	}	
+			break ;
+	}
 	return (include_newline);
 }
 
@@ -53,15 +53,12 @@ int	builtin_echo(char **argv)
 	include_newline = check_for_newline(argv, &index);
 	while (argv[index])
 	{
-		//ft_putstr_fd(argv[index], 1);
 		printf("%s", argv[index]);
 		if (argv[index + 1])
 			printf(" ");
-			//ft_putchar_fd(' ', 1);
 		index++;
 	}
 	if (include_newline)
 		printf("\n");
-		//ft_putchar_fd('\n', 1);
 	return (SUCCESS);
 }

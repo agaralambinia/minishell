@@ -16,13 +16,13 @@ void	redir_out(t_cmd *cmd)
 {
 	int		fd;
 	t_list	*tmp;
-	t_redir	*cur;
+	t_r		*cur;
 
 	tmp = cmd->redir_out;
 	while (tmp)
 	{
-		cur = (t_redir *)(tmp->dt);
-		if (cur->mode)
+		cur = (t_r *)(tmp->dt);
+		if (cur->m)
 			fd = open(cur->path, O_CREAT | O_WRONLY | O_APPEND, 0666);
 		else
 			fd = open(cur->path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
