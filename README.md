@@ -528,6 +528,11 @@
 exit 42 42 42 42 42 ; echo if you see this message then your minishell have some troubles
 exit echo something ; echo if you see this message then your minishell have some troubles
 exit exit ; echo if you see this message then your minishell have some troubles
+
+
+
+
+rl_catch_signals = 0;
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
