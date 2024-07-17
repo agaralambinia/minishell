@@ -20,12 +20,6 @@ static void	print_environment_vars(t_envp *envp_var)
 
 	if (envp_var == NULL)
 		return ;
-	e_cp = (t_list *)malloc(sizeof(t_list));
-	if (e_cp == NULL)
-	{
-		ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
-		return ;
-	}
 	e_cp = envp_var->envp_list;
 	ft_list_sort(e_cp);
 	while (e_cp != NULL)
@@ -61,6 +55,7 @@ static bool	is_valid_arg(char *arg)
 static int	env_putvar_ex(char *name, char *str, t_envp *envp_var, bool plus)
 {
 	char	*old_var;
+	char	*temp_name;
 
 	if (str == NULL)
 		return (ERROR);
@@ -69,11 +64,17 @@ static int	env_putvar_ex(char *name, char *str, t_envp *envp_var, bool plus)
 		ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
 		return (ERROR);
 	}
-	old_var = ft_strjoin(ft_strjoin(name, "="),
+	temp_name = ft_strjoin(name, "=");
+	old_var = ft_strjoin(temp_name,
 			get_envp_list_val(name, &envp_var->envp_list));
+	free(temp_name);
 	if (!plus)
+	{
+		temp_name = ft_strjoin(name, "=");
 		ft_list_replace(envp_var, old_var,
-			ft_strjoin(ft_strjoin(name, "="), str));
+			ft_strjoin(temp_name, str));
+		free(temp_name);
+	}
 	else
 		ft_list_replace(envp_var, old_var, ft_strjoin(old_var, str));
 	free(old_var);
@@ -104,27 +105,29 @@ static int	export_put_var(char *arg, t_envp *envp_var)
 
 int	builtin_export(int argc, char **argv, t_envp *envp_var)
 {
-	int	exit_status;
-	int	index;
+	int		exit_status;
+	int		index;
+	char	*err_name;
+	char	*err_arg;
 
 	exit_status = SUCCESS;
 	if (argc == 1)
 		print_environment_vars(envp_var);
-	index = 1;
-	while (argc > 1 && argv[index])
+	index = 0;
+	while (argc > 1 && argv[++index])
 	{
 		if (is_valid_arg(argv[index]) == false)
 		{
-			ft_print_error(SHELL_NAME,
-				"export", ft_strjoin(ft_strjoin("`", argv[index]), "\'"),
-				"not a valid identifier");
+			err_name = ft_strjoin("`", argv[index]);
+			err_arg = ft_strjoin(err_name, "\'");
+			free(err_name);
+			ft_print_error(SHELL_NAME, "export",
+				err_arg, "not a valid identifier");
+			free(err_arg);
 			exit_status = ERROR;
 		}
 		else if (ft_strchr(argv[index], '='))
-		{
 			exit_status = export_put_var(argv[index], envp_var);
-		}
-		index++;
 	}
 	return (exit_status);
 }

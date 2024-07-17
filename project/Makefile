@@ -65,9 +65,9 @@ SRC = 	srcs/main.c \
 		srcs/execution/run_commands.c \
 		srcs/execution/run_single.c \
 		srcs/execution/setup_pipes_first.c \
+		srcs/execution/setup_pipes_mid.c \
 		srcs/execution/setup_pipes_last.c \
 		srcs/execution/setup_pipes_parent.c \
-		srcs/debug/print_envp.c \
 		$(GNL)get_next_line.c \
 	  	$(GNL)get_next_line_utils.c
 
@@ -98,7 +98,7 @@ $(RLDIR):
 	bash libs/readline/rlbuild.sh
 
 .c.o:
-	${CC} ${CFLAGS} -fsanitize=address -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 clean :
 	rm -f ${OBJ}

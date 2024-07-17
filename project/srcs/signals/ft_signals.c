@@ -16,7 +16,7 @@ static void	ft_controlc(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(STDERR_FILENO, "\n", 1);
+		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -25,6 +25,7 @@ static void	ft_controlc(int signal)
 
 void	ft_singals(void)
 {
+	rl_catch_signals = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_controlc);
 }

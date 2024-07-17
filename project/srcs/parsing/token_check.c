@@ -45,6 +45,8 @@ int	token_check(t_list *tlist)
 	t = tlist;
 	if (!t)
 		return (0);
+	if (ft_lstsize(t) == 1 && ((t_tn *)(t->dt))->t_tp == SP)
+		return (INT_MAX);
 	while (t != NULL)
 	{
 		if ((((t_tn *)(t->dt))->t_tp == D_RA || ((t_tn *)(t->dt))->t_tp

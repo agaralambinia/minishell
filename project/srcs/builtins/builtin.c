@@ -15,7 +15,9 @@
 int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
 {
 	(void)subshell;
-	if (!(ft_strncmp(argv[0], "cd", 2)))
+	if (!(argv[0]))
+		return (NOTFOUND);
+	else if (!(ft_strncmp(argv[0], "cd", 2)))
 		return (builtin_cd(ft_split_count(argv), argv, envp_var));
 	else if (!(ft_strncmp(argv[0], "echo", 4)))
 		return (builtin_echo(argv));
@@ -29,6 +31,5 @@ int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
 		return (builtin_unset(argv, envp_var));
 	else if (!(ft_strncmp(argv[0], "exit", 4)))
 		return (builtin_exit(argv, envp_var));
-	else
-		return (NOTFOUND);
+	return (NOTFOUND);
 }

@@ -16,14 +16,20 @@ int	execute(char *line, t_envp *envp_var)
 {
 	t_list	*commands;
 	int		exit_code;
+	int		lex_res;
 
-	if (!lexer(line, envp_var))
+	lex_res = lexer(line, envp_var);
+	if (!lex_res)
 		return (258);
+	else if (lex_res == INT_MAX)
+		return (0);
 	commands = get_commands(envp_var);
 	if (ft_lstsize(commands) == 1)
 		exit_code = run_single(commands, envp_var);
 	else
 		exit_code = run_command(commands, envp_var);
+	if (exit_code == 130)
+		envp_var->hide_prompt = true;
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
 	return (exit_code);
@@ -34,11 +40,15 @@ char	*get_line(t_envp *envp_var, char **line)
 	char	*prompt;
 
 	prompt = prompt_msg(envp_var);
+	if (envp_var->hide_prompt)
+	{
+		printf("\n");
+		envp_var->hide_prompt = false;
+	}
 	*line = readline(prompt);
 	free(prompt);
 	return (*line);
 }
-
 
 static int	handle_input(char *line, t_envp *envp_var)
 {

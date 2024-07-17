@@ -52,6 +52,7 @@ typedef enum s_exec_status
 {
 	SUCCESS,
 	ERROR,
+	NOCMD,
 	NOTFOUND = INT_MAX
 }	t_exec_status;
 
@@ -89,6 +90,7 @@ typedef struct s_envp
 	t_list	*token_list;
 	int		last_code;
 	bool	is_exit;
+	bool	hide_prompt;
 }	t_envp;
 
 typedef struct s_builtins
@@ -180,8 +182,9 @@ int				builtin_export(int argc, char **argv, t_envp *envp_var);
 int				builtin_pwd(t_envp *envp_var);
 int				builtin_unset(char **argv, t_envp *envp_var);
 unsigned char	builtin_exit(char **argv, t_envp *envp_var);
-void			print_envp(t_list *envp_list);
 void			print_lexer_debug(t_envp *envp_var);
 void			print_cmd_debug(t_list	*commands);
+void			setup_pipes_mid(int **pp, int ind, t_cmd *cmd);
+void			run_mid(t_cmd *cmd, int **pp, int ind, t_envp *envp_var);
 
 #endif

@@ -54,7 +54,7 @@ void	redir_in(t_cmd *cmd)
 			file = "here_doc";
 		}
 		fd = open(file, O_RDONLY);
-		check_for_exit(cmd->command, fd < 0);
+		check_for_exit(cur->path, fd < 0);
 		dup2(fd, 0);
 		close(fd);
 		tmp = tmp->next;
