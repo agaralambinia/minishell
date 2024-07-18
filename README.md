@@ -536,3 +536,12 @@ rl_catch_signals = 0;
 -----------------------------------------------------------------
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
+
+
+
+
+
+--------------------------------------------
+https://github.com/jesuismarie/minishell/blob/main/cases.txt
++
+<< word
