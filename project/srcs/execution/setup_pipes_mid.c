@@ -16,7 +16,6 @@ void	setup_pipes_mid(int **pp, int ind, t_cmd *cmd)
 {
 	int		i;
 	int		len;
-	t_list	*tmp;
 
 	i = 0;
 	len = ft_arrlen((void **)pp);
@@ -30,7 +29,6 @@ void	setup_pipes_mid(int **pp, int ind, t_cmd *cmd)
 		i++;
 	}
 	close(pp[ind - 1][1]);
-	tmp = cmd->redir_in;
 	if (cmd->redir_in)
 		redir_in(cmd);
 	else
