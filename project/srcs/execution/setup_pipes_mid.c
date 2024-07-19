@@ -30,12 +30,12 @@ void	setup_pipes_mid(int **pp, int ind, t_cmd *cmd)
 		i++;
 	}
 	close(pp[ind - 1][1]);
-	close(pp[ind - 1][0]);
 	tmp = cmd->redir_in;
-	if (!((t_r *)(tmp->dt))->m)
-		dup2(pp[ind - 1][0], 0);
-	else
+	if (cmd->redir_in)
 		redir_in(cmd);
+	else
+		dup2(pp[ind - 1][0], 0);
+	close(pp[ind - 1][0]);
 	close(pp[ind][0]);
 	dup2(pp[ind][1], 1);
 	close(pp[ind][1]);

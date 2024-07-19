@@ -8,7 +8,7 @@ echo ==================CD================== > bash_out.txt
 echo ==================CD================== > errors.diff
 echo > cd_mini_out.txt
 echo > cd_bash_out.txt
-< cases/cd_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> cd_mini_out.txt
+< cases/cd_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep 'minishell:' -v >> cd_mini_out.txt
 < cases/cd_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> cd_bash_out.txt
 diff cd_bash_out.txt cd_mini_out.txt >> errors.diff
 < cd_mini_out.txt cat >> mini_out.txt
@@ -20,7 +20,7 @@ echo =================ECHO================= >> bash_out.txt
 echo =================ECHO================= >> errors.diff
 echo > echo_mini_out.txt
 echo > echo_bash_out.txt
-< cases/echo_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> echo_mini_out.txt
+< cases/echo_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep 'minishell:' -v >> echo_mini_out.txt
 < cases/echo_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> echo_bash_out.txt
 diff echo_bash_out.txt echo_mini_out.txt >> errors.diff
 < echo_mini_out.txt cat >> mini_out.txt
@@ -32,7 +32,7 @@ echo ================EXPORT================ >> bash_out.txt
 echo ================EXPORT================ >> errors.diff
 echo > export_mini_out.txt
 echo > export_bash_out.txt
-< cases/export_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> export_mini_out.txt
+< cases/export_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep 'minishell:' -v >> export_mini_out.txt
 < cases/export_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> export_bash_out.txt
 diff export_bash_out.txt export_mini_out.txt >> errors.diff
 < export_mini_out.txt cat >> mini_out.txt
