@@ -1,0 +1,50 @@
+ls
+cd /
+cd ..
+cd ~
+pwd
+mkdir new_dir
+touch file.txt
+rm file.txt
+echo "hello world" > file.txt
+echo "goodbye world" >> file.txt
+cat file.txt
+sort file.txt
+uniq file.txt
+grep "hello" file.txt
+ls *.txt
+rm *
+ls && echo "ls succeeded"
+ls -l || echo "ls failed"
+(ls && echo "ls succeeded") || echo "ls failed"
+ls -l && (echo "Listing files..."; echo "Done.")
+cd new_dir && (ls -l || echo "Failed to list files.")
+rm non_existent_file.txt || echo "File does not exist."
+rm non_existent_file.txt && echo "Error: File does not exist."
+echo "hello" > file.txt && (cat file.txt || echo "Failed to read file.")
+echo "world" >> file.txt && (cat file.txt | sort | uniq)
+(cd non_existent_dir || mkdir non_existent_dir) && echo "Directory created."
+ls -l && (echo "Listing files..."; echo "Done.") || echo "ls failed"
+ls -l || (echo "Failed to list files."; exit 1)
+(ls || echo "ls failed") && (echo "Continuing..." || echo "Stopping...")
+echo "hello world" | grep "world"
+ls -l | grep "file.txt"
+find . -type f -name "*.txt"
+sed 's/hello/goodbye/g' file.txt > new_file.txt
+awk '{print $1}' file.txt
+grep -v "goodbye" file.txt > output.txt
+ps aux | grep "nginx"
+whoami
+date
+cal
+uptime
+uname -a
+df -h
+du -h
+tar -czvf archive.tar.gz directory/
+sudo apt-get update && sudo apt-get upgrade
+echo "hello world" && echo "goodbye world"
+echo "hello world" || echo "goodbye world"
+echo "hello world" && (echo "continuing..."; echo "done.") || echo "failed"
+(echo "hello" && echo "world") || echo "failed"
+(echo "hello" || echo "world") && echo "done."

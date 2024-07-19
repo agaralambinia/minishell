@@ -1,0 +1,2 @@
+tar -czvf archive.tar.gz directory/
+sudo apt-get update && sudo apt-get upgrade
