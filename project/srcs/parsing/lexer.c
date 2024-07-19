@@ -74,6 +74,10 @@ int	lexer(char *line, t_envp *envp_var)
 			break ;
 	}
 	if (res == 1)
+	{
+		if (envp_var->token_list != NULL)
+			tn_clean_null(envp_var->token_list);
 		res = token_check(envp_var->token_list);
+	}
 	return (res);
 }

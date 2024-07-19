@@ -186,5 +186,6 @@ void			print_lexer_debug(t_envp *envp_var);
 void			print_cmd_debug(t_list	*commands);
 void			setup_pipes_mid(int **pp, int ind, t_cmd *cmd);
 void			run_mid(t_cmd *cmd, int **pp, int ind, t_envp *envp_var);
+void			tn_clean_null(t_list *tlist);
 
 #endif

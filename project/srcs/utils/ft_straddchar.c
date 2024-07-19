@@ -68,6 +68,7 @@ void	ft_straddchar(char **str, char c)
 
 	temp = ft_strnew(1);
 	temp[0] = c;
+	//printf("DEBUG <%c> %s\n", c, __FILE__); //TODO убрать
 	if (*str == NULL)
 		*str = ft_strdup(temp);
 	else

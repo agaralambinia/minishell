@@ -12,11 +12,8 @@
 
 #include "../../incs/minishell.h"
 
-void	handle_empty_quotes(t_envp *envp_var, int *i)
+static void	handle_empty_quotes(t_envp *envp_var, int *i, t_tn *temp)
 {
-	t_tn	*temp;
-
-	temp = (t_tn *)safe_malloc(sizeof(t_tn));
 	temp->data = (char *)safe_malloc(sizeof(char));
 	temp->data[0] = 0;
 	temp->t_tp = WORD;
@@ -24,42 +21,43 @@ void	handle_empty_quotes(t_envp *envp_var, int *i)
 	(*i)++;
 }
 
-void	fill_data(char q, char *l, int *i, t_envp *envp_var)
+static void	fill_token(char q, t_envp *envp_var, t_tn *temp)
 {
-	t_tn	*temp;
-
-	temp = (t_tn *)safe_malloc(sizeof(t_tn));
-	while (!(l[*i] == q || l[*i] == '\0' || (l[*i] == '$' && q == '\"')))
-		ft_straddchar(&temp->data, l[(*i)++]);
-	if (l[*i] == q)
-		(*i)++;
-	if (q == '\'')
-		temp->t_tp = HARDWORD;
-	else if (q == '\"')
+	if (q == '\"')
 		temp->t_tp = SOFTWORD;
-	if (temp->data)
-		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 	else
-		free(temp);
+		temp->t_tp = HARDWORD;
+	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
 }
 
 void	quote_lexer(char *l, int *i, t_quote qtype, t_envp *envp_var)
 {
 	char	q;
+	t_tn	*temp;
 
-	if (l[*i] == l[*i + 1])
-	{
-		handle_empty_quotes(envp_var, i);
-		return ;
-	}
+	temp = (t_tn *)safe_malloc(sizeof(t_tn));
 	q = '\"';
 	if (qtype == NA)
 		q = l[(*i)++];
-	if (l[(*i)] != '$' || q == '\'')
-		fill_data(q, l, i, envp_var);
-	if (l[*i] == '$' && (q == '\"'))
+	//printf("DEBUG <%c> %s\n", q, __FILE__); //TODO убрать
+	if (l[(*i)] == q)
 	{
-		word_lexer(l, i, envp_var);
-		quote_lexer(l, i, DOUBLE, envp_var);
+		handle_empty_quotes(envp_var, i, temp);
+		i++;
+		return ;
 	}
+	while (!(l[(*i)] == q || l[(*i)] == '\0'))
+	{
+		if (l[(*i)] == '$' && q == '\"')
+		{
+			fill_token(q, envp_var, temp);
+			word_lexer(l, i, envp_var);
+			quote_lexer(l, i, DOUBLE, envp_var);
+			return ;
+		}
+		else
+			ft_straddchar(&temp->data, l[(*i)++]);
+	}
+	(*i)++;
+	fill_token(q, envp_var, temp);
 }
