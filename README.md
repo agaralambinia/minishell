@@ -537,7 +537,10 @@ rl_catch_signals = 0;
 **LOG 06.07.2024**
 - Dasha: found another checker, we have fuckups with exit codes https://github.com/cacharle/minishell_test/blob/master/README.md
 
-
+===================================================================
+EXPORT - TODO
+- Изменение SHLVL
+- Обнуление OLDPWD
 
 
 
