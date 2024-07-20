@@ -59,7 +59,10 @@ void	run(char **args, t_envp *envp_var)
 	char	**env_arr;
 	int		builtin_res;
 	char	**paths;
+	int		res;
 
+	if (!args[0])
+		exit(0);
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
 	builtin_res = builtin_exec(args, envp_var);
 	if (builtin_res == NOTFOUND)
@@ -70,14 +73,11 @@ void	run(char **args, t_envp *envp_var)
 			printf("minishell: %s: command not found\n", prog_path);
 		else
 			perror(args[0]);
-		if (paths)
-			free_arr((void **)paths);
-		exit(127);
+		res = 127;
 	}
 	else
-	{
-		if (paths)
-			free_arr((void **)paths);
-		exit(builtin_res);
-	}
+		res = builtin_res;
+	if (paths)
+		free_arr((void **)paths);
+	exit(res);
 }
