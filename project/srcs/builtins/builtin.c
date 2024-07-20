@@ -12,9 +12,8 @@
 
 #include "../../incs/minishell.h"
 
-int	builtin_exec(char **argv, bool subshell, t_envp *envp_var)
+int	builtin_exec(char **argv, t_envp *envp_var)
 {
-	(void)subshell;
 	if (!(argv[0]))
 		return (NOTFOUND);
 	else if (!(ft_strncmp(argv[0], "cd", 2)))
