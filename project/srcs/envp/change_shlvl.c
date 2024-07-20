@@ -12,4 +12,5 @@ int	change_shlvl(t_envp *envp_var, int val)
 	res = env_set_env("SHLVL", shlvl_s, envp_var);
 	free (shlvl_s);
 	return (res);
+	//TODO запретить UNSET shlvl
 }
