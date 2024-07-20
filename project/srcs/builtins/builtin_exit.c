@@ -74,6 +74,7 @@ unsigned char	builtin_exit(char **argv, t_envp *envp_var)
 		envp_var->is_exit = false;
 		return (ERROR);
 	}
+	change_shlvl(envp_var, -1);
 	printf("exit\n");
 	return (envp_var->last_code);
 }

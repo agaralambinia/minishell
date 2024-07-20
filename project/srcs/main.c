@@ -18,7 +18,6 @@ void	print_lexer_debug(t_envp *envp_var)
 	t_list	*iter; //TODO убрать - для дебага
 	t_tn *t; //TODO убрать - для дебага
 
-	iter = (t_list *)safe_malloc(sizeof(t_list));
 	iter = envp_var->token_list;
 	t = (t_tn *)safe_malloc(sizeof(t_tn));
 	while (iter != NULL)
@@ -36,7 +35,7 @@ int	execute(char *line, t_envp *envp_var)
 	int		lex_res;
 
 	lex_res = lexer(line, envp_var);
-	//print_lexer_debug(envp_var); //TODO удалить перед защитой
+	print_lexer_debug(envp_var); //TODO удалить перед защитой
 	if (!lex_res)
 		return (258);
 	else if (lex_res == INT_MAX)

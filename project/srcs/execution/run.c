@@ -61,7 +61,7 @@ void	run(char **args, t_envp *envp_var)
 	char	**paths;
 
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
-	builtin_res = builtin_exec(args, 0, envp_var);
+	builtin_res = builtin_exec(args, envp_var);
 	if (builtin_res == NOTFOUND)
 	{
 		prog_path = get_prog_path(paths, args[0]);

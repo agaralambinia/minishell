@@ -91,6 +91,7 @@ typedef struct s_envp
 	int		last_code;
 	bool	is_exit;
 	bool	hide_prompt;
+	int		shlvl;
 }	t_envp;
 
 typedef struct s_builtins
@@ -174,7 +175,7 @@ int				run_single(t_list *cmd, t_envp *envp_var);
 void			setup_pipes_first(int **pp);
 void			setup_pipes_last(int **pp, int count);
 void			setup_pipes_parent(int **pp);
-int				builtin_exec(char **argv, bool subshell, t_envp *envp_var);
+int				builtin_exec(char **argv, t_envp *envp_var);
 int				builtin_cd(int argc, char **argv, t_envp *envp_var);
 int				builtin_echo(char **argv);
 int				builtin_env(t_envp *envp_var);
@@ -187,5 +188,6 @@ void			print_cmd_debug(t_list	*commands);
 void			setup_pipes_mid(int **pp, int ind, t_cmd *cmd);
 void			run_mid(t_cmd *cmd, int **pp, int ind, t_envp *envp_var);
 void			tn_clean_null(t_list *tlist);
+int				change_shlvl(t_envp *envp_var, int val);
 
 #endif

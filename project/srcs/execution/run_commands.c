@@ -50,6 +50,8 @@ static int	run_pipeline(
 	while (tmp)
 	{
 		cmd = (t_cmd *)(tmp->dt);
+		if (!ft_strcmp((cmd->command), "./minishell"))
+			change_shlvl(envp_var, 1);
 		if (fork() == 0)
 		{
 			if (i == 0)

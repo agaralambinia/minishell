@@ -24,7 +24,7 @@ int	run_single(t_list *commands, t_envp *envp_var)
 	if (!is_any_redir)
 	{
 		args = get_args((t_cmd *)(commands->dt));
-		exit_code = builtin_exec(args, 0, envp_var);
+		exit_code = builtin_exec(args, envp_var);
 		free((void *)args);
 		if (exit_code == NOTFOUND)
 			exit_code = run_command(commands, envp_var);
