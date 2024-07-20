@@ -54,16 +54,16 @@ int	execute(char *line, t_envp *envp_var)
 
 char	*get_line(t_envp *envp_var, char **line)
 {
-	char	*prompt;
+	//char	*prompt;
 
-	prompt = prompt_msg(envp_var);
+	//prompt = prompt_msg(envp_var);
 	if (envp_var->hide_prompt)
 	{
 		printf("\n");
 		envp_var->hide_prompt = false;
 	}
-	*line = readline(prompt);
-	free(prompt);
+	*line = readline("minishell: ");
+	//free(prompt);
 	return (*line);
 }
 
