@@ -47,12 +47,12 @@ static int	run_pipeline(
 
 	i = 0;
 	tmp = cmd_lst;
-	while (tmp)
+	while (tmp && i < CHILD_MAX)
 	{
 		cmd = (t_cmd *)(tmp->dt);
-		if (!ft_strcmp((cmd->command), "./minishell"))
+		if (cmd->command && !ft_strcmp((cmd->command), "./minishell"))
 			change_shlvl(envp_var, 1);
-		if (fork() == 0)
+		if ( fork() == 0)
 		{
 			if (i == 0)
 				run_first(cmd, pp, envp_var);
@@ -67,8 +67,13 @@ static int	run_pipeline(
 	return (i);
 }
 
-int	get_exit(int exit_info)
+int	get_exit(int exit_info, bool is_fork_ov)
 {
+	if (is_fork_ov)
+	{
+		printf("minishell: fork: Resource temporarily unavailable\n");
+		return (1);
+	}
 	if (WIFEXITED(exit_info))
 		return (WEXITSTATUS(exit_info));
 	else if (WTERMSIG(exit_info) == 2)
@@ -83,10 +88,11 @@ int	get_exit(int exit_info)
 
 int	run_command(t_list *cmd_lst, t_envp *envp_var)
 {
-	int	**pp;
-	int	i;
-	int	exit_info;
-	int	cmd_cnt;
+	int		**pp;
+	int		i;
+	int		exit_info;
+	int		cmd_cnt;
+	bool	is_fork_ov;
 
 	cmd_cnt = ft_lstsize(cmd_lst);
 	pp = get_pipes(cmd_cnt);
@@ -100,8 +106,9 @@ int	run_command(t_list *cmd_lst, t_envp *envp_var)
 		wait(&exit_info);
 		i--;
 	}
+	is_fork_ov = cmd_cnt > CHILD_MAX;
 	ft_singals();
 	free_arr((void **)pp);
 	unlink("here_doc");
-	return (get_exit(exit_info));
+	return (get_exit(exit_info, is_fork_ov));
 }

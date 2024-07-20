@@ -1,4 +1,4 @@
-ls
+es
 pwd
 echo "hello world"
 echo "hello" > file.txt
@@ -14,18 +14,6 @@ cd /
 cd ..
 cd ~
 mkdir new_directory
-ls -l && echo "All good"
-cd directory && ls
-rm file.txt && echo "File removed"
-ls -l || echo "Something went wrong"
-cd directory || echo "Directory does not exist"
-rm file.txt || echo "File not found"
-(ls && echo "Success") || echo "Failure"
-(cd directory || mkdir directory) && ls
-(ls || echo "Error") && (echo "Continuing" || echo "Stopping")
-ls *.txt
-cat file*.txt
-rm *backup*
 echo "hello world" | grep "hello"
 ls -l | grep ".txt" | wc -l
 echo "hello world" > output.txt

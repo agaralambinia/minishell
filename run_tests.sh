@@ -69,7 +69,7 @@ echo ================PIPES================= >> errors.diff
 echo > pipes_mini_out.txt
 echo > pipes_bash_out.txt
 < cases/pipes_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> pipes_mini_out.txt
-< cases/pipes_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> pipes_bash_out.txt
+< cases/pipes_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' | sed 's/bash: //'>> pipes_bash_out.txt
 diff pipes_bash_out.txt pipes_mini_out.txt >> errors.diff
 < pipes_mini_out.txt cat >> mini_out.txt
 < pipes_bash_out.txt cat >> bash_out.txt
