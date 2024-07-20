@@ -189,5 +189,6 @@ void			setup_pipes_mid(int **pp, int ind, t_cmd *cmd);
 void			run_mid(t_cmd *cmd, int **pp, int ind, t_envp *envp_var);
 void			tn_clean_null(t_list *tlist);
 int				change_shlvl(t_envp *envp_var, int val);
+long long		ft_atoll_p(const char *str, int *is_int);
 
 #endif
