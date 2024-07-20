@@ -91,7 +91,6 @@ typedef struct s_envp
 	int		last_code;
 	bool	is_exit;
 	bool	hide_prompt;
-	int		shlvl;
 }	t_envp;
 
 typedef struct s_builtins
@@ -188,7 +187,6 @@ void			print_cmd_debug(t_list	*commands);
 void			setup_pipes_mid(int **pp, int ind, t_cmd *cmd);
 void			run_mid(t_cmd *cmd, int **pp, int ind, t_envp *envp_var);
 void			tn_clean_null(t_list *tlist);
-int				change_shlvl(t_envp *envp_var, int val);
 long long		ft_atoll_p(const char *str, int *is_int);
 
 #endif

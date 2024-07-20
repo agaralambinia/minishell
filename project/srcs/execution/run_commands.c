@@ -50,9 +50,7 @@ static int	run_pipeline(
 	while (tmp && i < CHILD_MAX)
 	{
 		cmd = (t_cmd *)(tmp->dt);
-		if (cmd->command && !ft_strcmp((cmd->command), "./minishell"))
-			change_shlvl(envp_var, 1);
-		if ( fork() == 0)
+		if (fork() == 0)
 		{
 			if (i == 0)
 				run_first(cmd, pp, envp_var);
