@@ -12,24 +12,21 @@
 
 #include "../../incs/minishell.h"
 
-static void	init_data(
-	t_list **token_lst, t_wordhan **handler, t_cmd **com, t_envp *envp_var)
+static void	init_data(t_wordhan **handler, t_cmd **com)
 {
-	*token_lst = envp_var->token_list;
 	*handler = get_word_handler();
 	*com = get_new_command();
 }
 
-t_list	*get_commands(t_envp *envp_var)
+t_list	*get_commands(t_list *token_lst, t_envp *envp_var)
 {
-	t_list		*token_lst;
 	t_wordhan	*handler;
 	t_cmd		*com;
 	t_list		*com_lst;
 	void		*info_cont[2];
 
 	com_lst = NULL;
-	init_data(&token_lst, &handler, &com, envp_var);
+	init_data(&handler, &com);
 	if (!handler || !com)
 		return (NULL);
 	info_cont[1] = handler;

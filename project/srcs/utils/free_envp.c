@@ -16,8 +16,6 @@ void	free_envp(t_envp *envp_var)
 {
 	if (envp_var->envp_list && &(envp_var->envp_list))
 		ft_lstclear(&(envp_var->envp_list), &free);
-	if (envp_var->token_list && &(envp_var->token_list))
-		ft_lstclear(&envp_var->token_list, &free_token);
 	if (envp_var && &(envp_var))
 		free(envp_var);
 }

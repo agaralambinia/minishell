@@ -12,13 +12,13 @@
 
 #include "../../incs/minishell.h"
 
-static int	pipe_checker(t_envp *envp_var, char *line)
+static int	pipe_checker(t_list **token_list, char *line)
 {
 	t_list	*l;
 	t_list	*pl;
 
-	l = (ft_lstlast(envp_var->token_list));
-	pl = (ft_lstprelast(envp_var->token_list));
+	l = (ft_lstlast(*token_list));
+	pl = (ft_lstprelast(*token_list));
 	if (!l && *(line + 1) == '|')
 	{
 		printf("minishell: syntax error near unexpected token `||'\n");
@@ -27,7 +27,7 @@ static int	pipe_checker(t_envp *envp_var, char *line)
 	if (!l
 		|| ((t_tn *)(l->dt))->t_tp == PIPE
 		|| (((t_tn *)(l->dt))->t_tp == SP
-		&& (ft_lstsize(envp_var->token_list) == 1))
+		&& (ft_lstsize(*token_list) == 1))
 		|| (((t_tn *)(l->dt))->t_tp == SP
 		&& ((t_tn *)(pl->dt))->t_tp == PIPE)
 	)
@@ -38,18 +38,18 @@ static int	pipe_checker(t_envp *envp_var, char *line)
 	return (1);
 }
 
-int	pipe_lexer(char *line, int *i, t_envp *envp_var)
+int	pipe_lexer(char *line, int *i, t_list **token_list)
 {
 	t_tn	*t;
 
 	t = (t_tn *)safe_malloc(sizeof(t_tn));
 	ft_straddchar(&t->data, line[(*i)++]);
-	if (!pipe_checker(envp_var, line))
+	if (!pipe_checker(token_list, line))
 	{
 		free_token(t);
 		return (0);
 	}
 	t->t_tp = PIPE;
-	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(t));
+	ft_lstadd_back(token_list, ft_lstnew(t));
 	return (1);
 }

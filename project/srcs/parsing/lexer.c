@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-static void	space_lex(char *line, int *i, t_envp *envp_var)
+static void	space_lex(char *line, int *i, t_list **token_list)
 {
 	t_tn	*temp;
 
@@ -23,10 +23,10 @@ static void	space_lex(char *line, int *i, t_envp *envp_var)
 		(*i)++;
 	}
 	temp->t_tp = SP;
-	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+	ft_lstadd_back(token_list, ft_lstnew(temp));
 }
 
-static void	tild_lexer(char *line, int *i, t_envp *envp_var)
+static void	tild_lexer(char *line, int *i, t_envp *envp_var, t_list **token_list)
 {
 	t_tn	*temp;
 
@@ -35,49 +35,59 @@ static void	tild_lexer(char *line, int *i, t_envp *envp_var)
 		temp = (t_tn *)safe_malloc(sizeof(t_tn));
 		temp->data = ft_strdup("$HOME");
 		temp->t_tp = ENVP;
-		ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+		ft_lstadd_back(token_list, ft_lstnew(temp));
 		(*i)++;
 	}
 	else
-		word_lexer(line, i, envp_var);
+		word_lexer(line, i, envp_var, token_list);
 }
 
-static void	choose_token(char *line, int *i, t_envp *envp_var, int *res)
+static void	choose_token(
+	char *line, t_list **token_list, t_envp *envp_var, int **proc_data)
 {
+	int	*i;	
+	int	*res;
+	void	*common_data[2];
+
+	i = proc_data[0]; 
+	res = proc_data[1]; 
+	common_data[0] = token_list;
+	common_data[1] = envp_var;
 	if (ft_isspace(line[*i]))
-		space_lex(line, i, envp_var);
+		space_lex(line, i, token_list);
 	else if (line[*i] == '\'' || line[*i] == '\"')
-		quote_lexer(line, i, NA, envp_var);
+		quote_lexer(line, i, NA, common_data);
 	else if (line[*i] == '>' || line[*i] == '<')
-		*res = redirect_lexer(line, i, envp_var);
+		*res = redirect_lexer(line, i, token_list);
 	else if (line[*i] == '|')
-		*res = pipe_lexer(line, i, envp_var);
+		*res = pipe_lexer(line, i, token_list);
 	else if (line[*i] == '~')
-		tild_lexer(line, i, envp_var);
+		tild_lexer(line, i, envp_var, token_list);
 	else
-		*res = word_lexer(line, i, envp_var);
+		*res = word_lexer(line, i, envp_var, token_list);
 }
 
-int	lexer(char *line, t_envp *envp_var)
+int	lexer(char **line, t_list **token_list, t_envp *envp_var)
 {
 	int	i;	
 	int	res;
+	int	*proc_data[2];
 
 	i = 0;
 	res = 1;
-	if (&(envp_var->token_list) && envp_var->token_list)
-		ft_lstclear(&envp_var->token_list, &free_token);
-	while (line[i] != '\0')
+	proc_data[0] = &i;
+	proc_data[1] = &res;
+	while ((*line)[i] != '\0')
 	{
-		choose_token(line, &i, envp_var, &res);
+		choose_token(*line, token_list, envp_var, proc_data);
 		if (!res)
 			break ;
 	}
 	if (res == 1)
 	{
-		if (envp_var->token_list != NULL)
-			tn_clean_null(envp_var->token_list);
-		res = token_check(envp_var->token_list);
+		if (token_list != NULL)
+			tn_clean_null(*token_list);
+		res = token_check(token_list, envp_var, line);
 	}
 	return (res);
 }

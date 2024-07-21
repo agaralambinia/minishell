@@ -34,15 +34,15 @@ static int	doublera_checker(char *s, int *i, char *err)
 	return (0);
 }
 
-static int	redirect_checker(t_envp *envp_var, char *s, int *i)
+static int	redirect_checker(t_list **token_list, char *s, int *i)
 {
 	t_list	*l;
 	t_list	*pl;
 	char	*err;
 
 	err = "minishell: syntax error near unexpected token ";
-	l = (ft_lstlast(envp_var->token_list));
-	pl = (ft_lstprelast(envp_var->token_list));
+	l = (ft_lstlast(*token_list));
+	pl = (ft_lstprelast(*token_list));
 	if (l)
 	{
 		if (((t_tn *)(l->dt))->t_tp == D_RA && s[*i] == '>')
@@ -63,12 +63,12 @@ static int	redirect_checker(t_envp *envp_var, char *s, int *i)
 	return (1);
 }
 
-int	redirect_lexer(char *line, int *i, t_envp *envp_var)
+int	redirect_lexer(char *line, int *i, t_list **token_list)
 {
 	t_tn	*t;
 
 	t = (t_tn *)safe_malloc(sizeof(t_tn));
-	if (!redirect_checker(envp_var, line, i))
+	if (!redirect_checker(token_list, line, i))
 	{
 		free_token(t);
 		return (0);
@@ -86,6 +86,6 @@ int	redirect_lexer(char *line, int *i, t_envp *envp_var)
 		t->t_tp = S_LA;
 	else if (line[*i - 1] == '>')
 		t->t_tp = S_RA;
-	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(t));
+	ft_lstadd_back(token_list, ft_lstnew(t));
 	return (1);
 }

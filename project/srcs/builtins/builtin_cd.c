@@ -36,6 +36,22 @@ static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
 	return (directory);
 }
 
+int handle_cwd_err(char *prev_pwd, char *dir, t_envp *envp_var)
+{
+	char	*broken_dir;
+	int		res;
+	char	*tmp;
+
+	ft_print_error_errno(SHELL_NAME, "cd: error retrieving current \
+directory: getcwd: cannot access parent directories", NULL);
+	tmp = ft_strjoin("/", dir);
+	broken_dir = ft_strjoin(prev_pwd, tmp);
+	free(tmp);
+	res = env_set_env("PWD", broken_dir, envp_var);
+	free(broken_dir);
+	return (res);
+}
+
 static int	update_working_directory(t_envp *envp_var, char *dir)
 {
 	char	buffer[PATH_MAX];
@@ -51,10 +67,7 @@ static int	update_working_directory(t_envp *envp_var, char *dir)
 	else
 		env_unset_var("OLDPWD", envp_var);
 	if (getcwd(buffer, sizeof(buffer)) == NULL)
-	{
-		ft_print_error_errno(SHELL_NAME, "cd", NULL);
-		return (ERROR);
-	}
+		return (handle_cwd_err(prev_pwd, dir, envp_var));
 	if (!ft_strcmp(dir, "//"))
 		res = env_set_env("PWD", dir, envp_var);
 	else
