@@ -27,38 +27,65 @@ static void	envp_list_init(char **envp, t_list **envp_list)
 
 static int	shlvl_atoi(char *str)
 {
-	int	i;
+	int			i;
+	long long	res;
 
 	i = -1;
 	while(str[++i] != '\0')
 	{
-		if (str[i])
+		if (!((str[i] >= '0' && str[i] <= '9')
+			|| ((str[i] == '+' || str[i] == '-') && i == 0)))
+			return (0);
 	}
-	
+	i = 0;
+	res = ft_atoll_p(str, &i);
+	if (i == 1)
+	{
+		if (res < 0)
+			return (INT_MIN);
+		else
+			return (INT_MAX - 1);
+	}
+	return ((int)res);
+}
+
+static void inc_shlvl_var(char **var)
+{
+	char	*str;
+	int		atoi_res;
+
+	str = ft_strdup(ft_strrchr(*var, '=') + 1);
+	atoi_res = shlvl_atoi(str);
+	free(str);
+	if (atoi_res >= 999)
+	{
+		printf("minishell: warning: shell level (%d) too high, \
+			resetting to 1\n", atoi_res + 1);
+		*var = "SHLVL=1";
+	}
+	else if (atoi_res < 0)
+	{
+		printf("minishell: warning: shell level (%d) <= 0, resetting to 1\n",
+			atoi_res + 1);
+		*var = "SHLVL=0";
+	}
+	else
+	{
+		str = ft_itoa(atoi_res + 1);
+		*var = ft_strjoin("SHLVL=", str);
+		free (str);
+	}
 }
 
 static void	inc_shlvl(char **envp)
 {
-	int		i;
-	char	cur_shlvl;
-	int		shlvl_atoi_res;
+	int	i;
 
 	i = -1;
 	while (envp[++i])
 	{
 		if(!ft_strncmp(envp[i], "SHLVL=", 6))
-		{
-			cur_shlvl = ft_strrchr(envp[i], '=');
-			shlvl_atoi_res = shlvl_atoi(cur_shlvl);
-			if (shlvl_atoi_res == 0)
-				envp[i] = "SHLVL=1";
-			else if (shlvl_atoi_res >= 1000)
-			else if (shlvl_atoi_res <= -1000)			
-			else if (shlvl_atoi_res < 1)
-				envp[i] = "SHLVL=0";
-			else
-				envp[i] = ft_strjoin(envp[i], ft_itoa(shlvl_atoi_res + 1));
-		}
+			inc_shlvl_var(&envp[i]);
 	}
 }
 
