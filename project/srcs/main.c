@@ -12,22 +12,6 @@
 
 #include "../incs/minishell.h"
 
-//TODO удалить перед защитой
-void	print_lexer_debug(t_list *token_list)
-{
-	t_list	*iter; //TODO убрать - для дебага
-	t_tn *t; //TODO убрать - для дебага
-
-	iter = token_list;
-	t = (t_tn *)safe_malloc(sizeof(t_tn));
-	while (iter != NULL)
-	{
-		t = iter->dt;
-		printf(PINK"%i TYPE [%s]\n"RESET, t->t_tp, t->data);
-		iter = iter -> next;
-	}
-}
-
 int	execute(char **line, t_envp *envp_var)
 {
 	t_list	*commands;
@@ -36,8 +20,7 @@ int	execute(char **line, t_envp *envp_var)
 	int		lex_res;
 
 	token_list = NULL;
-	lex_res = lexer(line,  &token_list, envp_var);
-	//print_lexer_debug(token_list); //TODO удалить перед защитой
+	lex_res = lexer(line, &token_list, envp_var);
 	if (!lex_res)
 		return (258);
 	else if (lex_res == INT_MAX)
@@ -58,16 +41,12 @@ int	execute(char **line, t_envp *envp_var)
 
 char	*get_line(t_envp *envp_var, char **line)
 {
-	//char	*prompt;
-
-	//prompt = prompt_msg(envp_var);
 	if (envp_var->hide_prompt)
 	{
 		printf("\n");
 		envp_var->hide_prompt = false;
 	}
 	*line = readline("minishell:minishel_user$ ");
-	//free(prompt);
 	return (*line);
 }
 
@@ -130,6 +109,5 @@ int	main(int argc, char **argv, char **envp)
 		printf("exit\n");
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
-	system("leaks minishell");
 	return (exit_code);
 }

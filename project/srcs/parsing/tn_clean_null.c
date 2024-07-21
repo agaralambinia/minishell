@@ -12,18 +12,14 @@
 
 #include "../../incs/minishell.h"
 
-static void create_node(t_list *i) 
+static void	create_node(t_list *i)
 {
 	t_list	*temp;
 
-	//temp = (t_list *)safe_malloc(sizeof(t_list));
 	temp = i->next->next;
-	//temp->dt = (i->next->next)->dt;
-	//temp->next = (i->next->next)->next;
 	ft_lstdelone(i->next, &free_token);
 	i->next = temp;
 }
-
 
 void	tn_clean_null(t_list **lst)
 {
