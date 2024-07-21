@@ -34,10 +34,10 @@ static int	shlvl_atoi(char *str)
 	long long	res;
 
 	i = -1;
-	while(str[++i] != '\0')
+	while (str[++i] != '\0')
 	{
 		if (!((str[i] >= '0' && str[i] <= '9')
-			|| ((str[i] == '+' || str[i] == '-') && i == 0)))
+				|| ((str[i] == '+' || str[i] == '-') && i == 0)))
 			return (0);
 	}
 	i = 0;
@@ -52,7 +52,7 @@ static int	shlvl_atoi(char *str)
 	return ((int)res);
 }
 
-static void inc_shlvl_var(char **var)
+static void	inc_shlvl_var(char **var)
 {
 	char	*str;
 	int		atoi_res;
@@ -87,7 +87,7 @@ static void	inc_shlvl(char **envp)
 	i = -1;
 	while (envp[++i])
 	{
-		if(!ft_strncmp(envp[i], "SHLVL=", 6))
+		if (!ft_strncmp(envp[i], "SHLVL=", 6))
 			inc_shlvl_var(&envp[i]);
 	}
 }
