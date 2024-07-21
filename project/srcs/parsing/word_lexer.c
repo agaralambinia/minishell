@@ -12,12 +12,13 @@
 
 #include "../../incs/minishell.h"
 
-static void	handle_exit_code(t_tn *temp, t_envp *envp_var, int *i)
+static void	handle_exit_code(
+	t_tn *temp, t_envp *envp_var, t_list **token_list, int *i)
 {
 	temp->t_tp = EXITSTATUS;
 	temp->data = ft_itoa(envp_var->last_code);
 	(*i) += 2;
-	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+	ft_lstadd_back(token_list, ft_lstnew(temp));
 }
 
 static void	handle_envp(t_tn *temp, char *line, int *i)
@@ -38,7 +39,7 @@ static void	fill_data(char *line, int *i, t_tn *temp)
 	}
 }
 
-int	word_lexer(char *line, int *i, t_envp *envp_var)
+int	word_lexer(char *line, int *i, t_envp *envp_var, t_list **token_list)
 {
 	t_tn	*temp;
 
@@ -47,7 +48,7 @@ int	word_lexer(char *line, int *i, t_envp *envp_var)
 	{
 		if (line[*i + 1] == '?')
 		{
-			handle_exit_code(temp, envp_var, i);
+			handle_exit_code(temp, envp_var, token_list, i);
 			return (1);
 		}
 		else if (ft_isdigit(line[*i + 1]))
@@ -61,6 +62,6 @@ int	word_lexer(char *line, int *i, t_envp *envp_var)
 	else
 		temp->t_tp = WORD;
 	fill_data(line, i, temp);
-	ft_lstadd_back(&(envp_var->token_list), ft_lstnew(temp));
+	ft_lstadd_back(token_list, ft_lstnew(temp));
 	return (1);
 }

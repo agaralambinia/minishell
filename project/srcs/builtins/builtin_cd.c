@@ -43,8 +43,7 @@ int handle_cwd_err(char *prev_pwd, char *dir, t_envp *envp_var)
 	char	*tmp;
 
 	ft_print_error_errno(SHELL_NAME, "cd: error retrieving current \
-directory: getcwd: cannot access parent directories",
-						 NULL);
+directory: getcwd: cannot access parent directories", NULL);
 	tmp = ft_strjoin("/", dir);
 	broken_dir = ft_strjoin(prev_pwd, tmp);
 	free(tmp);
