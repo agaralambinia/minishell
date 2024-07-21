@@ -20,8 +20,11 @@ static void	envp_list_init(char **envp, t_list **envp_list)
 	i = -1;
 	while (envp[++i])
 	{
-		str = ft_strdup(envp[i]);
-		ft_lstadd_back(envp_list, ft_lstnew(str));
+		if (ft_strncmp(envp[i], "OLDPWD=", 7))
+		{
+			str = ft_strdup(envp[i]);
+			ft_lstadd_back(envp_list, ft_lstnew(str));
+		}
 	}
 }
 
