@@ -56,13 +56,13 @@ t_list	*add_from_input(t_envp *envp_var, char **hline)
 	return (NULL);
 }
 
-int check_pipe_ending(t_list *lst)
+int	check_pipe_ending(t_list *lst)
 {
 	while (lst)
 	{
 		if (((t_tn *)(lst->dt))->t_tp != SP)
 			return (0);
-		lst = lst->next;	
+		lst = lst->next;
 	}
 	return (1);
 }
@@ -88,7 +88,7 @@ int	token_check(t_list **tlist, t_envp *envp_var, char **hline)
 		else if (((t_tn *)(t->dt))->t_tp == PIPE && check_pipe_ending(t->next))
 		{
 			ft_lstlast(t)->next = add_from_input(envp_var, hline);
-			break;
+			break ;
 		}
 		t = t->next;
 	}
