@@ -36,7 +36,7 @@ static char	*determine_directory(int argc, char **argv, t_envp *envp_var)
 	return (directory);
 }
 
-int handle_cwd_err(char *prev_pwd, char *dir, t_envp *envp_var)
+int	handle_cwd_err(char *prev_pwd, char *dir, t_envp *envp_var)
 {
 	char	*broken_dir;
 	int		res;

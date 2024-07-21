@@ -53,19 +53,18 @@ bool	is_valid_str(char *str)
 	return (true);
 }
 
-int print_numeric_error(char *str, t_envp *envp_var)
+int	print_numeric_error(char *str, t_envp *envp_var)
 {
-	printf("exit\nminishell: exit: %s numeric argument required\n",
-		   str);
+	printf("exit\nminishell: exit: %s numeric argument required\n", str);
 	envp_var->last_code = 255;
-	return (ERROR);	
+	return (ERROR);
 }
 
 unsigned char	builtin_exit(char **argv, t_envp *envp_var)
 {
 	int				is_ov;
-	unsigned char exit_code;
-	
+	unsigned char	exit_code;
+
 	is_ov = 0;
 	exit_code = 0;
 	envp_var->last_code = 0;

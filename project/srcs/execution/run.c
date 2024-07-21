@@ -53,6 +53,13 @@ static char	*get_prog_path(char **paths, char *name)
 	return (name);
 }
 
+static void	print_error(char *prog_path)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(prog_path, 2);
+	ft_putstr_fd(": command not found\n", 2);
+}
+
 void	run(char **args, t_envp *envp_var)
 {
 	char	*prog_path;
@@ -70,7 +77,7 @@ void	run(char **args, t_envp *envp_var)
 		prog_path = get_prog_path(paths, args[0]);
 		env_arr = get_env_arr(envp_var);
 		if (execve(prog_path, args, env_arr) == -1)
-			printf("minishell: %s: command not found\n", prog_path);
+			print_error(prog_path);
 		else
 			perror(args[0]);
 		res = 127;
