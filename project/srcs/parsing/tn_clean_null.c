@@ -16,10 +16,11 @@ static void create_node(t_list *i)
 {
 	t_list	*temp;
 
-	temp = (t_list *)safe_malloc(sizeof(t_list));
-	temp->dt = (i->next->next)->dt;
-	temp->next = (i->next->next)->next;
-	ft_lstdelone(i->next, &free);
+	//temp = (t_list *)safe_malloc(sizeof(t_list));
+	temp = i->next->next;
+	//temp->dt = (i->next->next)->dt;
+	//temp->next = (i->next->next)->next;
+	ft_lstdelone(i->next, &free_token);
 	i->next = temp;
 }
 
@@ -39,7 +40,7 @@ void	tn_clean_null(t_list **lst)
 				create_node(i);
 			else
 			{
-				ft_lstdelone(i->next, &free);
+				ft_lstdelone(i->next, &free_token);
 				i->next = NULL;
 			}
 		}
