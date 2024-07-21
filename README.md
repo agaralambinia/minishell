@@ -541,6 +541,11 @@ rl_catch_signals = 0;
 EXPORT - TODO
 - Изменение SHLVL
 - Обнуление OLDPWD
+CD - TODO
+- обработка случая удаления директории из самой директории
+
+PIPES - TODO
+- обработка command |
 
 
 
