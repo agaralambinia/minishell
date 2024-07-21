@@ -12,36 +12,37 @@
 
 #include "../../incs/minishell.h"
 
-static void	analyze_elt(t_list *i, t_list *temp)
+static void create_node(t_list *i) 
 {
-	if (i->next != NULL && i->next->dt != NULL
-		&& ((t_tn *)(i->next->dt))->data == NULL)
-	{
-		if ((i->next)->next != NULL && (i->next->next)->dt != NULL
-			&& (i->next->next)->next != NULL)
-		{
-			temp = (t_list *)safe_malloc(sizeof(t_list));
-			temp->dt = (i->next->next)->dt;
-			temp->next = (i->next->next)->next;
-			ft_lstdelone(i->next, &free);
-			i->next = temp;
-		}
-		else
-		{
-			ft_lstdelone(i->next, &free);
-			i->next = NULL;
-		}
-	}
-	i = i -> next;
-}
-
-void	tn_clean_null(t_list *lst)
-{
-	t_list	*i;
 	t_list	*temp;
 
-	i = lst;
-	temp = NULL;
+	temp = (t_list *)safe_malloc(sizeof(t_list));
+	temp->dt = (i->next->next)->dt;
+	temp->next = (i->next->next)->next;
+	ft_lstdelone(i->next, &free);
+	i->next = temp;
+}
+
+
+void	tn_clean_null(t_list **lst)
+{
+	t_list	*i;
+
+	i = *lst;
 	while (i != NULL)
-		analyze_elt(i, temp);
+	{
+		if (i->next != NULL && i->next->dt != NULL
+			&& ((t_tn *)(i->next->dt))->data == NULL)
+		{
+			if ((i->next)->next != NULL && (i->next->next)->dt != NULL
+				&& (i->next->next)->next != NULL)
+				create_node(i);
+			else
+			{
+				ft_lstdelone(i->next, &free);
+				i->next = NULL;
+			}
+		}
+		i = i -> next;
+	}
 }

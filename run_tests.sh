@@ -74,12 +74,24 @@ diff pipes_bash_out.txt pipes_mini_out.txt >> errors.diff
 < pipes_mini_out.txt cat >> mini_out.txt
 < pipes_bash_out.txt cat >> bash_out.txt
 
+echo =============REDIRECTIONS=============
+echo =============REDIRECTIONS============= >> mini_out.txt
+echo =============REDIRECTIONS============= >> bash_out.txt
+echo =============REDIRECTIONS============= >> errors.diff
+echo > redir_mini_out.txt
+echo > redir_bash_out.txt
+< cases/redirections.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> redir_mini_out.txt
+< cases/redirections.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' | sed 's/bash: //'>> redir_bash_out.txt
+diff redir_bash_out.txt redir_mini_out.txt >> errors.diff
+< redir_mini_out.txt cat >> mini_out.txt
+< redir_bash_out.txt cat >> bash_out.txt
+
 echo =================MORE=================
 echo =================MORE================= >> mini_out.txt
 echo =================MORE================= >> bash_out.txt
 echo =================MORE================= >> errors.diff
 echo > more_mini_out.txt
-echo > more_bash_out.txt
+echo > more_bash_out.txt 
 < cases/more_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> more_mini_out.txt
 < cases/more_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> more_bash_out.txt
 diff more_bash_out.txt more_mini_out.txt >> errors.diff
