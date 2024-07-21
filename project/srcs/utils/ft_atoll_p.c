@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-long long	convert(const char *str, int *is_ov/*, int neg*/)
+long long	convert(const char *str, int *is_ov, int neg)
 {
 	long long	res;
 	long long	prev;
@@ -23,8 +23,7 @@ long long	convert(const char *str, int *is_ov/*, int neg*/)
 	{
 		prev = res;
 		res = (res * 10) + *str - '0';
-		if (prev > res /*&& !(res == LONG_LONG_Ma && neg == -1)*/)
-		//if (prev > res && !(res == -2147483648 && neg == -1))
+		if (prev > res && !(res == LLONG_MIN && neg == -1))
 			*is_ov = 1;
 		str++;
 	}
@@ -50,6 +49,6 @@ long long	ft_atoll_p(const char *str, int *is_ov)
 			neg = -1;
 		str++;
 	}
-	res = convert(str, is_ov/*, neg*/);
+	res = convert(str, is_ov, neg);
 	return (res * neg);
 }
