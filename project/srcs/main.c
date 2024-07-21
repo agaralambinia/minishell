@@ -30,9 +30,9 @@ void	print_lexer_debug(t_list *token_list)
 
 int	execute(char **line, t_envp *envp_var)
 {
-	t_list	*commands;
+	//t_list	*commands;
 	t_list	*token_list;
-	int		exit_code;
+	// int		exit_code;
 	int		lex_res;
 
 	token_list = NULL;
@@ -42,18 +42,19 @@ int	execute(char **line, t_envp *envp_var)
 		return (258);
 	else if (lex_res == INT_MAX)
 		return (0);
-	commands = get_commands(token_list, envp_var);
+	// commands = get_commands(token_list, envp_var);
 	if (&(token_list) && token_list)
 		ft_lstclear(&token_list, &free_token);
-	if (ft_lstsize(commands) == 1)
-		exit_code = run_single(commands, envp_var);
-	else
-		exit_code = run_command(commands, envp_var);
-	if (exit_code == 130)
-		envp_var->hide_prompt = true;
-	if (commands && &(commands))
-		ft_lstclear(&commands, &free_cmd);
-	return (exit_code);
+	// if (ft_lstsize(commands) == 1)
+	// 	exit_code = run_single(commands, envp_var);
+	// else
+	// 	exit_code = run_command(commands, envp_var);
+	// if (exit_code == 130)
+	// 	envp_var->hide_prompt = true;
+	// if (commands && &(commands))
+	// 	ft_lstclear(&commands, &free_cmd);
+	// return (exit_code);
+	return (1);
 }
 
 char	*get_line(t_envp *envp_var, char **line)
@@ -130,6 +131,6 @@ int	main(int argc, char **argv, char **envp)
 		printf("exit\n");
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (exit_code);
 }
