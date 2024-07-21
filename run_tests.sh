@@ -91,7 +91,8 @@ echo =================MORE================= >> mini_out.txt
 echo =================MORE================= >> bash_out.txt
 echo =================MORE================= >> errors.diff
 echo > more_mini_out.txt
-echo > more_bash_out.txt < cases/more_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> more_mini_out.txt
+echo > more_bash_out.txt 
+< cases/more_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> more_mini_out.txt
 < cases/more_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> more_bash_out.txt
 diff more_bash_out.txt more_mini_out.txt >> errors.diff
 < more_mini_out.txt cat >> mini_out.txt
