@@ -30,23 +30,25 @@ static void	fill_token(char q, t_list **token_list, t_tn *temp)
 	ft_lstadd_back(token_list, ft_lstnew(temp));
 }
 
+static void	quote_pather(char *l, void **common_data, t_tn *temp, int *i)
+{
+	fill_token('\"', common_data[0], temp);
+	word_lexer(l, i, common_data[1], common_data[0]);
+	quote_lexer(l, i, DOUBLE, common_data);
+}
+
 void	quote_lexer(char *l, int *i, t_quote qtype, void **common_data)
 {
 	char	q;
 	t_tn	*temp;
-	t_list **token_list; 
-	t_envp *envp_var;
 
-	token_list = common_data[0];
-	envp_var = common_data[1];
 	temp = (t_tn *)safe_malloc(sizeof(t_tn));
 	q = '\"';
 	if (qtype == NA)
 		q = l[(*i)++];
-	//printf("DEBUG <%c> %s\n", q, __FILE__); //TODO убрать
 	if (l[(*i)] == q)
 	{
-		handle_empty_quotes(token_list, i, temp);
+		handle_empty_quotes(common_data[0], i, temp);
 		i++;
 		return ;
 	}
@@ -54,14 +56,12 @@ void	quote_lexer(char *l, int *i, t_quote qtype, void **common_data)
 	{
 		if (l[(*i)] == '$' && q == '\"')
 		{
-			fill_token(q, token_list, temp);
-			word_lexer(l, i, envp_var, token_list);
-			quote_lexer(l, i, DOUBLE, common_data);
+			quote_pather(l, common_data, temp, i);
 			return ;
 		}
 		else
 			ft_straddchar(&temp->data, l[(*i)++]);
 	}
 	(*i)++;
-	fill_token(q, token_list, temp);
+	fill_token(q, common_data[0], temp);
 }

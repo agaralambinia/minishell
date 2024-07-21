@@ -34,10 +34,10 @@ static int	shlvl_atoi(char *str)
 	long long	res;
 
 	i = -1;
-	while(str[++i] != '\0')
+	while (str[++i] != '\0')
 	{
 		if (!((str[i] >= '0' && str[i] <= '9')
-			|| ((str[i] == '+' || str[i] == '-') && i == 0)))
+				|| ((str[i] == '+' || str[i] == '-') && i == 0)))
 			return (0);
 	}
 	i = 0;
@@ -52,7 +52,7 @@ static int	shlvl_atoi(char *str)
 	return ((int)res);
 }
 
-static void inc_shlvl_var(char **var)
+static void	inc_shlvl_var(char **var)
 {
 	char	*str;
 	int		atoi_res;
@@ -87,7 +87,7 @@ static void	inc_shlvl(char **envp)
 	i = -1;
 	while (envp[++i])
 	{
-		if(!ft_strncmp(envp[i], "SHLVL=", 6))
+		if (!ft_strncmp(envp[i], "SHLVL=", 6))
 			inc_shlvl_var(&envp[i]);
 	}
 }
@@ -97,6 +97,5 @@ void	envp_init(char **envp, t_envp **envp_var)
 	inc_shlvl(envp);
 	*envp_var = (t_envp *)safe_malloc(sizeof(t_envp));
 	envp_list_init(envp, &(*envp_var)->envp_list);
-	//(*envp_var)->token_list = (t_list *)safe_malloc(sizeof(t_list));
 	(*envp_var)->last_code = 0;
 }

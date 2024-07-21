@@ -26,7 +26,7 @@ static void	space_lex(char *line, int *i, t_list **token_list)
 	ft_lstadd_back(token_list, ft_lstnew(temp));
 }
 
-static void	tild_lexer(char *line, int *i, t_envp *envp_var, t_list **token_list)
+static void	tild_lexer(char *line, int *i, t_envp *e_var, t_list **token_list)
 {
 	t_tn	*temp;
 
@@ -39,18 +39,18 @@ static void	tild_lexer(char *line, int *i, t_envp *envp_var, t_list **token_list
 		(*i)++;
 	}
 	else
-		word_lexer(line, i, envp_var, token_list);
+		word_lexer(line, i, e_var, token_list);
 }
 
 static void	choose_token(
 	char *line, t_list **token_list, t_envp *envp_var, int **proc_data)
 {
-	int	*i;	
-	int	*res;
+	int		*i;	
+	int		*res;
 	void	*common_data[2];
 
-	i = proc_data[0]; 
-	res = proc_data[1]; 
+	i = proc_data[0];
+	res = proc_data[1];
 	common_data[0] = token_list;
 	common_data[1] = envp_var;
 	if (ft_isspace(line[*i]))
