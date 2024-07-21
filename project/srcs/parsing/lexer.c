@@ -88,8 +88,8 @@ int	lexer(char **line, t_list **token_list, t_envp *envp_var)
 		if (token_list != NULL)
 			tn_clean_null(token_list);
 		res = token_check(token_list, envp_var, line);
-		if (!res && token_list && *token_list)
-			ft_lstclear(token_list, &free_token);
 	}
+	if (!res && token_list && *token_list)
+		ft_lstclear(token_list, &free_token);
 	return (res);
 }
