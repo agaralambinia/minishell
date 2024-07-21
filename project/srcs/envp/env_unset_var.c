@@ -18,6 +18,8 @@ int	env_unset_var(char *name, t_envp *envp_var)
 	char	*temp;
 	int		res;
 
+	if (!ft_strcmp(name, "SHLVL"))
+		return (0);
 	env_var = get_envp_list_val(name, &envp_var->envp_list);
 	temp = ft_strjoin(name, "=");
 	env_var = ft_strjoin(temp, env_var);

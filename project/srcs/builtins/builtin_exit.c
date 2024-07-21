@@ -71,10 +71,7 @@ unsigned char	builtin_exit(char **argv, t_envp *envp_var)
 	envp_var->last_code = 0;
 	envp_var->is_exit = true;
 	if (arrlen((void **)argv) <= 2)
-	{
-		change_shlvl(envp_var, -1);
 		printf("exit\n");
-	}
 	if (arrlen((void **)argv) == 2)
 	{
 		envp_var->last_code = ft_atoll_p(argv[1], &is_ov);
