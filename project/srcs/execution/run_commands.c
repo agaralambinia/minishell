@@ -81,6 +81,8 @@ int	get_exit(int exit_info, bool is_fork_ov)
 		printf("Quit: 3\n");
 		return (131);
 	}
+	if (errno == 2)	
+		return (127);
 	return (0);
 }
 
@@ -99,7 +101,7 @@ int	run_command(t_list *cmd_lst, t_envp *envp_var)
 	i = run_pipeline(cmd_cnt, cmd_lst, pp, envp_var);
 	setup_pipes_parent(pp);
 	signal(SIGINT, SIG_IGN);
-	while (i >= 0)
+	while (i > 0)
 	{
 		wait(&exit_info);
 		i--;

@@ -36,7 +36,7 @@ int	execute(char **line, t_envp *envp_var)
 		envp_var->hide_prompt = true;
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
-	return (0);
+	return (exit_code);
 }
 
 char	*get_line(t_envp *envp_var, char **line)
