@@ -1,11 +1,11 @@
 #include "../../incs/minishell.h"
 
-void	tn_clean_null(t_list *lst)
+void	tn_clean_null(t_list **lst)
 {
 	t_list	*iter;
 	t_list	*temp;
 
-	iter = lst;
+	iter = *lst;
 	while (iter != NULL)
 	{
 		if (iter->next != NULL && iter->next->dt != NULL

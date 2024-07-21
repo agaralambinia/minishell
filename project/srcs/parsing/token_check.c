@@ -33,7 +33,7 @@ static int	check_redirs(t_list *t)
 		else
 			return (printlexerror());
 	}
-	if (((t_tn *)(t->dt))->t_tp != WORD)
+	if (((t_tn *)(t->dt))->t_tp != WORD && ((t_tn *)(t->dt))->t_tp != ENVP)
 		return (printlexerror());
 	return (1);
 }
