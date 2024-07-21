@@ -130,6 +130,6 @@ int	main(int argc, char **argv, char **envp)
 		printf("exit\n");
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (exit_code);
 }
