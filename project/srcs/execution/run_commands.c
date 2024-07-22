@@ -81,6 +81,7 @@ int	get_exit(int exit_info, bool is_fork_ov)
 		printf("Quit: 3\n");
 		return (131);
 	}
+
 	return (0);
 }
 
