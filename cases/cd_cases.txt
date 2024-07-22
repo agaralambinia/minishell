@@ -1,38 +1,76 @@
 cd 
+echo $?
 pwd
+echo $?
 cd . 
+echo $?
 pwd
+echo $?
 cd .. 
+echo $?
 pwd
+echo $?
 cd /Users 
+echo $?
 pwd
+echo $?
 cd / 
+echo $?
 pwd
+echo $?
 cd '/' 
+echo $?
 pwd
+echo $?
 cd ////// 
+echo $?
 pwd
+echo $?
 cd ./././ 
+echo $?
 pwd
+echo $?
 cd ../../.. 
+echo $?
 pwd
+echo $?
 cd '/////' >/dev/null 
+echo $?
 pwd
+echo $?
 cd "$PWD/directory" 
+echo $?
 pwd
+echo $?
 cd $PWD/directory 
+echo $?
 pwd
+echo $?
 cd $OLDPWD/directory 
+echo $?
 pwd
+echo $?
 cd "doesntexist" 
+echo $?
 pwd
+echo $?
 cd ? 
+echo $?
 pwd
+echo $?
 cd + 
+echo $?
 pwd
+echo $?
 cd _ 
+echo $?
 pwd
+echo $?
 cd woof 
+echo $?
 pwd
+echo $?
 cd bark bark 
+echo $?
 pwd
+echo $?

@@ -1,65 +1,30 @@
-((((    ls -la > ls    &&    ls)    || ((ls -la) || (ls) ) ) ) ) && ((ls))
-(
-)
-()()
-(ls)
-(> ls -la) | && 
-<>
-(ls)>ls
-ls -la )
-ls -la ()
-() |
-( |
-ls && (  ls  )
-command (arg1) arg2
-command arg1 | arg2
-command1 ||| command2
-&
-command > output.txt < input.txt
-command ||& command2
-command "arg1'"
-command arg1" "arg2
-command (arg1 && command2
-command arg1&arg2
-command (arg1|command2)
-command1 || command2 || command3
-command arg1 >
-command arg1 arg2 >
-command arg1 arg2 &
-command arg1 > output.txt | command2
-command |
-command | | command2
-command arg1 arg2&arg3
-command (arg1|arg2|arg3))
-command && ||
-command "arg1"
-command 'arg1"
-command "arg1'arg2"
-command arg1 > output.txt >
-command arg1 arg2 > output.txt |
-command arg1 arg2 > output.txt &
-command arg1 &&&& command2
-command | command2
-command arg1 | arg2 | arg3
-command arg1 |& arg2
-command (arg1 | command2
-command arg1 |& command2
-command arg1 arg2 &&& command3
-command arg1 arg2 | command3
-command arg1 || command2 && command3
-command arg1 &&& command2
-command arg1 &&&
-command arg1 && && command2
-command arg1 arg2 &&&
-command arg1 &&& arg2
-command arg1 ||| arg2
-command arg1 || arg2 | command3
-command arg1 | command2 arg3
-command arg1 arg2 > output.txt <
-command arg1 arg2 & | command3
-command arg1 || command2 &&& command3
-command arg1 arg2 > | command3
-command arg1 |& | command2
-command arg1 |& arg2 | command3
-((ls ) &&ls)
+echo arg1 | arg2
+echo $?
+echo > output.txt < input.txt
+echo $?
+echo "arg1'"
+echo $?
+echo arg1" "arg2
+echo $?
+echo arg1 > output.txt | cat
+echo $?
+echo |
+echo $?
+echo "arg1"
+echo $?
+echo "arg1'arg2"
+echo $?
+echo arg1 arg2 > output.txt |
+echo $?
+echo arg1 arg2 > output.txt &
+echo $?
+echo | cat
+echo $?
+echo arg1 | arg2 | arg3
+echo $?
+echo arg1 arg2 | wc
+echo $?
+echo arg1 | cat arg3
+echo $?
 export ii=l---------------------- && "$ii"s
+echo $?

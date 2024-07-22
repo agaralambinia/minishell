@@ -1,5 +1,6 @@
 -------------- cd ---------------
 cd
+echo $?
 cd .
 cd ..
 cd /Users
@@ -250,7 +251,6 @@ cat < ls > ls
 
 
 --------------- parse ---------------
-((((    ls -la > ls    &&    ls)    || ((ls -la) || (ls) ) ) ) ) && ((ls))
 (
 )
 ()()
@@ -262,19 +262,16 @@ ls -la )
 ls -la ()
 () |
 ( |
-ls && (  ls  )
 command (arg1) arg2
 command arg1 | arg2
 command1 ||| command2
 &
 command > output.txt < input.txt
-command ||& command2
 command "arg1'"
 command arg1" "arg2
 command (arg1 && command2
 command arg1&arg2
 command (arg1|command2)
-command1 || command2 || command3
 command arg1 >
 command arg1 arg2 >
 command arg1 arg2 &
@@ -283,7 +280,6 @@ command |
 command | | command2
 command arg1 arg2&arg3
 command (arg1|arg2|arg3))
-command && ||
 command "arg1"
 command 'arg1"
 command "arg1'arg2"
@@ -301,11 +297,9 @@ command arg1 arg2 | command3
 command arg1 || command2 && command3
 command arg1 &&& command2
 command arg1 &&&
-command arg1 && && command2
 command arg1 arg2 &&&
 command arg1 &&& arg2
 command arg1 ||| arg2
-command arg1 || arg2 | command3
 command arg1 | command2 arg3
 command arg1 arg2 > output.txt <
 command arg1 arg2 & | command3
@@ -313,8 +307,6 @@ command arg1 || command2 &&& command3
 command arg1 arg2 > | command3
 command arg1 |& | command2
 command arg1 |& arg2 | command3
-((ls ) &&ls)
-export ii=l---------------------- && "$ii"s
 
 
 --------------- more cases ---------------
@@ -337,15 +329,6 @@ mkdir new_directory
 ls -l && echo "All good"
 cd directory && ls
 rm file.txt && echo "File removed"
-ls -l || echo "Something went wrong"
-cd directory || echo "Directory does not exist"
-rm file.txt || echo "File not found"
-(ls && echo "Success") || echo "Failure"
-(cd directory || mkdir directory) && ls
-(ls || echo "Error") && (echo "Continuing" || echo "Stopping")
-ls *.txt
-cat file*.txt
-rm *backup*
 echo "hello world" | grep "hello"
 ls -l | grep ".txt" | wc -l
 echo "hello world" > output.txt
@@ -354,7 +337,6 @@ sort < input.txt | uniq > output.txt
 cat file1.txt file2.txt file3.txt | sort | uniq
 grep "error" file.log | wc -l
 ls -la | grep "file.txt"
-find . -type f -name "*.txt"
 sed 's/hello/goodbye/g' input.txt > output.txt
 awk '{print $1}' input.txt
 grep -v "exclude" input.txt > output.txt
@@ -366,8 +348,6 @@ uptime
 uname -a
 df -h
 du -h
-tar -czvf archive.tar.gz directory/
-sudo apt-get update && sudo apt-get upgrade
 export a="nenie'iri"
 echo $a
 cat /dev/urandom | head -10
@@ -394,24 +374,8 @@ cat file.txt
 sort file.txt
 uniq file.txt
 grep "hello" file.txt
-ls *.txt
-rm *
-ls && echo "ls succeeded"
-ls -l || echo "ls failed"
-(ls && echo "ls succeeded") || echo "ls failed"
-ls -l && (echo "Listing files..."; echo "Done.")
-cd new_dir && (ls -l || echo "Failed to list files.")
-rm non_existent_file.txt || echo "File does not exist."
-rm non_existent_file.txt && echo "Error: File does not exist."
-echo "hello" > file.txt && (cat file.txt || echo "Failed to read file.")
-echo "world" >> file.txt && (cat file.txt | sort | uniq)
-(cd non_existent_dir || mkdir non_existent_dir) && echo "Directory created."
-ls -l && (echo "Listing files..."; echo "Done.") || echo "ls failed"
-ls -l || (echo "Failed to list files."; exit 1)
-(ls || echo "ls failed") && (echo "Continuing..." || echo "Stopping...")
 echo "hello world" | grep "world"
 ls -l | grep "file.txt"
-find . -type f -name "*.txt"
 sed 's/hello/goodbye/g' file.txt > new_file.txt
 awk '{print $1}' file.txt
 grep -v "goodbye" file.txt > output.txt
@@ -424,9 +388,3 @@ uname -a
 df -h
 du -h
 tar -czvf archive.tar.gz directory/
-sudo apt-get update && sudo apt-get upgrade
-echo "hello world" && echo "goodbye world"
-echo "hello world" || echo "goodbye world"
-echo "hello world" && (echo "continuing..."; echo "done.") || echo "failed"
-(echo "hello" && echo "world") || echo "failed"
-(echo "hello" || echo "world") && echo "done."

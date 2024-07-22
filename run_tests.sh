@@ -1,7 +1,5 @@
 #! /bin/sh
 
-#cat cases.txt | xargs project/minishell -c > mini_out.txt
-
 echo ==================CD==================
 echo ==================CD================== > mini_out.txt
 echo ==================CD================== > bash_out.txt
@@ -98,11 +96,29 @@ diff more_bash_out.txt more_mini_out.txt >> errors.diff
 < more_mini_out.txt cat >> mini_out.txt
 < more_bash_out.txt cat >> bash_out.txt
 
-#echo ================BONUS=================
-#echo ================BONUS================= >> mini_out.txt
-#echo ================BONUS================= >> bash_out.txt
-#< cases/bonus_cases.txt project/minishell | grep minishell: -v >> mini_out.txt
-#< cases/bonus_cases.txt bash | grep bash: -v >> bash_out.txt
+echo ================BONUS=================
+echo ================BONUS================= >> mini_out.txt
+echo ================BONUS================= >> bash_out.txt
+echo ================BONUS================= >> errors.diff
+echo > bonus_mini_out.txt
+echo > bonus_bash_out.txt 
+< cases/bonus_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> bonus_mini_out.txt
+< cases/bonus_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> bonus_bash_out.txt
+diff bonus_bash_out.txt bonus_mini_out.txt >> errors.diff
+< bonus_mini_out.txt cat >> mini_out.txt
+< bonus_bash_out.txt cat >> bash_out.txt
+
+echo ================ERROR=================
+echo ================ERROR================= >> mini_out.txt
+echo ================ERROR================= >> bash_out.txt
+echo ================ERROR================= >> errors.diff
+echo > error_mini_out.txt
+echo > error_bash_out.txt 
+< cases/error_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> error_mini_out.txt
+< cases/error_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> error_bash_out.txt
+diff error_bash_out.txt error_mini_out.txt >> errors.diff
+< error_mini_out.txt cat >> mini_out.txt
+< error_bash_out.txt cat >> bash_out.txt
 
 echo Look into errors.diff
 #diff bash_out.txt mini_out.txt > errors.diff

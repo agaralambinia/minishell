@@ -1,2 +1,51 @@
 tar -czvf archive.tar.gz directory/
 sudo apt-get update && sudo apt-get upgrade
+echo (arg1) arg2
+echo1 ||| cat
+&
+echo ||& cat
+echo (arg1 && cat
+echo (arg1|cat)
+echo arg1 >
+echo arg1 arg2 >
+echo | | cat
+echo arg1 arg2&arg3
+echo (arg1|arg2|arg3))
+echo 'arg1"
+echo arg1 > output.txt >
+echo arg1 &&&& cat
+echo arg1 |& arg2
+echo (arg1 | cat
+echo arg1 |& cat
+echo arg1 &&& cat
+echo arg1 &&&
+echo arg1 && && cat
+echo arg1 arg2 &&&
+echo arg1 &&& arg2
+echo arg1 ||| arg2
+echo arg1 arg2 &&& wc
+echo arg1 arg2 > output.txt <
+echo arg1 arg2 & | wc
+echo arg1 || cat &&& wc
+echo arg1 arg2 > | wc
+echo arg1 |& | cat
+echo arg1 |& arg2 | wc
+((ls ) &&ls)
+echo > <
+echo $?
+<
+echo $?
+>
+echo $?
+> > > >
+echo $?
+>> >> >> >>
+echo $?
+<<
+echo $?
+>echo>
+echo $?
+<echo<
+echo $?
+>>echo>>
+echo $?
