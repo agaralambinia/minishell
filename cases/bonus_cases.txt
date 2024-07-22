@@ -1,50 +1,56 @@
 ls
+echo $?
 cd /
+echo $?
 cd ..
+echo $?
 cd ~
+echo $?
 pwd
+echo $?
 mkdir new_dir
+echo $?
 touch file.txt
+echo $?
 rm file.txt
+echo $?
 echo "hello world" > file.txt
+echo $?
 echo "goodbye world" >> file.txt
+echo $?
 cat file.txt
+echo $?
 sort file.txt
+echo $?
 uniq file.txt
+echo $?
 grep "hello" file.txt
-ls *.txt
-rm *
-ls && echo "ls succeeded"
-ls -l || echo "ls failed"
-(ls && echo "ls succeeded") || echo "ls failed"
-ls -l && (echo "Listing files..."; echo "Done.")
-cd new_dir && (ls -l || echo "Failed to list files.")
-rm non_existent_file.txt || echo "File does not exist."
-rm non_existent_file.txt && echo "Error: File does not exist."
-echo "hello" > file.txt && (cat file.txt || echo "Failed to read file.")
-echo "world" >> file.txt && (cat file.txt | sort | uniq)
-(cd non_existent_dir || mkdir non_existent_dir) && echo "Directory created."
-ls -l && (echo "Listing files..."; echo "Done.") || echo "ls failed"
-ls -l || (echo "Failed to list files."; exit 1)
-(ls || echo "ls failed") && (echo "Continuing..." || echo "Stopping...")
+echo $?
 echo "hello world" | grep "world"
+echo $?
 ls -l | grep "file.txt"
-find . -type f -name "*.txt"
+echo $?
 sed 's/hello/goodbye/g' file.txt > new_file.txt
+echo $?
 awk '{print $1}' file.txt
+echo $?
 grep -v "goodbye" file.txt > output.txt
+echo $?
 ps aux | grep "nginx"
+echo $?
 whoami
+echo $?
 date
+echo $?
 cal
+echo $?
 uptime
+echo $?
 uname -a
+echo $?
 df -h
+echo $?
 du -h
+echo $?
 tar -czvf archive.tar.gz directory/
-sudo apt-get update && sudo apt-get upgrade
-echo "hello world" && echo "goodbye world"
-echo "hello world" || echo "goodbye world"
-echo "hello world" && (echo "continuing..."; echo "done.") || echo "failed"
-(echo "hello" && echo "world") || echo "failed"
-(echo "hello" || echo "world") && echo "done."
+echo $?

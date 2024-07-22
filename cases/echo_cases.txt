@@ -1,56 +1,112 @@
 echo
+echo $?
 echo echo
+echo $?
 eCho 
+echo $?
 eChO
+echo $?
 eCHO
+echo $?
 ECHO
+echo $?
 echo $
+echo $?
 echo "$"
+echo $?
 echo '$'
+echo $?
 echo nenie_iri
+echo $?
 echo nenie iri
+echo $?
 echo 'nenie_iri'
+echo $?
 echo "nenie_iri"
+echo $?
 echo -n
+echo $?
 echo -n nenie_iri
+echo $?
 echo -nn nenie_iri
+echo $?
 echo -n -n -n nenie_iri
+echo $?
 echo "-n" nenie_iri
+echo $?
 echo -n"-n" nenie_iri
+echo $?
 echo "-nnnn" nenie_iri
+echo $?
 echo "-n -n -n"-n nenie_iri
+echo $?
 echo "-n -n" nenie_iri
+echo $?
 echo "-n '-n'" nenie_iri
+echo $?
 echo $USER
+echo $?
 echo "$USER"
+echo $?
 echo '$USER'
+echo $?
 echo "'$USER'"
+echo $?
 echo " '$USER' "
+echo $?
 echo nenie_iri"$USER"
+echo $?
 echo nenie_iri"'$USER'" ' $USER '
+echo $?
 echo "nenie_iri"   "$USER"    "$USER"
+echo $?
 echo '              $USER          '
+echo $?
 echo               nenie_iri "$USER"            "$USER"nenie_iri
+echo $?
 echo ''''''''''$USER''''''''''
+echo $?
 echo """"""""$USER""""""""
+echo $?
 echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
+echo $?
 echo $USER '' $USER $USER '' $USER '' $USER -n $USER
+echo $?
 echo ' \' ' \'
+echo $?
 echo "$USER""$USER""$USER"
+echo $?
 echo nenie"$USER"iri
+echo $?
 echo '$USER' "$USER" "nenie \' iri"
+echo $?
 echo $USER " "
+echo $?
 echo "$USER""Users/$USER/file""'$USER'"'$USER'
+echo $?
 echo "$USER$USER$USER"
+echo $?
 echo '$USER'"$USER"'$USER'
+echo $?
 echo '"$USER"''$USER'"""$USER"
+echo $?
 echo " $USER  "'$PWD'
+echo $?
 echo $USER=4
 echo $?
+echo $?
+echo $?
 echo $USER213
+echo $?
 echo "$USER=12$USER"
+echo $?
 echo $PWD
+echo $?
 echo $PWD/file
+echo $?
 echo "$PWD/file"
+echo $?
 echo "nenie_iri" "nenie_iri$USER" ... "$USER"
+echo $?
 echo test      tout
+echo $?

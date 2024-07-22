@@ -1,45 +1,90 @@
-es
+ls
+echo $?
 pwd
+echo $?
 echo "hello world"
+echo $?
 echo "hello" > file.txt
+echo $?
 echo "world" >> file.txt
+echo $?
 sort < file.txt
+echo $?
 ls | wc -l
+echo $?
 ls | grep ".txt"
+echo $?
 cat file1.txt file2.txt > file3.txt
+echo $?
 rm file.txt
+echo $?
 cp file.txt file_copy.txt
+echo $?
 mv file.txt new_location.txt
+echo $?
 cd /
+echo $?
 cd ..
+echo $?
 cd ~
+echo $?
 mkdir new_directory
+echo $?
 echo "hello world" | grep "hello"
+echo $?
 ls -l | grep ".txt" | wc -l
+echo $?
 echo "hello world" > output.txt
+echo $?
 echo "hello" >> output.txt
+echo $?
 sort < input.txt | uniq > output.txt
+echo $?
 cat file1.txt file2.txt file3.txt | sort | uniq
+echo $?
 grep "error" file.log | wc -l
+echo $?
 ls -la | grep "file.txt"
+echo $?
 find . -type f -name "*.txt"
+echo $?
 sed 's/hello/goodbye/g' input.txt > output.txt
+echo $?
 awk '{print $1}' input.txt
+echo $?
 grep -v "exclude" input.txt > output.txt
+echo $?
 ps aux | grep "nginx"
+echo $?
 whoami
+echo $?
 date
+echo $?
 cal
+echo $?
 uptime
+echo $?
 uname -a
+echo $?
 df -h
+echo $?
 du -h
+echo $?
 export a="nenie'iri"
+echo $?
 echo $a
+echo $?
 cat /dev/urandom | head -10
+echo $?
 mkdir -p a/b
+echo $?
 cd a/b
+echo $?
 rm -rf ../../a
+echo $?
 cd ../
+echo $?
 Check leaks when interrupt from heredoc (CTRL-C)
+echo $?
 Check SHLVL
+echo $?

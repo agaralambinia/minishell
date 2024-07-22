@@ -1,0 +1,20 @@
+test
+echo $?
+hello world
+echo $?
+cat wouaf wouaf
+echo $?
+EechoE
+echo $?
+.echo.
+echo $?
+rm -f something
+echo $?
+cat something
+echo $?
+your minishell is perfect
+echo $?
+cat < ls
+echo $?
+cat < ls > ls
+echo $?
