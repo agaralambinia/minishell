@@ -25,7 +25,8 @@ char	*get_env_val(char *envvar, t_envp *envp_var)
 		if (ft_strbegins(tmp->dt, envvar + 1))
 		{
 			eqptr = ft_strchr(tmp->dt, '=');
-			return (eqptr + 1);
+			if (eqptr)
+				return (eqptr + 1);
 		}
 		tmp = tmp->next;
 	}

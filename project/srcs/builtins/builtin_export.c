@@ -29,7 +29,10 @@ static void	print_environment_vars(t_envp *envp_var)
 			i++;
 		temp = (char *)safe_malloc(sizeof(char) * (i + 1));
 		temp = ft_strncpy(temp, e_cp->dt, i + 1);
-		printf("declare -x %s\"%s\"\n", temp, (ft_strchr(e_cp->dt, '=') + 1));
+		if (ft_strchr(e_cp->dt, '='))
+			printf("declare -x %s\"%s\"\n", temp, (ft_strchr(e_cp->dt, '=') + 1));
+		else
+			printf("declare -x %s\n", temp);
 		e_cp = e_cp -> next;
 		free (temp);
 	}

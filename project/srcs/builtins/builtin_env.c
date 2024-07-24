@@ -24,7 +24,8 @@ int	builtin_env(t_envp *envp_var)
 	iter = envp_var->envp_list;
 	while (iter != NULL)
 	{
-		ft_putendl_fd(iter -> dt, STDOUT_FILENO);
+		if (ft_strcmp("OLDPWD", iter -> dt))
+			ft_putendl_fd(iter -> dt, STDOUT_FILENO);
 		iter = iter -> next;
 	}
 	return (SUCCESS);

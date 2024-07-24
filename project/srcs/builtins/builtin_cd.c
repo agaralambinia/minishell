@@ -59,6 +59,8 @@ static int	update_working_directory(t_envp *envp_var, char *dir)
 	int		res;
 
 	prev_pwd = get_envp_list_val("PWD", &envp_var->envp_list);
+	if (get_env_val("OLDPWD", envp_var) == NULL)
+		ft_list_remove(oldpwd, &(envp_var->envp_list));
 	if (prev_pwd)
 	{
 		if (env_set_env("OLDPWD", prev_pwd, envp_var) == ERROR)
