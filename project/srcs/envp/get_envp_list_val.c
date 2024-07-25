@@ -15,24 +15,21 @@
 char	*get_envp_list_val(char *var, t_list **envp_list)
 {
 	t_list	*iter;
-	char	*temp;
-	char	eq[2];
+	char	*eqptr;
 
-	eq[0] = '=';
-	temp = ft_strjoin(var, "=");
 	iter = *envp_list;
 	if (envp_list)
 	{
 		while (iter != NULL)
 		{
-			if (ft_strbegins(iter->dt, temp))
+			if (ft_strbegins(iter->dt, var))
 			{
-				free(temp);
-				return (ft_strchr(iter->dt, '=') + 1);
+				eqptr = ft_strchr(iter->dt, '=');
+				if (eqptr)
+					return (eqptr + 1);
 			}
 			iter = iter -> next;
 		}
 	}
-	free(temp);
 	return (NULL);
 }
