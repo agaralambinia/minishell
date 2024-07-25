@@ -15,6 +15,8 @@
 int	env_put_var(char *name, char *str, t_envp *envp_var)
 {
 	char	*old_var;
+	char	*old_val;
+	char	*tmp;
 
 	if (str == NULL || ft_strchr(str, '=') == NULL)
 		return (ERROR);
@@ -23,7 +25,15 @@ int	env_put_var(char *name, char *str, t_envp *envp_var)
 		ft_print_error(SHELL_NAME, NULL, NULL, strerror(ENOMEM));
 		return (ERROR);
 	}
-	old_var = ft_strjoin(name, get_env_val(name - 1, envp_var));
+	old_val = get_envp_list_val(name, &envp_var->envp_list);
+	if (!old_val)
+		old_var = ft_strjoin(name, "");
+	else
+	{
+		tmp = ft_strjoin(name, "=");
+		old_var = ft_strjoin(tmp, old_val);
+		free(tmp);
+	}
 	ft_list_replace(envp_var, old_var, str);
 	free(old_var);
 	return (SUCCESS);

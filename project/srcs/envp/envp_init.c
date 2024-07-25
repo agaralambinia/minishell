@@ -23,7 +23,7 @@ static void	envp_list_init(char **envp, t_list **envp_list)
 		if (ft_strncmp(envp[i], "OLDPWD=", 7))
 			str = ft_strdup(envp[i]);
 		else
-			str = "OLDPWD";
+			str = ft_strdup("OLDPWD");
 		ft_lstadd_back(envp_list, ft_lstnew(str));
 	}
 }
