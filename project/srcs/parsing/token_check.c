@@ -50,6 +50,7 @@ t_list	*add_from_input(t_envp *envp_var, char **hline)
 	line = readline("> ");
 	res = lexer(&line, &new, envp_var);
 	*hline = ft_strjoin(tmp, line);
+	free(line);
 	free(tmp);
 	if (res)
 		return (new);

@@ -26,5 +26,5 @@ echo arg1 arg2 | wc
 echo $?
 echo arg1 | cat arg3
 echo $?
-export ii=l---------------------- && "$ii"s
+export ii=l----------------------
 echo $?

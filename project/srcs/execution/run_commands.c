@@ -44,13 +44,15 @@ static int	run_pipeline(
 	int		i;
 	t_cmd	*cmd;
 	t_list	*tmp;
+	int 	pid;
 
 	i = 0;
 	tmp = cmd_lst;
 	while (tmp && i < CHILD_MAX)
 	{
 		cmd = (t_cmd *)(tmp->dt);
-		if (fork() == 0)
+		pid = fork();
+		if (pid == 0)
 		{
 			if (i == 0)
 				run_first(cmd, pp, envp_var);
@@ -62,52 +64,45 @@ static int	run_pipeline(
 		i++;
 		tmp = tmp->next;
 	}
-	return (i);
+	return (pid);
 }
 
-int	get_exit(int exit_info, bool is_fork_ov)
+static int wait_all(int pid_last)
 {
-	if (is_fork_ov)
-	{
-		printf("minishell: fork: Resource temporarily unavailable\n");
-		return (1);
-	}
-	if (WIFEXITED(exit_info))
-		return (WEXITSTATUS(exit_info));
-	else if (WTERMSIG(exit_info) == 2)
-		return (130);
-	else if (WTERMSIG(exit_info) == 3)
-	{
-		printf("Quit: 3\n");
-		return (131);
-	}
+	int last_exit_info;
+	int pid;
+	int	exit_info;
 
-	return (0);
+	while (1)
+	{
+		pid = wait(&exit_info);
+		if (pid_last == pid)
+			last_exit_info = exit_info;
+		else if (pid == -1)
+			break;
+	}
+	return (last_exit_info);
 }
 
 int	run_command(t_list *cmd_lst, t_envp *envp_var)
 {
 	int		**pp;
-	int		i;
-	int		exit_info;
 	int		cmd_cnt;
 	bool	is_fork_ov;
+	int 	last_exit_info;
+	int		pid_last;
 
 	cmd_cnt = ft_lstsize(cmd_lst);
 	pp = get_pipes(cmd_cnt);
 	if (!pp)
 		return (1);
-	i = run_pipeline(cmd_cnt, cmd_lst, pp, envp_var);
+	pid_last = run_pipeline(cmd_cnt, cmd_lst, pp, envp_var);
 	setup_pipes_parent(pp);
 	signal(SIGINT, SIG_IGN);
-	while (i > 0)
-	{
-		wait(&exit_info);
-		i--;
-	}
+	last_exit_info = wait_all(pid_last);
 	is_fork_ov = cmd_cnt > CHILD_MAX;
 	ft_singals();
 	free_arr((void **)pp);
 	unlink("here_doc");
-	return (get_exit(exit_info, is_fork_ov));
+	return (get_exit(last_exit_info, is_fork_ov));
 }
