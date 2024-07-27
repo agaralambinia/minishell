@@ -172,6 +172,7 @@ void			redir_out(t_cmd *cmd);
 void			run(char **args, t_envp *envp_var);
 int				run_command(t_list *cmd_lst, t_envp *envp_var);
 int				run_single(t_list *cmd, t_envp *envp_var);
+int				get_exit(int exit_info, bool is_fork_ov);
 void			setup_pipes_first(int **pp);
 void			setup_pipes_last(int **pp, int count);
 void			setup_pipes_parent(int **pp);
