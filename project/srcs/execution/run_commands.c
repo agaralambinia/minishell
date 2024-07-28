@@ -44,7 +44,7 @@ static int	run_pipeline(
 	int		i;
 	t_cmd	*cmd;
 	t_list	*tmp;
-	int 	pid;
+	int		pid;
 
 	i = 0;
 	tmp = cmd_lst;
@@ -67,10 +67,10 @@ static int	run_pipeline(
 	return (pid);
 }
 
-static int wait_all(int pid_last)
+static int	wait_all(int pid_last)
 {
-	int last_exit_info;
-	int pid;
+	int	last_exit_info;
+	int	pid;
 	int	exit_info;
 
 	while (1)
@@ -79,7 +79,7 @@ static int wait_all(int pid_last)
 		if (pid_last == pid)
 			last_exit_info = exit_info;
 		else if (pid == -1)
-			break;
+			break ;
 	}
 	return (last_exit_info);
 }
@@ -89,7 +89,7 @@ int	run_command(t_list *cmd_lst, t_envp *envp_var)
 	int		**pp;
 	int		cmd_cnt;
 	bool	is_fork_ov;
-	int 	last_exit_info;
+	int		last_exit_info;
 	int		pid_last;
 
 	cmd_cnt = ft_lstsize(cmd_lst);
