@@ -120,6 +120,18 @@ diff error_bash_out.txt error_mini_out.txt >> errors.diff
 < error_mini_out.txt cat >> mini_out.txt
 < error_bash_out.txt cat >> bash_out.txt
 
+echo ==============ADDITIONAL==============
+echo ==============ADDITIONAL============== >> mini_out.txt
+echo ==============ADDITIONAL============== >> bash_out.txt
+echo ==============ADDITIONAL============== >> errors.diff
+echo > additional_mini_out.txt
+echo > additional_bash_out.txt 
+< cases/additional_cases.txt project/minishell 2>&1 | sed 's/minishell: //' | grep minishell: -v >> additional_mini_out.txt
+< cases/additional_cases.txt bash 2>&1 | sed 's/bash: line [0-9]*: //' >> additional_bash_out.txt
+diff additional_bash_out.txt additional_mini_out.txt >> errors.diff
+< error_mini_out.txt cat >> mini_out.txt
+< error_bash_out.txt cat >> bash_out.txt
+
 echo Look into errors.diff
 #diff bash_out.txt mini_out.txt > errors.diff
 
