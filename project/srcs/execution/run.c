@@ -64,15 +64,14 @@ void	run(char **args, t_envp *envp_var)
 {
 	char	*prog_path;
 	char	**env_arr;
-	int		builtin_res;
 	char	**paths;
 	int		res;
 
 	if (!args[0])
 		exit(0);
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
-	builtin_res = builtin_exec(args, envp_var);
-	if (builtin_res == NOTFOUND)
+	res = builtin_exec(args, envp_var);
+	if (res == NOTFOUND)
 	{
 		prog_path = get_prog_path(paths, args[0]);
 		env_arr = get_env_arr(envp_var);
@@ -82,8 +81,6 @@ void	run(char **args, t_envp *envp_var)
 			perror(args[0]);
 		res = 127;
 	}
-	else
-		res = builtin_res;
 	if (paths)
 		free_arr((void **)paths);
 	exit(res);
