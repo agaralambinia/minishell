@@ -42,6 +42,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/ft_strncpy.c \
 		srcs/utils/ft_lstprelast.c \
 		srcs/utils/ft_atoll_p.c \
+		srcs/utils/is_in_env_list.c \
 		srcs/wraps/safe_malloc.c \
 		srcs/parsing/lexer.c \
 		srcs/parsing/word_lexer.c \
