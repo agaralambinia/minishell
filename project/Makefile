@@ -16,6 +16,11 @@ SRC = 	srcs/main.c \
 		srcs/builtins/builtin_unset.c \
 		srcs/builtins/builtin_exit.c \
 		srcs/builtins/builtin.c \
+		srcs/builtins/check_for_error.c \
+		srcs/builtins/handle_redirs.c \
+		srcs/builtins/handle_in_redir.c \
+		srcs/builtins/handle_out_redir.c \
+		srcs/builtins/print_environment_vars.c \
 		srcs/error/ft_exit_error.c \
 		srcs/error/ft_print_error_errno.c \
 		srcs/error/ft_print_error.c \

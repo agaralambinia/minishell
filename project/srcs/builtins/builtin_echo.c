@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:55:02 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/12 17:21:57 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/02 19:11:18 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	check_for_n_arg(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 2;
 	while (str[i])
@@ -45,20 +45,26 @@ static int	check_for_newline(char **argv, int *index)
 	return (include_newline);
 }
 
-int	builtin_echo(char **argv)
+int	builtin_echo(char **argv, t_cmd *cmd)
 {
 	int		index;
 	bool	include_newline;
+	int		fd;
 
+	fd = handle_redirs(cmd);
+	if (fd < 0)
+		return (EXIT_FAILURE);
 	include_newline = check_for_newline(argv, &index);
 	while (argv[index])
 	{
-		printf("%s", argv[index]);
+		ft_putstr_fd(argv[index], fd);
 		if (argv[index + 1])
-			printf(" ");
+			ft_putstr_fd(" ", fd);
 		index++;
 	}
 	if (include_newline)
-		printf("\n");
+		ft_putstr_fd("\n", fd);
+	if (fd > 2)
+		close(fd);
 	return (SUCCESS);
 }

@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:55:44 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/07 17:11:54 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/02 19:52:07by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-static void	print_environment_vars(t_envp *envp_var)
-{
-	t_list	*e_cp;
-	char	*temp;
-	int		i;
-
-	if (envp_var == NULL)
-		return ;
-	e_cp = envp_var->envp_list;
-	ft_list_sort(e_cp);
-	while (e_cp != NULL)
-	{
-		i = 0;
-		while (((char *)e_cp->dt)[i] != '=')
-			i++;
-		temp = (char *)safe_malloc(sizeof(char) * (i + 1));
-		temp = ft_strncpy(temp, e_cp->dt, i + 1);
-		if (ft_strchr(e_cp->dt, '='))
-			printf("declare -x %s\"%s\"\n", temp, (ft_strchr(e_cp->dt, '=')
-					+ 1));
-		else
-			printf("declare -x %s\n", temp);
-		e_cp = e_cp->next;
-		free(temp);
-	}
-}
 
 static bool	is_valid_arg(char *arg)
 {
@@ -106,27 +79,38 @@ static int	export_put_var(char *arg, t_envp *envp_var)
 	return (exit_status);
 }
 
-int	builtin_export(int argc, char **argv, t_envp *envp_var)
+static void	handle_invalid_arg(char *arg)
 {
-	int		exit_status;
-	int		index;
 	char	*err_name;
 	char	*err_arg;
 
+	err_name = ft_strjoin("`", arg);
+	err_arg = ft_strjoin(err_name, "\'");
+	free(err_name);
+	ft_print_error(SHELL_NAME, "export", err_arg, "not a valid identifier");
+	free(err_arg);
+}
+
+int	builtin_export(int argc, char **argv, t_envp *envp_var, t_cmd *cmd)
+{
+	int	exit_status;
+	int	index;
+	int	fd;
+
+	fd = handle_redirs(cmd);
+	if (fd < 0)
+		return (EXIT_FAILURE);
 	exit_status = SUCCESS;
 	if (argc == 1)
-		print_environment_vars(envp_var);
+		print_environment_vars(envp_var, fd);
+	if (fd > 2)
+		close(fd);
 	index = 0;
 	while (argc > 1 && argv[++index])
 	{
 		if (is_valid_arg(argv[index]) == false)
 		{
-			err_name = ft_strjoin("`", argv[index]);
-			err_arg = ft_strjoin(err_name, "\'");
-			free(err_name);
-			ft_print_error(SHELL_NAME, "export", err_arg,
-				"not a valid identifier");
-			free(err_arg);
+			handle_invalid_arg(argv[index]);
 			exit_status = ERROR;
 		}
 		else

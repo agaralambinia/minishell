@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:38:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/09 19:41:21 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/01 22:30:00 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	run(char **args, t_envp *envp_var)
 	if (!args[0])
 		exit(0);
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
-	res = builtin_exec(args, envp_var);
+	res = builtin_exec(args, envp_var, NULL);
 	if (res == NOTFOUND)
 	{
 		prog_path = get_prog_path(paths, args[0]);

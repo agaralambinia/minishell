@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   check_for_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 20:55:28 by defimova          #+#    #+#             */
-/*   Updated: 2024/08/02 19:11:40 by sosokin          ###   ########.fr       */
+/*   Created: 2024/08/01 22:06:38 by sosokin           #+#    #+#             */
+/*   Updated: 2024/08/01 22:19:55 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	builtin_env(t_envp *envp_var, t_cmd *cmd)
+int	check_for_error(char *msg, int pred)
 {
-	t_list	*iter;
-	int		fd;
-
-	fd = handle_redirs(cmd);
-	if (fd < 0)
-		return (EXIT_FAILURE);
-	if (envp_var->envp_list == NULL)
+	if (pred)
 	{
-		ft_print_error(SHELL_NAME, "env", NULL, "environ not set");
-		if (fd > 2)
-			close(fd);
+		perror(msg);
 		return (ERROR);
 	}
-	iter = envp_var->envp_list;
-	while (iter != NULL)
-	{
-		if (ft_strcmp("OLDPWD", iter->dt))
-			ft_putendl_fd(iter->dt, fd);
-		iter = iter->next;
-	}
-	if (fd > 2)
-		close(fd);
 	return (SUCCESS);
 }

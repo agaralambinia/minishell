@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/11 17:26:33 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/01 22:44:26 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ int	handle_cwd_err(char *prev_pwd, char *dir, t_envp *envp_var)
 	int		res;
 	char	*tmp;
 
-	ft_print_error_errno(SHELL_NAME, "cd: error retrieving current \
-directory: getcwd: cannot access parent directories", NULL);
+	ft_print_error_errno(SHELL_NAME,
+							"cd: error retrieving current \
+directory: getcwd: cannot access parent directories",
+							NULL);
 	tmp = ft_strjoin("/", dir);
 	broken_dir = ft_strjoin(prev_pwd, tmp);
 	free(tmp);
@@ -79,20 +81,33 @@ static int	update_working_directory(t_envp *envp_var, char *dir)
 	return (0);
 }
 
-int	builtin_cd(int argc, char **argv, t_envp *envp_var)
+static int	close_and_stop(int fd)
+{
+	if (fd > 2)
+		close(fd);
+	return (EXIT_FAILURE);
+}
+
+int	builtin_cd(int argc, char **argv, t_envp *envp_var, t_cmd *cmd)
 {
 	char	*directory;
+	int		fd;
 
+	fd = handle_redirs(cmd);
+	if (fd < 0)
+		return (EXIT_FAILURE);
 	directory = determine_directory(argc, argv, envp_var);
 	if (directory == NULL)
-		return (EXIT_FAILURE);
+		return (close_and_stop(fd));
 	if (chdir(directory) == -1)
 	{
 		ft_print_error_errno(SHELL_NAME, "cd", directory);
-		return (EXIT_FAILURE);
+		return (close_and_stop(fd));
 	}
 	if (argv[1] && ft_strncmp(argv[1], "-", 2) == 0)
-		ft_putendl_fd(directory, STDOUT_FILENO);
+		ft_putendl_fd(directory, fd);
+	if (fd > 2)
+		close(fd);
 	if (update_working_directory(envp_var, directory) == ERROR)
 		return (EXIT_FAILURE);
 	return (0);
