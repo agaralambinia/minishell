@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/12 16:01:38 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/02 20:24:04 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,18 +176,23 @@ int				get_exit(int exit_info, bool is_fork_ov);
 void			setup_pipes_first(int **pp);
 void			setup_pipes_last(int **pp, int count);
 void			setup_pipes_parent(int **pp);
-int				builtin_exec(char **argv, t_envp *envp_var);
-int				builtin_cd(int argc, char **argv, t_envp *envp_var);
-int				builtin_echo(char **argv);
-int				builtin_env(t_envp *envp_var);
-int				builtin_export(int argc, char **argv, t_envp *envp_var);
-int				builtin_pwd(t_envp *envp_var);
-int				builtin_unset(char **argv, t_envp *envp_var);
-unsigned char	builtin_exit(char **argv, t_envp *envp_var);
+int				builtin_exec(char **argv, t_envp *envp_var, t_cmd *cmd);
+int				builtin_cd(int argc, char **argv, t_envp *envp_var, t_cmd *cmd);
+int				builtin_echo(char **argv, t_cmd *cmd);
+int				builtin_env(t_envp *envp_var, t_cmd *cmd);
+int				builtin_export(int argc, char **argv, t_envp *envp_var, t_cmd *cmd);
+int				builtin_pwd(t_envp *envp_var, t_cmd *cmd);
+int				builtin_unset(char **argv, t_envp *envp_var, t_cmd *cmd);
+unsigned char	builtin_exit(char **argv, t_envp *envp_var, t_cmd *cmd);
+int				check_for_error(char *msg, int pred);
+int				handle_redirs(t_cmd *cmd);
+int				handle_in_redir(t_cmd *cmd);
+int				handle_out_redir(t_cmd *cmd);
 void			setup_pipes_mid(int **pp, int ind, t_cmd *cmd);
 void			run_mid(t_cmd *cmd, int **pp, int ind, t_envp *envp_var);
 void			tn_clean_null(t_list **tlist);
 long long		ft_atoll_p(const char *str, int *is_int);
 bool			is_in_env_list(char *name, t_list **envp_list);
+void			print_environment_vars(t_envp *envp_var, int fd);
 
 #endif
