@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 21:56:05 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/01 22:27:20 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/03 20:48:11 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	handle_in_redir(t_cmd *cmd)
 			file = "here_doc";
 		}
 		fd = open(file, O_RDONLY);
-		if (check_for_error(cmd->command, cmd_ind < 0))
+		if (check_for_error(file, fd < 0))
 			return (ERROR);
 		tmp = tmp->next;
 	}

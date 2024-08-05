@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 22:14:56 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/14 22:14:58 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/05 20:49:30 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static int	handle_envp(char *envname, t_wordhan *handler, t_envp *envp_var)
 
 	env_val = get_env_val(envname, envp_var);
 	if (!env_val)
+	{
+		handler->is_word_added = true;
 		return (1);
+	}
 	res = add_to_word(env_val, handler);
 	return (res);
 }
@@ -35,13 +38,13 @@ static int	handle_pipe(t_cmd **com, t_list **com_lst, t_wordhan *handler)
 {
 	int	res;
 
-	*com = add_command(*com, com_lst, handler);
+	*com = add_command(*com, com_lst, handler, true);
 	res = *com != NULL;
 	return (res);
 }
 
-int	handle_token(
-	void **info_cont, t_cmd **com, t_list **com_lst, t_envp *envp_var)
+int	handle_token(void **info_cont, t_cmd **com, t_list **com_lst,
+		t_envp *envp_var)
 {
 	int			res;
 	t_tn		*token;

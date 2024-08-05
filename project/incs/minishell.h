@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/08/02 20:24:04 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/04 21:32:32 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_wordhan
 	char	field;
 	char	redir;
 	int		is_redir_mode;
+	bool	is_word_added;
 }			t_wordhan;
 
 typedef struct s_r
@@ -164,7 +165,8 @@ int				bind_field(t_cmd *com, t_wordhan *handler);
 void			free_res(t_list **com_lst, t_cmd **com, t_wordhan *handler);
 int				handle_token(void **info_cont, t_cmd **com, t_list **com_lst,
 					t_envp *envp_var);
-t_cmd			*add_command(t_cmd *com, t_list **com_lst, t_wordhan *handler);
+t_cmd			*add_command(t_cmd *com, t_list **com_lst, t_wordhan *handler,
+					bool create);
 char			**get_args(t_cmd *cmd);
 int				**get_pipes(int cmd_cnt);
 void			redir_in(t_cmd *cmd);
@@ -194,5 +196,7 @@ void			tn_clean_null(t_list **tlist);
 long long		ft_atoll_p(const char *str, int *is_int);
 bool			is_in_env_list(char *name, t_list **envp_list);
 void			print_environment_vars(t_envp *envp_var, int fd);
-
+void			print_lexer_debug(t_list *token_list);
+void			print_cmd_list(t_list *commands);
+void			print_cmd(t_cmd *com);
 #endif

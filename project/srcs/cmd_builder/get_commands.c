@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piping.c                                           :+:      :+:    :+:   */
+/*   get_commands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:48:46 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/12 15:37:08 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/05 21:23:58 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_list	*get_commands(t_list *token_lst, t_envp *envp_var)
 		}
 		token_lst = token_lst->next;
 	}
-	com = add_command(com, &com_lst, handler);
-	free_cmd(com);
+	if (!add_command(com, &com_lst, handler, false))
+		free_cmd(com);
 	free(handler);
 	return (com_lst);
 }

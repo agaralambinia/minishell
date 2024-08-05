@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:38:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/01 22:30:00 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/05 21:50:25 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	run(char **args, t_envp *envp_var)
 	if (res == NOTFOUND)
 	{
 		prog_path = get_prog_path(paths, args[0]);
+		printf("PATH is %s\n", prog_path);
 		env_arr = get_env_arr(envp_var);
 		if (execve(prog_path, args, env_arr) == -1)
 			print_error(prog_path);

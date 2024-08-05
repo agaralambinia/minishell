@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/12 20:12:27 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/05 21:45:21 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	execute(char **line, t_envp *envp_var)
 
 	token_list = NULL;
 	lex_res = lexer(line, &token_list, envp_var);
+	//print_lexer_debug(token_list);
 	if (!lex_res)
 		return (258);
 	else if (lex_res == INT_MAX)
 		return (0);
 	commands = get_commands(token_list, envp_var);
-	if (&(token_list) && token_list)
-		ft_lstclear(&token_list, &free_token);
+	//print_cmd_list(commands);
 	if (ft_lstsize(commands) == 1)
 		exit_code = run_single(commands, envp_var);
 	else
@@ -36,6 +36,8 @@ int	execute(char **line, t_envp *envp_var)
 		envp_var->hide_prompt = true;
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
+	if (&(token_list) && token_list) //ВЫШЕ НЕ ДВИГАТЬ!!!
+		ft_lstclear(&token_list, &free_token);
 	return (exit_code);
 }
 
