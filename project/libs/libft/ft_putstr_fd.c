@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: defimova <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 21:05:20 by defimova          #+#    #+#             */
-/*   Updated: 2024/07/06 15:48:26 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/04 19:44:00 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	//int	i;
 
-	i = 0;
-	if (s)
-	{
-		while (s[i] != '\0')
-		{
-			ft_putchar_fd(s[i], fd);
-			i++;
-		}
-	}
+	write(fd, s, ft_strlen(s));
+	//i = 0;
+	//if (s)
+	//{
+	//	while (s[i] != '\0')
+	//	{
+	//		ft_putchar_fd(s[i], fd);
+	//		i++;
+	//	}
+	//}
 }
 /*
 Аргументы:

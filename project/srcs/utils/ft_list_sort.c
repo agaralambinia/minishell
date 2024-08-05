@@ -14,17 +14,17 @@
 
 static void	swap(t_list **lst)
 {
-	t_list	*temp;
+	void	*temp;
 
 	if (!(*lst) || (*lst)->next == NULL)
 		return ;
-	temp = malloc(sizeof(t_list));
-	if (!temp)
-		return ;
-	temp->dt = (*lst)->dt;
+	//temp = malloc(sizeof(t_list));
+	//if (!temp)
+	//	return ;
+	temp = (*lst)->dt;
 	(*lst)->dt = (*lst)->next->dt;
-	(*lst)->next->dt = temp->dt;
-	free(temp);
+	(*lst)->next->dt = temp;
+	//free(temp);
 }
 
 void	ft_list_sort(t_list *lst)

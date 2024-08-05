@@ -77,6 +77,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/setup_pipes_last.c \
 		srcs/execution/setup_pipes_parent.c \
 		srcs/execution/get_exit.c \
+		srcs/debug/debug.c \
 		$(GNL)get_next_line.c \
 	  	$(GNL)get_next_line_utils.c
 
@@ -91,6 +92,7 @@ RLDIR = libs/rl_lib
 DEPS = incs/minishell.h
 
 CFLAGS  	:= -Wall -Wextra -Werror -g
+#CFLAGS  	:= -Wall -Wextra -Werror
 CFLAGS		+=-I incs
 READLINE 	= -L $(RLDIR)/lib -lreadline
 

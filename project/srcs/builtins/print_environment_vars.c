@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 19:58:55 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/02 20:03:01 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/04 21:32:25 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_environment_vars(t_envp *envp_var, int fd)
 	while (e_cp != NULL)
 	{
 		i = 0;
-		while (((char *)e_cp->dt)[i] != '=')
+		while (((char *)e_cp->dt)[i] != '=' && ((char *)e_cp->dt)[i] != '\0')
 			i++;
 		temp = (char *)safe_malloc(sizeof(char) * (i + 1));
 		temp = ft_strncpy(temp, e_cp->dt, i + 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_word.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:33:07 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/10 18:10:59 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/03 20:10:01 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	add_to_word(char *word, t_wordhan *handler)
 		free(tmp);
 	if (!(handler->word))
 		return (0);
+	handler->is_word_added = true;
 	return (1);
 }

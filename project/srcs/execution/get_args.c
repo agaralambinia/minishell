@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:44:28 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/22 21:15:14 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:30:23 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char	**get_args(t_cmd *cmd)
 	len = ft_lstsize(cmd->args);
 	len++;
 	args = (char **)malloc(sizeof(char *) * (len + 1));
-	args[0] = cmd->command;
+	args[0] = ft_strdup(cmd->command);
 	tmp = cmd->args;
 	i = 1;
 	while (i < len)
 	{
-		args[i] = (char *)(tmp->dt);
+		args[i] = ft_strdup((char *)(tmp->dt));
 		i++;
 		tmp = tmp->next;
 	}

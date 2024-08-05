@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bind_field.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:46:48 by sosokin           #+#    #+#             */
-/*   Updated: 2024/07/10 18:28:52 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/05 20:49:49 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	setinout(t_cmd *com, t_wordhan *handler)
 		ft_lstadd_back(&(com->redir_out), node);
 	handler->redir = 0;
 	handler->is_redir_mode = 0;
+	handler->is_word_added = false;
+	handler->word = NULL;
 	return (1);
 }
 
@@ -41,25 +43,23 @@ int	bind_field(t_cmd *com, t_wordhan *handler)
 	int		res;
 
 	res = 1;
-	if (handler->word)
+	if (handler->redir && handler->is_word_added)
+		res = setinout(com, handler);
+	else if (handler->word)
 	{
-		if (handler->redir)
-			res = setinout(com, handler);
-		else
+		if (handler->field == 'c')
 		{
-			if (handler->field == 'c')
-			{
-				com->command = handler->word;
-				handler->field = 'a';
-			}
-			else if (handler->field == 'a')
-			{
-				arg = ft_lstnew(handler->word);
-				res = arg != NULL;
-				ft_lstadd_back(&(com->args), arg);
-			}
+			com->command = handler->word;
+			handler->field = 'a';
 		}
-		handler->word = NULL;
+		else if (handler->field == 'a')
+		{
+			arg = ft_lstnew(handler->word);
+			res = arg != NULL;
+			ft_lstadd_back(&(com->args), arg);
+		}
 	}
+	handler->word = NULL;
+	handler->is_word_added = false;
 	return (res);
 }

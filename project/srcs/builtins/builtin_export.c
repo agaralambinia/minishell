@@ -35,9 +35,7 @@ static int	env_putvar_ex(char *name, char *str, t_envp *envp_var, bool plus)
 	char	*temp_name;
 	char	*cur_val;
 
-	if (!is_in_env_list(name, &(envp_var->envp_list)))
-		ft_list_replace(envp_var, NULL, name);
-	else if (str)
+	if (str)
 	{
 		temp_name = ft_strjoin(name, "=");
 		cur_val = get_envp_list_val(name, &envp_var->envp_list);
@@ -52,6 +50,10 @@ static int	env_putvar_ex(char *name, char *str, t_envp *envp_var, bool plus)
 		free(temp_name);
 		free(old_var);
 	}
+	else if (!is_in_env_list(name, &(envp_var->envp_list)))
+		ft_list_replace(envp_var, NULL, name);
+	else
+		free(name);
 	return (SUCCESS);
 }
 
@@ -66,7 +68,7 @@ static int	export_put_var(char *arg, t_envp *envp_var)
 	while (arg[i] != '=' && arg[i] != '+' && arg[i])
 		i++;
 	name = (char *)safe_malloc(sizeof(char) * (i + 1));
-	name = ft_strncpy(name, arg, i);
+	ft_strncpy(name, arg, i);
 	if (arg[i] == '=')
 		exit_status = env_putvar_ex(name, ft_strchr(arg, '=') + 1, envp_var,
 				false);
