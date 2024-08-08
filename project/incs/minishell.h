@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:19:31 by defimova          #+#    #+#             */
-/*   Updated: 2024/08/04 21:32:32 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/08 21:41:57 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ bool			ft_isspace(const char a);
 bool			ft_isspecial(const char a);
 char			*get_env_val(char *envvar, t_envp *envp_var);
 int				ft_arrlen(void **arr);
-void			check_for_exit(char *msg, int pred);
+void			check_for_exit(char *cmd,  char *arg, int pred);
 void			free_arr(void **arr);
 void			free_cmd(void *data);
 void			free_token(void *data);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_heredoc.c                                      :+:      :+:    :+:   */
+/*   redir_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sosokin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 09:43:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/06/22 21:29:35 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/08 21:47:56 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	redir_in(t_cmd *cmd)
 		if (cur->m)
 		{
 			cmd_ind = run_heredoc(file);
-			check_for_exit(cmd->command, cmd_ind < 0);
+			check_for_exit(NULL, cur->path, cmd_ind < 0);
 			file = "here_doc";
 		}
 		fd = open(file, O_RDONLY);
-		check_for_exit(cur->path, fd < 0);
+		check_for_exit(NULL, cur->path, fd < 0);
 		dup2(fd, 0);
 		close(fd);
 		tmp = tmp->next;
