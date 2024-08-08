@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/06 21:19:11 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/08 20:21:46 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ int	main(int argc, char **argv, char **envp)
 	printf("exit\n");
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (exit_code);
 }
