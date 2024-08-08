@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:38:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/05 21:50:25 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/06 21:53:21 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,39 +50,54 @@ static char	*get_prog_path(char **paths, char *name)
 			paths++;
 		}
 	}
-	return (name);
+	if (ft_strchr(name, '/'))
+		return (name);
+	return (NULL);
 }
 
 static void	print_error(char *prog_path)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(prog_path, 2);
-	ft_putstr_fd(": command not found\n", 2);
+	if (ft_strchr(prog_path, '/'))
+		ft_putstr_fd(": No such file or directory\n", 2);
+	else
+		ft_putstr_fd(": command not found\n", 2);
 }
 
-void	run(char **args, t_envp *envp_var)
+static int	exec_by_path(char **args, t_envp *envp_var)
 {
 	char	*prog_path;
-	char	**env_arr;
-	char	**paths;
 	int		res;
+	char	**paths;
+	char	**env_arr;
 
-	if (!args[0])
-		exit(0);
 	paths = ft_split(get_env_val("$PATH", envp_var), ':');
-	res = builtin_exec(args, envp_var, NULL);
-	if (res == NOTFOUND)
+	prog_path = get_prog_path(paths, args[0]);
+	if (!prog_path)
+		print_error(args[0]);
+	else
 	{
-		prog_path = get_prog_path(paths, args[0]);
-		printf("PATH is %s\n", prog_path);
 		env_arr = get_env_arr(envp_var);
 		if (execve(prog_path, args, env_arr) == -1)
 			print_error(prog_path);
 		else
 			perror(args[0]);
-		res = 127;
 	}
+	res = 127;
 	if (paths)
 		free_arr((void **)paths);
+	return (res);
+}
+
+void	run(char **args, t_envp *envp_var)
+{
+	int		res;
+
+	if (!args[0])
+		exit(0);
+	res = builtin_exec(args, envp_var, NULL);
+	if (res == NOTFOUND)
+		res = exec_by_path(args, envp_var);
 	exit(res);
 }
