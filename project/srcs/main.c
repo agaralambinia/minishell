@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:43:29 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/08 20:21:46 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 21:09:10 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ int	execute(char **line, t_envp *envp_var)
 
 	token_list = NULL;
 	lex_res = lexer(line, &token_list, envp_var);
-	//print_lexer_debug(token_list);
 	if (!lex_res)
 		return (258);
 	else if (lex_res == INT_MAX)
 		return (0);
 	commands = get_commands(token_list, envp_var);
-	//print_cmd_list(commands);
 	if (ft_lstsize(commands) == 1)
 		exit_code = run_single(commands, envp_var);
 	else

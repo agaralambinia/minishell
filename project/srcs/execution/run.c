@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:38:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/08 21:39:13 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 20:58:40 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	exec_by_path(char **args, t_envp *envp_var)
 		if (execve(prog_path, args, env_arr) == -1)
 			print_error(prog_path);
 		else
-			//ft_print_error_errno(SHELL_NAME, args[0], NULL);
 			perror(args[0]);
 	}
 	res = 127;
@@ -95,6 +94,7 @@ void	run(char **args, t_envp *envp_var)
 {
 	int		res;
 
+	envp_var->last_code = 0;
 	if (!args[0])
 		exit(0);
 	res = builtin_exec(args, envp_var, NULL);

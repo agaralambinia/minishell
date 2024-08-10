@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:54:49 by defimova          #+#    #+#             */
-/*   Updated: 2024/08/01 22:44:26 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 13:03:41 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ int	handle_cwd_err(char *prev_pwd, char *dir, t_envp *envp_var)
 	int		res;
 	char	*tmp;
 
-	ft_print_error_errno(SHELL_NAME,
-							"cd: error retrieving current \
-directory: getcwd: cannot access parent directories",
-							NULL);
+	ft_print_error_errno(SHELL_NAME, "cd: error retrieving current \
+directory: getcwd: cannot access parent directories", NULL);
 	tmp = ft_strjoin("/", dir);
 	broken_dir = ft_strjoin(prev_pwd, tmp);
 	free(tmp);

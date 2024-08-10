@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 20:56:09 by defimova          #+#    #+#             */
-/*   Updated: 2024/08/02 20:26:06 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 13:06:09 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	handle_invalid_arg(char *arg)
 	free(err);
 	return (ERROR);
 }
+
 int	builtin_unset(char **argv, t_envp *envp_var, t_cmd *cmd)
 {
 	int		exit_status;

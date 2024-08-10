@@ -78,6 +78,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/setup_pipes_parent.c \
 		srcs/execution/get_exit.c \
 		srcs/debug/debug.c \
+		srcs/debug/print_cmd.c \
 		$(GNL)get_next_line.c \
 	  	$(GNL)get_next_line_utils.c
 
