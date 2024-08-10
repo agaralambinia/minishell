@@ -141,7 +141,7 @@ bool			ft_isspace(const char a);
 bool			ft_isspecial(const char a);
 char			*get_env_val(char *envvar, t_envp *envp_var);
 int				ft_arrlen(void **arr);
-void			check_for_exit(char *cmd,  char *arg, int pred);
+void			check_for_exit(char *cmd, char *arg, int pred);
 void			free_arr(void **arr);
 void			free_cmd(void *data);
 void			free_token(void *data);
@@ -182,7 +182,8 @@ int				builtin_exec(char **argv, t_envp *envp_var, t_cmd *cmd);
 int				builtin_cd(int argc, char **argv, t_envp *envp_var, t_cmd *cmd);
 int				builtin_echo(char **argv, t_cmd *cmd);
 int				builtin_env(t_envp *envp_var, t_cmd *cmd);
-int				builtin_export(int argc, char **argv, t_envp *envp_var, t_cmd *cmd);
+int				builtin_export(int argc, char **argv,
+					t_envp *envp_var, t_cmd *cmd);
 int				builtin_pwd(t_envp *envp_var, t_cmd *cmd);
 int				builtin_unset(char **argv, t_envp *envp_var, t_cmd *cmd);
 unsigned char	builtin_exit(char **argv, t_envp *envp_var, t_cmd *cmd);

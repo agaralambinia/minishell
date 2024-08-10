@@ -34,7 +34,7 @@ int	execute(char **line, t_envp *envp_var)
 		envp_var->hide_prompt = true;
 	if (commands && &(commands))
 		ft_lstclear(&commands, &free_cmd);
-	if (&(token_list) && token_list) //ВЫШЕ НЕ ДВИГАТЬ!!!
+	if (&(token_list) && token_list)
 		ft_lstclear(&token_list, &free_token);
 	return (exit_code);
 }
@@ -108,6 +108,5 @@ int	main(int argc, char **argv, char **envp)
 	printf("exit\n");
 	exit_code = envp_var->last_code;
 	free_envp(envp_var);
-	system("leaks minishell");
 	return (exit_code);
 }

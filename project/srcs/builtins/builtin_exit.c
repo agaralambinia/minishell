@@ -66,7 +66,7 @@ unsigned char	builtin_exit(char **argv, t_envp *envp_var, t_cmd *cmd)
 {
 	int	is_ov;
 	int	fd;
-	
+
 	fd = handle_redirs(cmd);
 	if (fd < 0)
 		return (EXIT_FAILURE);
