@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 15:32:34 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/02 19:25:53 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 13:04:24 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	print_numeric_error(char *str, t_envp *envp_var, int fd)
 		close(fd);
 	ft_putendl_fd("exit", STDERR_FILENO);
 	ft_print_error(SHELL_NAME, "exit", str, "numeric argument required");
-	// printf("exit\nminishell: exit: %s: numeric argument required\n", str);
 	envp_var->last_code = 255;
 }
 
@@ -84,7 +83,6 @@ unsigned char	builtin_exit(char **argv, t_envp *envp_var, t_cmd *cmd)
 	}
 	if (arrlen((void **)argv) > 2)
 	{
-		// printf("exit\nminishell: exit: too many arguments\n");
 		ft_print_error(SHELL_NAME, "exit", NULL, "too many arguments");
 		envp_var->is_exit = false;
 		envp_var->last_code = ERROR;

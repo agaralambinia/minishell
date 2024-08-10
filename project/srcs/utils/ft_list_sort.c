@@ -18,13 +18,9 @@ static void	swap(t_list **lst)
 
 	if (!(*lst) || (*lst)->next == NULL)
 		return ;
-	//temp = malloc(sizeof(t_list));
-	//if (!temp)
-	//	return ;
 	temp = (*lst)->dt;
 	(*lst)->dt = (*lst)->next->dt;
 	(*lst)->next->dt = temp;
-	//free(temp);
 }
 
 void	ft_list_sort(t_list *lst)

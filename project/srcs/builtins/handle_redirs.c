@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 22:39:46 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/01 22:47:39 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 13:07:12 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	handle_redirs(t_cmd *cmd)
 {
-	int fd;
+	int	fd;
 
 	fd = STDOUT_FILENO;
 	if (cmd)
