@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:38:35 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/10 13:14:32 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 20:58:40 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	run(char **args, t_envp *envp_var)
 {
 	int		res;
 
+	envp_var->last_code = 0;
 	if (!args[0])
 		exit(0);
 	res = builtin_exec(args, envp_var, NULL);

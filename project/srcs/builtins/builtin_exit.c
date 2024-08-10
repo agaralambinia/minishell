@@ -6,7 +6,7 @@
 /*   By: sosokin <sosokin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 15:32:34 by sosokin           #+#    #+#             */
-/*   Updated: 2024/08/10 13:04:24 by sosokin          ###   ########.fr       */
+/*   Updated: 2024/08/10 21:09:07 by sosokin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ unsigned char	builtin_exit(char **argv, t_envp *envp_var, t_cmd *cmd)
 {
 	int	is_ov;
 	int	fd;
-
+	
 	fd = handle_redirs(cmd);
 	if (fd < 0)
 		return (EXIT_FAILURE);
